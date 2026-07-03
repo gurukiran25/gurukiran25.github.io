@@ -248,19 +248,42 @@
   @media(hover:hover) and (pointer:fine){
     body{cursor:none;}
     a, button, .btn{cursor:none;}
+    input, textarea{cursor:text;}
+
     .cursor-dot{
-      position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;
-      background:var(--amber);pointer-events:none;z-index:9998;
-      transform:translate(-50%,-50%);transition:opacity .2s ease;
+      position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;
+      background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:9999;
+      transform:translate(-50%,-50%);opacity:0;
+      transition:opacity .25s ease, transform .15s cubic-bezier(.2,.8,.2,1);
     }
+    .cursor-dot.visible{opacity:1;}
+    .cursor-dot.click{transform:translate(-50%,-50%) scale(0.55);}
+
     .cursor-ring{
-      position:fixed;top:0;left:0;width:32px;height:32px;border-radius:50%;
-      border:1px solid var(--amber);pointer-events:none;z-index:9998;
-      transform:translate(-50%,-50%);transition:width .18s ease, height .18s ease, opacity .2s ease, border-color .2s ease;
-      opacity:0.6;
+      position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;
+      border:1.5px solid var(--amber);pointer-events:none;z-index:9998;
+      transform:translate(-50%,-50%);opacity:0;
+      box-shadow:0 0 18px -2px rgba(245,166,35,0.45);
+      transition:width .3s cubic-bezier(.2,.8,.2,1), height .3s cubic-bezier(.2,.8,.2,1),
+                 border-color .25s ease, opacity .3s ease, box-shadow .3s ease, transform .15s ease;
     }
-    .cursor-ring.active{width:52px;height:52px;border-color:var(--violet);}
+    .cursor-ring.visible{opacity:0.65;}
+    .cursor-ring.active{
+      width:60px;height:60px;border-color:var(--violet);
+      background:rgba(139,127,214,0.08);
+      box-shadow:0 0 26px -2px rgba(139,127,214,0.55);
+    }
+    .cursor-ring.click{transform:translate(-50%,-50%) scale(0.85);}
+
+    .cursor-pulse{
+      position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;
+      border:1.5px solid var(--amber);pointer-events:none;z-index:9997;
+      transform:translate(-50%,-50%);opacity:0.7;
+      animation:cursorPulse .55s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    @keyframes cursorPulse{ to{ width:50px;height:50px;opacity:0; } }
   }
+
 
   /* ===== PARTICLES ===== */
   #particles{position:fixed;inset:0;z-index:-1;pointer-events:none;}
@@ -787,10 +810,21 @@
   const dot = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
   if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-    let rx = 0, ry = 0, mx = 0, my = 0;
+    let rx = 0, ry = 0, mx = 0, my = 0, revealed = false;
     window.addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      if(!revealed){
+        revealed = true;
+        rx = mx; ry = my;
+        dot.classList.add('visible'); ring.classList.add('visible');
+      }
+    });
+    document.addEventListener('mouseleave', () => {
+      dot.classList.remove('visible'); ring.classList.remove('visible');
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.classList.add('visible'); ring.classList.add('visible');
     });
     (function animateRing(){
       rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
@@ -800,6 +834,20 @@
     document.querySelectorAll('a, button, .btn').forEach(el => {
       el.addEventListener('mouseenter', () => ring.classList.add('active'));
       el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+    });
+
+    /* Click ripple + press feedback */
+    window.addEventListener('mousedown', (e) => {
+      dot.classList.add('click'); ring.classList.add('click');
+      const pulse = document.createElement('div');
+      pulse.className = 'cursor-pulse';
+      pulse.style.left = e.clientX + 'px';
+      pulse.style.top = e.clientY + 'px';
+      document.body.appendChild(pulse);
+      pulse.addEventListener('animationend', () => pulse.remove());
+    });
+    window.addEventListener('mouseup', () => {
+      dot.classList.remove('click'); ring.classList.remove('click');
     });
   }
 
