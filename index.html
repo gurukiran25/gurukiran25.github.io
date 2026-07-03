@@ -53,8 +53,16 @@
   nav{position:sticky;top:0;z-index:50;background:rgba(15,15,20,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
   nav .wrap{display:flex;justify-content:space-between;align-items:center;height:58px;}
   .logo{font-family:var(--mono);font-weight:700;color:var(--amber);font-size:15px;}
-  .navlinks{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--muted);}
+  .navlinks{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--muted);align-items:center;}
+  .navlinks a{position:relative;padding:4px 0;transition:color .2s ease;}
   .navlinks a:hover{color:var(--amber);}
+  .navlinks a::after{
+    content:"";position:absolute;left:0;bottom:-3px;width:0;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--amber),var(--violet));transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a.active{color:var(--amber);}
+  .navlinks a.active::after{width:100%;}
   @media(max-width:640px){.navlinks{gap:14px;font-size:10px;}}
 
   /* HERO */
@@ -77,21 +85,22 @@
   .btn.ghost{background:transparent;color:var(--text);}
   .btn.ghost:hover{border-color:var(--amber);color:var(--amber);}
   .hero-social{display:flex;gap:22px;margin-top:36px;position:relative;z-index:1;}
-  .hero-social a{color:var(--muted);font-size:20px;transition:color .2s ease, transform .2s ease;}
+  .hero-social a{color:var(--muted);display:flex;align-items:center;justify-content:center;transition:color .2s ease, transform .2s ease;}
   .hero-social a:hover{color:var(--amber);transform:translateY(-2px);}
 
   /* SECTION shared */
-  section{padding:70px 0;border-top:1px solid var(--border);}
-  .section-title{font-family:var(--mono);font-weight:800;font-size:30px;margin-bottom:8px;position:relative;display:inline-block;}
+  section{padding:90px 0;border-top:1px solid var(--border);}
+  @media(max-width:640px){section{padding:64px 0;}}
+  .section-title{font-family:var(--mono);font-weight:800;font-size:30px;margin-bottom:14px;position:relative;display:inline-block;letter-spacing:-0.01em;}
   .section-title::after{
-    content:"";position:absolute;left:0;bottom:-8px;width:44px;height:3px;border-radius:2px;
+    content:"";position:absolute;left:0;bottom:-10px;width:44px;height:3px;border-radius:2px;
     background:linear-gradient(90deg, var(--amber), var(--violet));
   }
   @media(max-width:640px){.section-title{font-size:24px;}}
-  .section-sub{color:var(--muted);font-size:15px;margin-bottom:36px;margin-top:16px;}
+  .section-sub{color:var(--muted);font-size:15px;margin-bottom:40px;margin-top:20px;}
 
   /* ABOUT */
-  .about-grid{display:flex;flex-direction:column;gap:28px;}
+  .about-grid{display:flex;flex-direction:column;gap:32px;}
   .about-card{
     background:linear-gradient(160deg, var(--panel) 0%, var(--bg-raised) 100%);
     border:1px solid var(--border);border-radius:18px;
@@ -106,7 +115,7 @@
   .about-body .highlight{color:var(--amber);}
 
   /* ACADEMIC TIMELINE */
-  .timeline{display:flex;flex-direction:column;gap:16px;}
+  .timeline{display:flex;flex-direction:column;gap:18px;}
   .tl-card{
     background:var(--panel);border:1px solid var(--border);border-radius:14px;
     padding:20px 22px;display:flex;gap:16px;align-items:flex-start;
@@ -120,7 +129,7 @@
   .tl-loc{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:8px;display:flex;align-items:center;gap:4px;}
 
   /* SKILLS GRID */
-  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   @media(max-width:560px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
   .skill-tile{
     background:var(--panel);border:1px solid var(--border);border-radius:14px;
@@ -131,31 +140,52 @@
   .skill-name{font-family:var(--mono);font-size:12.5px;font-weight:600;}
 
   /* PROJECTS */
-  .proj-stack{display:flex;flex-direction:column;gap:20px;}
+  .proj-stack{display:flex;flex-direction:column;gap:28px;}
   .proj-card{
-    border-radius:18px;padding:26px;position:relative;overflow:hidden;
+    border-radius:18px;padding:0;position:relative;overflow:hidden;
     border:1px solid var(--border);
     box-shadow:0 20px 40px -22px rgba(0,0,0,0.6);
   }
+  .proj-banner{
+    height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .proj-banner::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
+    background-size:16px 16px;
+  }
+  .proj-banner svg{position:relative;z-index:1;opacity:0.92;}
+  .proj-body{padding:24px 26px 26px;}
   .proj-badge{
     display:inline-flex;align-items:center;gap:6px;
     font-family:var(--mono);font-size:11px;font-weight:600;
     padding:6px 14px;border-radius:20px;margin-bottom:16px;
   }
-  .proj-title{font-size:24px;font-weight:800;margin-bottom:10px;}
+  .proj-title{font-size:22px;font-weight:800;margin-bottom:10px;}
   .proj-desc{color:#D6D6DE;font-size:14.5px;margin-bottom:18px;}
-  .proj-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .proj-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
   .proj-tag{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,0.08);color:var(--text);}
-  .proj-link{font-family:var(--mono);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;}
-  .proj-link:hover{opacity:0.8;}
+  .proj-links{display:flex;gap:12px;flex-wrap:wrap;}
+  .proj-link{
+    font-family:var(--mono);font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+    padding:9px 16px;border-radius:20px;border:1px solid var(--border);transition:border-color .2s ease, transform .2s ease, color .2s ease;
+  }
+  .proj-link:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px);}
+  .proj-link.primary{background:var(--amber);color:#0F0F14;border-color:var(--amber);}
+  .proj-link.primary:hover{color:#0F0F14;opacity:0.9;}
 
-  .proj-foodsnap{background:linear-gradient(160deg, #14301F 0%, #1B1B24 60%);}
+  .proj-foodsnap{background:var(--panel);}
+  .proj-foodsnap .proj-banner{background:linear-gradient(135deg, #1B4D33 0%, #14301F 100%);}
   .proj-foodsnap .proj-badge{background:rgba(64,196,120,0.15);color:#5ED98B;}
-  .proj-groq{background:linear-gradient(160deg, #2A1E42 0%, #1B1B24 60%);}
+  .proj-groq{background:var(--panel);}
+  .proj-groq .proj-banner{background:linear-gradient(135deg, #3D2B66 0%, #2A1E42 100%);}
   .proj-groq .proj-badge{background:rgba(139,127,214,0.18);color:#B3A6F0;}
-  .proj-n8n{background:linear-gradient(160deg, #1C2A3E 0%, #1B1B24 60%);}
+  .proj-n8n{background:var(--panel);}
+  .proj-n8n .proj-banner{background:linear-gradient(135deg, #26405C 0%, #1C2A3E 100%);}
   .proj-n8n .proj-badge{background:rgba(90,150,220,0.18);color:#7FB4EE;}
-  .proj-agent{background:linear-gradient(160deg, #3A2016 0%, #1B1B24 60%);}
+  .proj-agent{background:var(--panel);}
+  .proj-agent .proj-banner{background:linear-gradient(135deg, #5A3016 0%, #3A2016 100%);}
   .proj-agent .proj-badge{background:rgba(245,166,35,0.18);color:#F5C579;}
 
   /* CERTIFICATIONS */
@@ -330,7 +360,7 @@
   #copyEmail:hover{background:rgba(245,166,35,0.22);}
 
   /* ===== ANIMATED COUNTERS ===== */
-  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
   @media(min-width:560px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
   .stat-card{
     background:var(--panel);border:1px solid var(--border);border-radius:14px;
@@ -353,7 +383,36 @@
   }
   .nf-msg{font-family:var(--mono);color:var(--muted);font-size:14px;margin-top:14px;max-width:420px;}
 
-  /* scroll reveal */
+  /* ===== 3D TILT + SHINE (mouse-tracked, added via JS on capable devices) ===== */
+  .tilt-el{transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;will-change:transform;}
+  .tilt-shine{position:relative;overflow:hidden;}
+  .tilt-shine::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.16) 50%, transparent 60%);
+    background-size:220% 220%;background-position:120% 0%;
+    opacity:0;transition:opacity .3s ease, background-position .7s ease;
+  }
+  .tilt-shine:hover::after{opacity:1;background-position:-20% 100%;}
+  .proj-banner{transform:translateZ(0);}
+  .skill-icon{will-change:transform;}
+
+  /* ===== FLOATING HERO BADGES ===== */
+  @media(prefers-reduced-motion:no-preference){
+    .hero-badge{animation:floatBadge 3.6s ease-in-out infinite;}
+    .hero-badge:nth-child(1){animation-delay:0s;}
+    .hero-badge:nth-child(2){animation-delay:.25s;}
+    .hero-badge:nth-child(3){animation-delay:.5s;}
+    .hero-badge:nth-child(4){animation-delay:.75s;}
+  }
+  @keyframes floatBadge{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+  /* ===== MAGNETIC BUTTON WRAP ===== */
+  .hero-actions .btn{transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease, background .2s ease, color .2s ease;}
+
+  /* ===== 3D PHOTO PARALLAX ===== */
+  @media(hover:hover) and (pointer:fine){
+    .glow-photo{transition:transform .3s ease;transform-style:preserve-3d;}
+  }
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
   .reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease;}
@@ -388,9 +447,11 @@
       <a href="#academics">academics</a>
       <a href="#skills">skills</a>
       <a href="#projects">projects</a>
-      <a href="#certs">certs</a>
       <a href="#contact">contact</a>
-      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark theme">🌙</button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark theme">
+        <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -412,9 +473,9 @@
     <a href="#contact" class="btn ghost">Contact Me</a>
   </div>
   <div class="hero-social">
-    <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" title="LinkedIn" aria-label="LinkedIn profile" target="_blank" rel="noopener">in</a>
-    <a href="https://github.com/Gurukiran25" title="GitHub" aria-label="GitHub profile" target="_blank" rel="noopener">gh</a>
-    <a href="mailto:gurukiran070@gmail.com" title="Email" aria-label="Send an email">@</a>
+    <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" title="LinkedIn" aria-label="LinkedIn profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.84c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V23H8.5V8.25z"/></svg></a>
+    <a href="https://github.com/Gurukiran25" title="GitHub" aria-label="GitHub profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
+    <a href="mailto:gurukiran070@gmail.com" title="Email" aria-label="Send an email"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></a>
   </div>
 </header>
 
@@ -429,9 +490,9 @@
         <div class="about-mode">Mode: BUILDING</div>
       </div>
       <div class="about-body">
-        <p>I'm <strong>Gurukiran</strong>, a <strong>Computer Science (Data Science)</strong> student passionate about <span class="highlight">AI, full-stack development, and problem solving</span>.</p>
-        <p>I enjoy building real-world projects, solving DSA problems, and continuously learning new technologies. I started with zero experience in early 2025 and taught myself Python, GitHub, and the terminal — almost entirely from an <strong>Android phone running Termux</strong>.</p>
-        <p>My goal is to become a <span class="highlight">skilled software engineer</span> and contribute to impactful products — currently diving deeper through AI automation, freelancing, and content creation on my channel, <strong>gurukivlogs</strong>.</p>
+        <p>I'm <strong>Gurukiran</strong>, a <strong>B.Tech CSE (Data Science)</strong> student interested in <span class="highlight">Python, AI, full-stack development, and DSA</span>.</p>
+        <p>I started learning to code in early 2025 and taught myself Python, Git, and the command line — mostly from an <strong>Android phone running Termux</strong>. Since then I've been building small AI tools, automations, and web apps, and practicing data structures and algorithms consistently.</p>
+        <p>I'm looking for <span class="highlight">internship opportunities</span> where I can apply what I've learned, work on real problems, and keep growing as a software engineer.</p>
       </div>
     </div>
   </div>
@@ -440,19 +501,19 @@
 <section id="stats">
   <div class="wrap">
     <div class="stats-grid reveal-stagger">
-      <div class="stat-card">
+      <div class="stat-card tilt-el tilt-shine">
         <div class="counter-num" data-target="4">0</div>
         <div class="counter-label">Projects Built</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card tilt-el tilt-shine">
         <div class="counter-num" data-target="150">0</div>
         <div class="counter-label">DSA Problems Solved</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card tilt-el tilt-shine">
         <div class="counter-num" data-target="6">0</div>
         <div class="counter-label">Tools &amp; Languages</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card tilt-el tilt-shine">
         <div class="counter-num" data-target="1">0</div>
         <div class="counter-label">Year of Building</div>
       </div>
@@ -466,30 +527,30 @@
     <div class="section-sub">The foundation of my engineering journey.</div>
     <div class="timeline reveal-stagger">
       <div class="tl-card current">
-        <div class="tl-icon">🎓</div>
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
         <div>
           <div class="tl-year">2025 – 2029</div>
           <div class="tl-title">B.Tech CSE (Data Science)</div>
           <div class="tl-org">Dayananda Sagar University</div>
-          <div class="tl-loc">📍 Bengaluru</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Bengaluru</div>
         </div>
       </div>
       <div class="tl-card">
-        <div class="tl-icon">🏫</div>
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
         <div>
           <div class="tl-year">2024 – 2025 · 83%</div>
           <div class="tl-title">Class 12 (PUC) — Science</div>
           <div class="tl-org">Gurukul PU College of Science</div>
-          <div class="tl-loc">📍 Kalaburagi</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Kalaburagi</div>
         </div>
       </div>
       <div class="tl-card">
-        <div class="tl-icon">🏫</div>
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
         <div>
           <div class="tl-year">2022 – 2023 · 91.52%</div>
           <div class="tl-title">SSLC (10th)</div>
           <div class="tl-org">Dominant English High School</div>
-          <div class="tl-loc">📍 Kalaburagi</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Kalaburagi</div>
         </div>
       </div>
     </div>
@@ -501,12 +562,12 @@
     <div class="section-title">Toolkit</div>
     <div class="section-sub">Tools and skills I use to build projects.</div>
     <div class="skills-grid reveal-stagger">
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#3B82F6,#22D3EE);">🐍</div><div class="skill-name">Python</div></div>
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#6366F1,#3B82F6);">{ }</div><div class="skill-name">C / C++</div></div>
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#22D3EE,#3B82F6);">⚛️</div><div class="skill-name">React</div></div>
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#F5A623,#EA580C);">🔗</div><div class="skill-name">n8n Automation</div></div>
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#8B7FD6,#6D28D9);">🧠</div><div class="skill-name">Groq API</div></div>
-      <div class="skill-tile"><div class="skill-icon" style="background:linear-gradient(135deg,#10B981,#059669);">📱</div><div class="skill-name">Termux / Mobile Dev</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#3B82F6,#22D3EE);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="skill-name">Python</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#6366F1,#3B82F6);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="skill-name">C / C++</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#22D3EE,#3B82F6);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg></div><div class="skill-name">React</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#F5A623,#EA580C);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h6.6M18 8.5V15.5M8.2 7.5 15.8 16.5"/></svg></div><div class="skill-name">n8n Automation</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#8B7FD6,#6D28D9);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div><div class="skill-name">Groq API</div></div>
+      <div class="skill-tile tilt-el"><div class="skill-icon" style="background:linear-gradient(135deg,#10B981,#059669);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><div class="skill-name">Termux / Mobile Dev</div></div>
     </div>
   </div>
 </section>
@@ -525,85 +586,75 @@
 
     <div class="proj-stack reveal-stagger">
 
-      <div class="proj-card proj-foodsnap" data-category="web">
-        <div class="proj-badge">🍔 Web App</div>
-        <div class="proj-title">CheapBite</div>
-        <div class="proj-desc">A food price comparison web app — pulls listings across sources so users can compare prices before ordering. Find the cheapest bite, every time.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">React</span><span class="proj-tag">Web App</span><span class="proj-tag">UX</span>
+      <div class="proj-card proj-foodsnap tilt-el tilt-shine" data-category="web">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#8CE6B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18"/><circle cx="12" cy="12" r="9"/><path d="M9 9v6M15 9v6"/></svg>
         </div>
-        <a href="https://cheapbite.lovable.app/" class="proj-link" target="_blank" rel="noopener">🚀 Live Demo</a>
-        <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener" style="margin-left:16px;">🔗 Code</a>
-      </div>
-
-      <div class="proj-card proj-groq" data-category="ai">
-        <div class="proj-badge">🤖 AI</div>
-        <div class="proj-title">Groq Chatbot</div>
-        <div class="proj-desc">An AI chatbot built on the Groq API with LLaMA 3.1 — first shipped from a Termux terminal on Android.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span><span class="proj-tag">Groq API</span><span class="proj-tag">AI</span>
+        <div class="proj-body">
+          <div class="proj-badge">Web App</div>
+          <div class="proj-title">CheapBite</div>
+          <div class="proj-desc">A food price comparison web app that pulls listings from multiple sources so users can compare prices before ordering.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">React</span><span class="proj-tag">Web App</span><span class="proj-tag">UX</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://cheapbite.lovable.app/" class="proj-link primary" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live Demo</a>
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
         </div>
-        <a href="https://github.com/gurukiran25/My-first-repo" class="proj-link" target="_blank" rel="noopener">🔗 Code</a>
       </div>
 
-      <div class="proj-card proj-n8n" data-category="automation">
-        <div class="proj-badge">⚙️ Automation</div>
-        <div class="proj-title">n8n Automation Suite</div>
-        <div class="proj-desc">Workflow automations including a GitHub Issues → Slack notification pipeline for my dev workspace.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">n8n</span><span class="proj-tag">GitHub API</span><span class="proj-tag">Slack</span>
+      <div class="proj-card proj-groq tilt-el tilt-shine" data-category="ai">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#C9BCF7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 10h.01M15 10h.01M9 14h6"/><path d="M12 3v3M4 12H2M22 12h-2"/></svg>
         </div>
-        <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener">🔗 Code</a>
-      </div>
-
-      <div class="proj-card proj-agent" data-category="ai">
-        <div class="proj-badge">📊 AI · Reporting</div>
-        <div class="proj-title">Multi-Agent Reporting System</div>
-        <div class="proj-desc">A multi-agent AI system designed in React for data analysis and automated reporting pipelines.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">React</span><span class="proj-tag">Multi-Agent</span><span class="proj-tag">Data</span>
+        <div class="proj-body">
+          <div class="proj-badge">AI</div>
+          <div class="proj-title">Groq Chatbot</div>
+          <div class="proj-desc">A command-line AI chatbot built on the Groq API with LLaMA 3.1, first written and run from a Termux terminal on Android.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span><span class="proj-tag">Groq API</span><span class="proj-tag">AI</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/gurukiran25/My-first-repo" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
         </div>
-        <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener">🔗 Code</a>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<section id="certs">
-  <div class="wrap">
-    <div class="section-title">Certifications</div>
-    <div class="section-sub">Verified credentials — add yours below.</div>
-    <div class="cert-stack reveal-stagger">
-      <div class="cert-card">
-        <div class="cert-year">Add year <span class="edit-flag">edit</span></div>
-        <div class="cert-icon">🏅</div>
-        <div class="cert-title">Add certificate title</div>
-        <div class="cert-org">Add issuing platform</div>
-        <div class="cert-desc">Short description of what the certificate covers.</div>
-        <a href="#" class="cert-verify">🔗 Verify Credential</a>
+      <div class="proj-card proj-n8n tilt-el tilt-shine" data-category="automation">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#9FCBF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h6.6M18 8.5V15.5M8.2 7.5 15.8 16.5"/></svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">Automation</div>
+          <div class="proj-title">n8n Automation Suite</div>
+          <div class="proj-desc">A set of workflow automations, including a GitHub Issues → Slack notification pipeline built for a personal dev workspace.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">n8n</span><span class="proj-tag">GitHub API</span><span class="proj-tag">Slack</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
       </div>
-      <div class="cert-card">
-        <div class="cert-year">Add year <span class="edit-flag">edit</span></div>
-        <div class="cert-icon">🏅</div>
-        <div class="cert-title">Add certificate title</div>
-        <div class="cert-org">Add issuing platform</div>
-        <div class="cert-desc">Short description of what the certificate covers.</div>
-        <a href="#" class="cert-verify">🔗 Verify Credential</a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="fame">
-  <div class="wrap fame-wrap">
-    <div class="fame-icon">🏆</div>
-    <div class="section-title">Hall of Fame</div>
-    <div class="section-sub">Celebrating victories &amp; milestones — add yours here.</div>
-    <div class="fame-card reveal">
-      <div class="fame-award">🏆 ADD AWARD / HACKATHON NAME <span class="edit-flag">edit</span></div>
-      <div style="font-weight:700;font-size:16px;margin-bottom:6px;">Add competition or achievement</div>
-      <div style="color:var(--muted);font-size:14px;">Add project name and what made it stand out.</div>
+      <div class="proj-card proj-agent tilt-el tilt-shine" data-category="ai">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F5C579" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 3 5-7"/></svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">AI · Reporting</div>
+          <div class="proj-title">Multi-Agent Reporting System</div>
+          <div class="proj-desc">A multi-agent AI system built in React that coordinates data analysis and generates automated reports.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">React</span><span class="proj-tag">Multi-Agent</span><span class="proj-tag">Data</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -615,20 +666,20 @@
 
     <div class="contact-info reveal-stagger">
       <a href="mailto:gurukiran070@gmail.com" class="contact-chip copyable">
-        <div class="ci-icon">✉️</div>
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
         <div><span class="ci-label">Email</span><span class="ci-value">gurukiran070@gmail.com</span></div>
         <button id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
       </a>
       <a href="https://github.com/Gurukiran25" class="contact-chip" target="_blank" rel="noopener" aria-label="GitHub profile">
-        <div class="ci-icon">gh</div>
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></div>
         <div><span class="ci-label">GitHub</span><span class="ci-value">Gurukiran25</span></div>
       </a>
       <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" class="contact-chip" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-        <div class="ci-icon">in</div>
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.84c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V23H8.5V8.25z"/></svg></div>
         <div><span class="ci-label">LinkedIn</span><span class="ci-value">gurukiran-nimbal</span></div>
       </a>
       <a href="https://www.instagram.com/guru.kiran__?igsh=aDlhc21qbHB5dnlk" class="contact-chip" target="_blank" rel="noopener" aria-label="Instagram profile">
-        <div class="ci-icon">📷</div>
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
         <div><span class="ci-label">Instagram</span><span class="ci-value">guru.kiran__</span></div>
       </a>
     </div>
@@ -680,6 +731,57 @@
     });
   }, {threshold: 0.15});
   revealEls.forEach(el => io.observe(el));
+
+  /* 3D TILT ON CARDS */
+  (function(){
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    document.querySelectorAll('.tilt-el').forEach(el => {
+      let raf = null;
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rx = (0.5 - py) * 10;
+        const ry = (px - 0.5) * 10;
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.015)`;
+        });
+      });
+      el.addEventListener('mouseleave', () => {
+        if(raf) cancelAnimationFrame(raf);
+        el.style.transform = '';
+      });
+    });
+
+    /* Magnetic pull on hero CTA buttons */
+    document.querySelectorAll('.hero-actions .btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+
+    /* Hero photo parallax tilt */
+    const heroPhoto = document.querySelector('.hero .glow-photo');
+    if(heroPhoto){
+      document.querySelector('.hero').addEventListener('mousemove', (e) => {
+        const rect = heroPhoto.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+        const rx = ((e.clientY - cy) / window.innerHeight) * -14;
+        const ry = ((e.clientX - cx) / window.innerWidth) * 14;
+        heroPhoto.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      document.querySelector('.hero').addEventListener('mouseleave', () => {
+        heroPhoto.style.transform = '';
+      });
+    }
+  })();
 
   /* CUSTOM CURSOR */
   const dot = document.getElementById('cursorDot');
@@ -743,6 +845,24 @@
     step();
   })();
 
+  /* ACTIVE NAV LINK ON SCROLL */
+  (function(){
+    const navLinks = document.querySelectorAll('.navlinks a[href^="#"]');
+    if(!navLinks.length) return;
+    const sections = Array.from(navLinks)
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+    const setActive = (id) => {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    };
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {rootMargin: '-45% 0px -50% 0px', threshold: 0});
+    sections.forEach(s => navIo.observe(s));
+  })();
+
   /* SCROLL PROGRESS BAR */
   (function(){
     const bar = document.getElementById('scrollProgress');
@@ -758,7 +878,7 @@
   (function(){
     const overlay = document.getElementById('notFound');
     const homeBtn = document.getElementById('nfHome');
-    const validHashes = ['', '#', '#about', '#academics', '#stats', '#skills', '#projects', '#certs', '#fame', '#contact'];
+    const validHashes = ['', '#', '#about', '#academics', '#stats', '#skills', '#projects', '#contact'];
     function checkRoute(){
       const isValid = validHashes.includes(window.location.hash);
       overlay.classList.toggle('show', !isValid);
@@ -873,9 +993,12 @@
 
   /* THEME TOGGLE */
   const themeToggle = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('iconMoon');
+  const iconSun = document.getElementById('iconSun');
   const applyTheme = (t) => {
     document.body.classList.toggle('light', t === 'light');
-    themeToggle.textContent = t === 'light' ? '☀️' : '🌙';
+    iconMoon.style.display = t === 'light' ? 'none' : 'block';
+    iconSun.style.display = t === 'light' ? 'block' : 'none';
   };
   let savedTheme = 'dark';
   try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch(e){}
