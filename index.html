@@ -364,3 +364,1926 @@
   .pp-label .pp-dot{width:6px;height:6px;border-radius:50%;background:#5ED98B;animation:ppPulse 1.4s ease-in-out infinite;}
   @keyframes ppPulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
   .proj-card:hover .proj-preview{opacity:1;}
+  .proj-card:hover .proj-banner svg{opacity:0;transform:scale(.9);}
+  @media(hover:none){ .proj-preview{display:none;} }
+
+  .proj-body{padding:24px 26px 28px;}
+  .proj-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--mono);font-size:11px;font-weight:600;
+    padding:6px 14px;border-radius:var(--r-pill);margin-bottom:16px;
+  }
+  .proj-title{font-size:21px;font-weight:800;line-height:1.3;margin-bottom:10px;}
+  .proj-desc{color:#D6D6DE;font-size:14.5px;line-height:1.75;margin-bottom:20px;}
+  .proj-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .proj-tag{
+    font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:var(--r-pill);
+    background:rgba(255,255,255,0.08);color:var(--text);display:inline-flex;align-items:center;gap:5px;
+    transition:transform .2s cubic-bezier(.3,1.5,.5,1), background .2s ease, color .2s ease;
+  }
+  .proj-tag .tag-ic{font-size:11px;line-height:1;transition:transform .25s ease;}
+  .proj-tag:hover{transform:translateY(-2px) scale(1.05);background:rgba(245,166,35,0.16);color:var(--amber);}
+  .proj-tag:hover .tag-ic{transform:rotate(-10deg) scale(1.15);}
+  .proj-links{display:flex;gap:12px;flex-wrap:wrap;}
+  .proj-link{
+    font-family:var(--mono);font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+    padding:9px 16px;border-radius:var(--r-pill);border:1px solid var(--border);transition:border-color .2s ease, transform .2s ease, color .2s ease;
+  }
+  .proj-link:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px);}
+  .proj-link.primary{background:var(--amber);color:#0F0F14;border-color:var(--amber);}
+  .proj-link.primary:hover{color:#0F0F14;opacity:0.9;}
+
+  .proj-foodsnap{background:var(--panel);}
+  .proj-foodsnap .proj-banner{background:linear-gradient(135deg, #1B4D33 0%, #14301F 100%);}
+  .proj-foodsnap .proj-badge{background:rgba(64,196,120,0.15);color:#5ED98B;}
+  .proj-groq{background:var(--panel);}
+  .proj-groq .proj-banner{background:linear-gradient(135deg, #3D2B66 0%, #2A1E42 100%);}
+  .proj-groq .proj-badge{background:rgba(139,127,214,0.18);color:#B3A6F0;}
+  .proj-n8n{background:var(--panel);}
+  .proj-n8n .proj-banner{background:linear-gradient(135deg, #26405C 0%, #1C2A3E 100%);}
+  .proj-n8n .proj-badge{background:rgba(90,150,220,0.18);color:#7FB4EE;}
+  .proj-agent{background:var(--panel);}
+  .proj-agent .proj-banner{background:linear-gradient(135deg, #5A3016 0%, #3A2016 100%);}
+  .proj-agent .proj-badge{background:rgba(245,166,35,0.18);color:#F5C579;}
+
+  /* CERTIFICATIONS */
+  .cert-stack{display:flex;flex-direction:column;gap:20px;}
+  .cert-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-md);padding:22px;position:relative;transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
+  .cert-card:hover{transform:translateY(-3px);border-color:var(--violet);box-shadow:0 16px 30px -18px rgba(139,127,214,0.4);}
+  .cert-year{position:absolute;top:22px;right:22px;font-family:var(--mono);color:var(--violet);font-weight:700;font-size:14px;}
+  .cert-icon{width:44px;height:44px;border-radius:var(--r-sm);background:rgba(139,127,214,0.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+  .cert-title{font-weight:700;font-size:17px;line-height:1.3;}
+  .cert-org{color:var(--muted);font-size:13.5px;margin-top:3px;margin-bottom:14px;}
+  .cert-desc{color:#C8C8D4;font-size:14px;line-height:1.75;margin-bottom:16px;}
+  .cert-verify{font-family:var(--mono);font-size:12.5px;color:var(--amber);display:inline-flex;align-items:center;gap:6px;}
+
+  /* HALL OF FAME — animated achievement grid */
+  .fame-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media(min-width:640px){.fame-grid{grid-template-columns:repeat(3,1fr);}}
+  .fame-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:26px 18px;text-align:center;position:relative;overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .fame-card:hover{transform:translateY(-4px);border-color:var(--amber);box-shadow:0 20px 36px -18px rgba(245,166,35,0.35);}
+  .fame-icon{
+    width:56px;height:56px;border-radius:50%;margin:0 auto 14px;
+    background:radial-gradient(circle, var(--amber) 0%, #C9791A 100%);
+    display:flex;align-items:center;justify-content:center;font-size:24px;
+    box-shadow:0 0 30px rgba(245,166,35,0.3);
+  }
+  .fame-card.violet .fame-icon{background:radial-gradient(circle, var(--violet) 0%, #5B4EA8 100%);box-shadow:0 0 30px rgba(139,127,214,0.35);}
+  .fame-num{font-family:var(--mono);font-weight:800;font-size:26px;color:var(--amber);}
+  .fame-card.violet .fame-num{color:var(--violet);}
+  .fame-num-wrap{display:flex;align-items:baseline;justify-content:center;gap:2px;}
+  .fame-plus{font-family:var(--mono);font-weight:800;font-size:20px;color:var(--violet);}
+  .fame-label{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .fame-qual{font-family:var(--mono);font-weight:700;font-size:14px;line-height:1.4;}
+  .fame-card.violet .fame-qual{color:var(--violet);}
+  .fame-card:not(.violet) .fame-qual{color:var(--amber);}
+  .fame-award{font-family:var(--mono);color:var(--amber);font-size:12px;font-weight:700;margin-bottom:10px;}
+
+  /* CONTACT */
+  .contact-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:7px;}
+  .field input, .field textarea{
+    width:100%;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--r-sm);
+    padding:13px 14px;color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--amber);}
+  .send-btn{width:100%;background:var(--amber);color:#0F0F14;font-family:var(--mono);font-weight:700;font-size:14px;padding:14px;border:none;border-radius:var(--r-sm);cursor:pointer;transition:transform .15s ease;}
+  .send-btn:hover{transform:translateY(-2px);}
+
+  footer{padding:50px 0 36px;text-align:center;}
+  .footer-name{font-family:var(--mono);font-weight:700;color:var(--muted);font-size:13px;}
+  .cursor{display:inline-block;width:7px;height:14px;background:var(--amber);vertical-align:middle;animation:blink 1s step-end infinite;margin-left:4px;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .edit-flag{display:inline-block;background:rgba(245,166,35,0.15);color:var(--amber);font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+
+  /* ===== LIGHT MODE ===== */
+  body.light{
+    --bg:#F7F6F2;
+    --bg-raised:#FFFFFF;
+    --panel:#FFFFFF;
+    --border:#E4E1D8;
+    --text:#1B1B24;
+    --muted:#6B6B78;
+  }
+  body.light .hero-name{ text-shadow:0 0 40px rgba(245,166,35,0.15); }
+  body.light .btn.primary{ box-shadow:0 8px 22px -8px rgba(245,166,35,0.3); }
+  body.light .proj-tag{ background:rgba(0,0,0,0.06); }
+
+  /* ===== CUSTOM CURSOR (desktop only) ===== */
+  @media(hover:hover) and (pointer:fine){
+    body{cursor:none;}
+    a, button, .btn{cursor:none;}
+    input, textarea{cursor:text;}
+
+    .cursor-dot{
+      position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;
+      background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:9999;
+      transform:translate(-50%,-50%);opacity:0;
+      transition:opacity .25s ease, transform .15s cubic-bezier(.2,.8,.2,1);
+    }
+    .cursor-dot.visible{opacity:1;}
+    .cursor-dot.click{transform:translate(-50%,-50%) scale(0.55);}
+
+    .cursor-ring{
+      position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;
+      border:1.5px solid var(--amber);pointer-events:none;z-index:9998;
+      transform:translate(-50%,-50%);opacity:0;
+      box-shadow:0 0 18px -2px rgba(245,166,35,0.45);
+      transition:width .3s cubic-bezier(.2,.8,.2,1), height .3s cubic-bezier(.2,.8,.2,1),
+                 border-color .25s ease, opacity .3s ease, box-shadow .3s ease, transform .15s ease;
+    }
+    .cursor-ring.visible{opacity:0.65;}
+    .cursor-ring.active{
+      width:60px;height:60px;border-color:var(--violet);
+      background:rgba(139,127,214,0.08);
+      box-shadow:0 0 26px -2px rgba(139,127,214,0.55);
+    }
+    .cursor-ring.click{transform:translate(-50%,-50%) scale(0.85);}
+
+    .cursor-pulse{
+      position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;
+      border:1.5px solid var(--amber);pointer-events:none;z-index:9997;
+      transform:translate(-50%,-50%);opacity:0.7;
+      animation:cursorPulse .55s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    @keyframes cursorPulse{ to{ width:50px;height:50px;opacity:0; } }
+  }
+
+
+  /* ===== PARTICLES ===== */
+  #particles{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+
+  /* ===== BACK TO TOP ===== */
+  #backToTop{
+    position:fixed;bottom:26px;right:26px;width:46px;height:46px;border-radius:50%;
+    background:var(--amber);color:#0F0F14;border:none;font-size:18px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:60;
+    box-shadow:0 8px 20px -6px rgba(245,166,35,0.5);
+    opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+  }
+  #backToTop.show{opacity:1;visibility:visible;transform:translateY(0);}
+  #backToTop:hover{transform:translateY(-3px);}
+
+  /* ===== PORTFOLIO ASSISTANT CHATBOT ===== */
+  .chat-toggle{
+    position:fixed;bottom:26px;right:84px;width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg, var(--amber), var(--violet));
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:80;
+    box-shadow:0 10px 28px -8px rgba(245,166,35,0.55);border:none;color:#0F0F14;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .chat-toggle:hover{transform:translateY(-3px) scale(1.05);}
+  .chat-toggle .dot{position:absolute;top:5px;right:5px;width:11px;height:11px;border-radius:50%;background:#5ED98B;border:2px solid var(--bg);}
+  .chat-panel{
+    position:fixed;bottom:96px;right:26px;width:340px;max-width:calc(100vw - 32px);
+    max-height:min(520px, calc(100vh - 140px));display:flex;flex-direction:column;
+    border-radius:var(--r-lg);overflow:hidden;z-index:81;
+    background:var(--panel);border:1px solid var(--border);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.7);
+    opacity:0;visibility:hidden;transform:translateY(16px) scale(.98);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+  }
+  .chat-panel.open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+  .chat-head{display:flex;align-items:center;gap:10px;padding:16px;background:linear-gradient(160deg, var(--bg-raised), var(--panel));border-bottom:1px solid var(--border);}
+  .chat-head .ch-icon{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg, var(--amber), var(--violet));display:flex;align-items:center;justify-content:center;font-size:17px;}
+  .chat-head .ch-title{font-family:var(--mono);font-weight:700;font-size:13.5px;}
+  .chat-head .ch-sub{color:var(--muted);font-size:11px;margin-top:2px;}
+  .chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;line-height:1;padding:4px;}
+  .chat-close:hover{color:var(--amber);}
+  .chat-clear{
+    background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;
+    font-family:var(--mono);font-size:10.5px;padding:5px 10px;border-radius:var(--r-pill);
+    margin-left:auto;transition:border-color .2s ease, color .2s ease;flex-shrink:0;
+  }
+  .chat-clear:hover{border-color:var(--amber);color:var(--amber);}
+  .chat-panel{max-height:min(560px, calc(100vh - 140px));}
+  .chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;}
+  .chat-body::-webkit-scrollbar{width:6px;}
+  .chat-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .chat-msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6;word-wrap:break-word;}
+  .chat-msg.bot{background:var(--bg-raised);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px;}
+  .chat-msg.user{background:var(--amber);color:#0F0F14;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500;white-space:pre-wrap;}
+  .chat-msg.error{background:rgba(224,102,102,0.12);border:1px solid rgba(224,102,102,0.4);color:#E06666;align-self:flex-start;font-family:var(--mono);font-size:12px;}
+  .chat-msg.typing{display:flex;gap:4px;align-items:center;padding:12px 14px;}
+  .chat-msg.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:chatTyping 1s infinite ease-in-out;}
+  .chat-msg.typing span:nth-child(2){animation-delay:.15s;}
+  .chat-msg.typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes chatTyping{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-4px);opacity:1;}}
+  /* Markdown content inside bot bubbles */
+  .chat-msg.bot p{margin:0 0 8px;}
+  .chat-msg.bot p:last-child{margin-bottom:0;}
+  .chat-msg.bot ul, .chat-msg.bot ol{margin:0 0 8px 18px;}
+  .chat-msg.bot strong{color:var(--text);}
+  .chat-msg.bot a{color:var(--amber);text-decoration:underline;}
+  .chat-msg.bot code{
+    background:rgba(255,255,255,0.08);border-radius:4px;padding:1px 5px;
+    font-family:var(--mono);font-size:12px;
+  }
+  .chat-msg.bot pre{
+    background:#0A0A0E;border:1px solid var(--border);border-radius:8px;
+    padding:10px 12px;overflow-x:auto;margin:8px 0;
+  }
+  .chat-msg.bot pre code{background:none;padding:0;font-size:11.5px;line-height:1.6;color:#DADAE6;}
+  .chat-suggestions{display:flex;flex-wrap:wrap;gap:7px;padding:0 2px 4px;}
+  .chat-sugg-btn{
+    font-family:var(--sans);font-size:12px;text-align:left;background:var(--bg-raised);
+    border:1px solid var(--border);color:var(--text);border-radius:12px;padding:9px 12px;
+    cursor:pointer;transition:border-color .2s ease, transform .15s ease, background .2s ease;
+  }
+  .chat-sugg-btn:hover{border-color:var(--amber);transform:translateY(-2px);background:rgba(245,166,35,0.08);}
+  .chat-foot{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:var(--bg-raised);align-items:flex-end;}
+  .chat-foot textarea{
+    flex:1;background:var(--panel);border:1px solid var(--border);border-radius:16px;
+    padding:10px 14px;color:var(--text);font-family:var(--sans);font-size:13px;
+    resize:none;max-height:100px;line-height:1.4;
+  }
+  .chat-foot textarea:focus{outline:none;border-color:var(--amber);}
+  .chat-send{width:38px;height:38px;border-radius:50%;background:var(--amber);border:none;color:#0F0F14;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .15s ease;}
+  .chat-send:hover{transform:scale(1.06);}
+  .chat-send:disabled{opacity:.5;cursor:default;}
+  .chat-link{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-align:center;padding:6px 12px 10px;}
+  .chat-link a{color:var(--amber);}
+  @media(max-width:480px){
+    .chat-panel{right:16px;left:16px;width:auto;bottom:88px;}
+    .chat-toggle{right:74px;bottom:20px;width:50px;height:50px;}
+  }
+
+  /* ===== THEME TOGGLE ===== */
+  .theme-toggle{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+    background:var(--bg-raised);color:var(--text);display:flex;align-items:center;justify-content:center;
+    font-size:14px;cursor:pointer;transition:border-color .2s ease, transform .2s ease;
+  }
+  .theme-toggle:hover{border-color:var(--amber);transform:translateY(-1px);}
+
+  /* ===== HERO BADGES ===== */
+  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;position:relative;z-index:1;}
+  .hero-badge{
+    font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 16px;border-radius:var(--r-pill);
+    background:rgba(139,127,214,0.12);border:1px solid var(--border);color:var(--text);
+  }
+  .hero-badge:nth-child(1){color:var(--amber);border-color:rgba(245,166,35,0.4);}
+  .hero-badge:nth-child(3){color:var(--violet);border-color:rgba(139,127,214,0.4);}
+  .hero-typing{font-family:var(--mono);color:var(--amber);font-size:14px;margin-top:18px;min-height:20px;position:relative;z-index:1;}
+  .type-cursor{display:inline-block;animation:blink 1s step-end infinite;color:var(--amber);}
+
+  /* ===== GLOWING PHOTO BORDER ===== */
+  .glow-photo{position:relative;z-index:1;display:inline-block;}
+  .glow-photo::before{
+    content:"";position:absolute;inset:-6px;border-radius:50%;z-index:-1;
+    background:conic-gradient(from 0deg, var(--amber), var(--violet), var(--amber));
+    filter:blur(10px);opacity:0.7;animation:spinGlow 4s linear infinite;
+  }
+  @keyframes spinGlow{ to{ transform:rotate(360deg); } }
+
+  /* ===== ORBITING ICONS AROUND HERO PHOTO ===== */
+  .hero-orbit{position:absolute;inset:0;pointer-events:none;}
+  .orbit-icon{
+    position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+    border-radius:50%;background:var(--panel);border:1px solid var(--glass-border);
+    box-shadow:0 4px 14px -4px rgba(0,0,0,0.5);
+    animation:orbitSpin linear infinite;transform-origin:center;
+  }
+  .orbit-icon span{display:inline-block;animation:orbitCounter linear infinite;}
+  .orbit-icon.o1{animation-duration:13s;}
+  .orbit-icon.o2{animation-duration:17s;animation-direction:reverse;}
+  .orbit-icon.o3{animation-duration:21s;}
+  .orbit-icon.o1 span{animation-duration:13s;}
+  .orbit-icon.o2 span{animation-duration:17s;animation-direction:reverse;}
+  .orbit-icon.o3 span{animation-duration:21s;}
+  @keyframes orbitSpin{ from{ transform:rotate(0deg) translateX(95px) rotate(0deg); } to{ transform:rotate(360deg) translateX(95px) rotate(-360deg); } }
+  @keyframes orbitCounter{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
+  @media(max-width:640px){ .orbit-icon{transform-origin:center;} @keyframes orbitSpin{ from{ transform:rotate(0deg) translateX(78px) rotate(0deg); } to{ transform:rotate(360deg) translateX(78px) rotate(-360deg); } } }
+  @media(prefers-reduced-motion:reduce){ .orbit-icon, .orbit-icon span{animation:none;} }
+
+  /* ===== FLOATING 3D ROCKET (hero) ===== */
+  .hero-rocket{
+    position:absolute;font-size:40px;z-index:1;pointer-events:none;user-select:none;
+    top:14%;right:8%;filter:drop-shadow(0 10px 18px rgba(245,166,35,0.35));
+    animation:rocketFloat 6s ease-in-out infinite;
+  }
+  @keyframes rocketFloat{
+    0%,100%{transform:translate(0,0) rotate(-8deg);}
+    50%{transform:translate(-6px,-22px) rotate(2deg);}
+  }
+  @media(max-width:768px){ .hero-rocket{font-size:28px;top:8%;right:6%;} }
+  @media(prefers-reduced-motion:reduce){ .hero-rocket{animation:none;} }
+
+  /* ===== ROTATING GEAR BESIDE NAME ===== */
+  .hero-gear{
+    display:inline-block;font-size:0.62em;margin-left:10px;vertical-align:middle;
+    animation:gearSpin 5s linear infinite;filter:drop-shadow(0 0 10px rgba(139,127,214,0.4));
+    -webkit-text-fill-color:initial;color:initial;
+  }
+  @keyframes gearSpin{ to{ transform:rotate(360deg); } }
+  @media(prefers-reduced-motion:reduce){ .hero-gear{animation:none;} }
+
+  /* ===== HERO ENTRANCE ===== */
+  .hero-stagger > *{opacity:0;transform:translateY(22px) scale(.97);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);}
+  .hero-stagger.in > *{opacity:1;transform:translateY(0) scale(1);}
+  .hero-stagger.in > *:nth-child(1){transition-delay:.05s;}
+  .hero-stagger.in > *:nth-child(2){transition-delay:.16s;}
+  .hero-stagger.in > *:nth-child(3){transition-delay:.27s;}
+  .hero-stagger.in > *:nth-child(4){transition-delay:.38s;}
+  .hero-stagger.in > *:nth-child(5){transition-delay:.49s;}
+  .hero-stagger.in > *:nth-child(6){transition-delay:.60s;}
+  .hero-stagger.in > *:nth-child(7){transition-delay:.70s;}
+  .hero-stagger.in > *:nth-child(8){transition-delay:.80s;}
+  @media(prefers-reduced-motion:reduce){ .hero-stagger > *{transition:opacity .3s ease;transform:none;} }
+
+  /* ===== PROJECT CARD HOVER ===== */
+  .proj-card{transition:transform .3s ease, box-shadow .3s ease;}
+  .proj-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 28px 50px -20px rgba(0,0,0,0.7);}
+
+  /* ===== GLOBE / LOCATION CARD (interactive world map, stylized) ===== */
+  .globe-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .globe-card:hover{border-color:var(--violet);transform:translateY(-2px);}
+  .globe-wrap{width:86px;height:86px;position:relative;flex-shrink:0;}
+  .globe-wrap svg{width:100%;height:100%;animation:globeSpin 22s linear infinite;}
+  .globe-wrap svg circle, .globe-wrap svg ellipse, .globe-wrap svg line{fill:none;stroke:var(--violet);stroke-width:1;opacity:.5;}
+  @keyframes globeSpin{ to{ transform:rotate(360deg); } }
+  .globe-marker{
+    position:absolute;width:9px;height:9px;border-radius:50%;background:var(--amber);
+    top:36%;left:60%;box-shadow:0 0 8px rgba(245,166,35,0.8);cursor:pointer;
+  }
+  .globe-marker::after{
+    content:"";position:absolute;inset:-8px;border-radius:50%;border:1.5px solid var(--amber);
+    animation:globePing 1.8s cubic-bezier(0,.6,.4,1) infinite;
+  }
+  @keyframes globePing{ 0%{transform:scale(0.4);opacity:1;} 100%{transform:scale(2.4);opacity:0;} }
+  .globe-info{flex:1;min-width:200px;}
+  .globe-loc{font-family:var(--mono);font-weight:700;font-size:14px;}
+  .globe-sub{color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.6;}
+  @media(prefers-reduced-motion:reduce){ .globe-wrap svg{animation:none;} .globe-marker::after{animation:none;} }
+
+  /* ===== CONTACT INFO GRID ===== */
+  .contact-info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+  @media(max-width:520px){.contact-info{grid-template-columns:1fr;}}
+  .contact-chip{
+    display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);
+    border-radius:var(--r-md);padding:13px 14px;font-family:var(--mono);font-size:13px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .contact-chip:hover{border-color:var(--amber);transform:translateY(-2px);}
+  .contact-chip .ci-icon{
+    width:32px;height:32px;border-radius:8px;background:var(--bg-raised);display:flex;
+    align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+  }
+  .contact-chip .ci-label{color:var(--muted);font-size:10px;display:block;}
+  .contact-chip .ci-value{color:var(--text);font-size:12.5px;word-break:break-all;}
+
+  /* ===== SCROLL PROGRESS BAR ===== */
+  #scrollProgress{
+    position:fixed;top:0;left:0;height:3px;width:0%;z-index:70;
+    background:linear-gradient(90deg, var(--amber), var(--violet));
+    transition:width .1s linear;
+  }
+
+  /* ===== PROJECT FILTERS ===== */
+  .filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;}
+  .filter-btn{
+    font-family:var(--mono);font-size:12px;font-weight:600;padding:9px 16px;border-radius:var(--r-pill);
+    border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;
+    transition:all .2s ease;
+  }
+  .filter-btn:hover{color:var(--text);border-color:var(--amber);}
+  .filter-btn.active{background:var(--amber);color:#0F0F14;border-color:var(--amber);}
+  .proj-card{transition:transform .3s ease, box-shadow .3s ease, opacity .3s ease, max-height .3s ease;}
+  .proj-card.hide{display:none;}
+
+  /* ===== SKILL CARD HOVER ===== */
+  .skill-tile{transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
+  .skill-tile:hover{transform:translateY(-6px) scale(1.03);border-color:var(--violet);box-shadow:0 16px 30px -14px rgba(139,127,214,0.5);}
+  .skill-tile:hover .skill-icon{transform:rotate(-8deg) scale(1.1);}
+  .skill-icon{transition:transform .25s ease;}
+
+  /* ===== COPY EMAIL BUTTON ===== */
+  .contact-chip.copyable{position:relative;}
+  #copyEmail{
+    font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--amber);
+    background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.3);border-radius:8px;
+    padding:5px 10px;cursor:pointer;margin-left:auto;flex-shrink:0;transition:background .2s ease;
+  }
+  #copyEmail:hover{background:rgba(245,166,35,0.22);}
+  #copyEmail.copied{background:rgba(94,217,139,0.22);border-color:rgba(94,217,139,0.5);color:#5ED98B;animation:copyPop .4s ease;}
+  @keyframes copyPop{ 0%{transform:scale(1);} 40%{transform:scale(1.18);} 100%{transform:scale(1);} }
+
+  /* ===== FORM SUCCESS ANIMATION ===== */
+  .send-btn.success{background:#5ED98B;animation:sendPulse .5s ease;}
+  @keyframes sendPulse{ 0%{transform:scale(1);} 45%{transform:scale(1.04);} 100%{transform:scale(1);} }
+  .success-burst{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:90;animation:burstFly .8s ease-out forwards;}
+  @keyframes burstFly{ to{ transform:translate(var(--bx), var(--by)) scale(0); opacity:0; } }
+
+  /* ===== ANIMATED COUNTERS ===== */
+  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media(min-width:560px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+  .stat-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--r-md);
+    padding:22px 12px;text-align:center;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .stat-card:hover{transform:translateY(-4px);border-color:var(--amber);box-shadow:0 16px 30px -18px rgba(245,166,35,0.35);}
+  .counter-num{font-family:var(--mono);font-weight:800;font-size:30px;color:var(--amber);}
+  .counter-label{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:6px;}
+
+  /* ===== EMBEDDED 404 (hash-routed) ===== */
+  .not-found-overlay{
+    position:fixed;inset:0;z-index:120;background:var(--bg);
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;
+  }
+  .not-found-overlay.show{display:flex;}
+  .nf-code{
+    font-family:var(--mono);font-weight:800;font-size:80px;line-height:1;
+    background:linear-gradient(135deg, #FFFFFF 20%, var(--amber) 60%, var(--violet) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .nf-msg{font-family:var(--mono);color:var(--muted);font-size:14px;margin-top:14px;max-width:420px;}
+
+  /* ===== 3D TILT + SHINE (mouse-tracked, added via JS on capable devices) ===== */
+  .tilt-el{transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;will-change:transform;}
+  .tilt-shine{position:relative;overflow:hidden;}
+  .tilt-shine::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.16) 50%, transparent 60%);
+    background-size:220% 220%;background-position:120% 0%;
+    opacity:0;transition:opacity .3s ease, background-position .7s ease;
+  }
+  .tilt-shine:hover::after{opacity:1;background-position:-20% 100%;}
+  .proj-banner{transform:translateZ(0);}
+  .skill-icon{will-change:transform;}
+
+  /* ===== FLOATING HERO BADGES ===== */
+  @media(prefers-reduced-motion:no-preference){
+    .hero-badge{animation:floatBadge 3.6s ease-in-out infinite;}
+    .hero-badge:nth-child(1){animation-delay:0s;}
+    .hero-badge:nth-child(2){animation-delay:.25s;}
+    .hero-badge:nth-child(3){animation-delay:.5s;}
+    .hero-badge:nth-child(4){animation-delay:.75s;}
+  }
+  @keyframes floatBadge{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+  /* ===== MAGNETIC BUTTON WRAP ===== */
+  .hero-actions .btn{transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease, background .2s ease, color .2s ease;}
+
+  /* ===== 3D PHOTO PARALLAX ===== */
+  @media(hover:hover) and (pointer:fine){
+    .glow-photo{transition:transform .3s ease;transform-style:preserve-3d;}
+  }
+  .reveal{opacity:0;transform:translateY(24px) scale(.98);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0) scale(1);}
+  .reveal-stagger > *{opacity:0;transform:translateY(20px) scale(.97);transition:opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1);}
+  .reveal-stagger.in > *{opacity:1;transform:translateY(0) scale(1);}
+  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+  .reveal-stagger.in > *:nth-child(2){transition-delay:.12s;}
+  .reveal-stagger.in > *:nth-child(3){transition-delay:.19s;}
+  .reveal-stagger.in > *:nth-child(4){transition-delay:.26s;}
+  .reveal-stagger.in > *:nth-child(5){transition-delay:.33s;}
+  .reveal-stagger.in > *:nth-child(6){transition-delay:.40s;}
+
+  /* ===== MOBILE RESPONSIVENESS ===== */
+  @media(max-width:640px){
+    .wrap{padding:0 18px;}
+    .hero{padding:48px 18px;}
+    .hero-tagline{font-size:14px;line-height:1.75;}
+    .hero-role, .hero-typing{font-size:13px;}
+    .btn{padding:12px 22px;font-size:12.5px;}
+    .about-card{padding:20px;max-width:100%;}
+    .about-body{font-size:14.5px;}
+    .proj-body{padding:20px 20px 22px;}
+    .proj-title{font-size:19px;}
+    .proj-desc{font-size:14px;}
+    .cert-card{padding:18px;}
+    .cert-desc{font-size:13.5px;}
+    .tl-card{padding:16px 18px;gap:12px;}
+    .tl-icon{width:38px;height:38px;font-size:17px;}
+    .contact-card{padding:20px;}
+    .fame-card{padding:20px;}
+    #backToTop{width:42px;height:42px;bottom:18px;right:18px;font-size:16px;}
+  }
+  @media(max-width:400px){
+    .hero-name{font-size:27px;}
+    .section-title{font-size:20px;}
+    .skills-grid{gap:10px;}
+    .hero-badge{font-size:11px;padding:7px 13px;}
+  }
+</style>
+</head>
+<body class="loading">
+<noscript><style>#pageLoader{display:none!important;} .hero-stagger>*, .reveal, .reveal-stagger>*{opacity:1!important;transform:none!important;}</style></noscript>
+
+<div id="pageLoader">
+  <div class="loader-mark">gurukiran.dev</div>
+  <div class="loader-rocket-wrap"><span class="loader-rocket">🚀</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
+  <div class="loader-status" id="loaderStatus">Initializing Portfolio...</div>
+  <div class="loader-pct" id="loaderPct">0%</div>
+</div>
+
+<div id="scrollProgress"></div>
+
+<div id="notFound" class="not-found-overlay">
+  <div class="nf-code">404</div>
+  <p class="nf-msg">This route doesn't exist in the codebase — maybe it was refactored, or never committed.<span class="cursor"></span></p>
+  <a href="#" id="nfHome" class="btn primary">← Back to Home</a>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="bg-3d" id="bg3d">
+  <div class="bg-blob bg-blob-1" data-depth="0.02"></div>
+  <div class="bg-blob bg-blob-2" data-depth="0.045"></div>
+  <div class="bg-blob bg-blob-3" data-depth="0.03"></div>
+</div>
+<div class="eng-bg" id="engBg" aria-hidden="true"></div>
+<svg class="circuit-bg" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+  <path d="M0 120 H180 V260 H420 V90 H700 V310" stroke="#F5A623"></path>
+  <path d="M1000 400 H760 V520 H520 V680 H260" stroke="#8B7FD6"></path>
+  <path d="M0 780 H220 V620 H480" stroke="#8B7FD6"></path>
+  <path d="M1000 60 H840 V220 H620" stroke="#F5A623"></path>
+  <path d="M120 1000 V860 H360 V940 H600" stroke="#8B7FD6"></path>
+  <circle cx="420" cy="90" r="4" fill="#F5A623" opacity=".6"></circle>
+  <circle cx="520" cy="680" r="4" fill="#8B7FD6" opacity=".6"></circle>
+  <circle cx="840" cy="220" r="4" fill="#F5A623" opacity=".6"></circle>
+</svg>
+<canvas id="particles"></canvas>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">gurukiran.dev</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#academics">academics</a>
+      <a href="#certifications">certs</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark theme">
+        <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="heroSection">
+  <div class="hero-spotlight" id="heroSpotlight"></div>
+  <div class="hero-stagger" id="heroStagger">
+  <span class="hero-rocket" aria-hidden="true">🚀</span>
+  <div class="glow-photo">
+  <div class="hero-orbit" aria-hidden="true">
+    <div class="orbit-icon o1"><span>⚡</span></div>
+    <div class="orbit-icon o2"><span>🧩</span></div>
+    <div class="orbit-icon o3"><span>🐍</span></div>
+  </div>
+  <img id="heroPhoto" alt="Gurukiran" style="width:150px;height:150px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
+  <div class="hero-name">GURUKIRAN<span class="hero-gear" aria-hidden="true">⚙️</span></div>
+  <div class="hero-badges">
+    <span class="hero-badge">B.Tech CSE (Data Science)</span>
+    <span class="hero-badge">Python &amp; AI</span>
+    <span class="hero-badge">Full-Stack Development</span>
+    <span class="hero-badge">DSA</span>
+  </div>
+  <div class="hero-typing"><span id="typedText"></span><span class="type-cursor">|</span></div>
+  <p class="hero-tagline">B.Tech CSE (Data Science) student focused on <span class="highlight">Python, AI, and full-stack development</span>. I build practical projects and sharpen my problem-solving through consistent DSA practice.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn primary">View Work →</a>
+    <a href="#" id="resumeLink" class="btn ghost" download="Gurukiran-Resume.pdf">📄 Download Resume</a>
+    <a href="#contact" class="btn ghost">Contact Me</a>
+  </div>
+  <div class="hero-social">
+    <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" title="LinkedIn" aria-label="LinkedIn profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.84c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V23H8.5V8.25z"/></svg></a>
+    <a href="https://github.com/Gurukiran25" title="GitHub" aria-label="GitHub profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
+    <a href="mailto:gurukiran0725@gmail.com" title="Email" aria-label="Send an email"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></a>
+  </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-title">About Me</div>
+    <div class="section-sub">A quick introduction.</div>
+    <div class="about-grid reveal">
+      <div class="about-card glass-card" style="text-align:center;">
+        <img id="aboutPhoto" alt="Gurukiran" style="width:180px;height:180px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin:0 auto 16px;box-shadow:0 10px 30px -10px rgba(245,166,35,0.4);">
+        <div class="about-tag">Gurukiran Nimbal</div>
+        <div class="about-mode">B.Tech CSE (Data Science)</div>
+      </div>
+      <div class="about-body">
+        <p>I'm <strong>Gurukiran</strong>, a <strong>B.Tech CSE (Data Science)</strong> student interested in <span class="highlight">Python, AI, full-stack development, and DSA</span>.</p>
+        <p>I started learning to code in early 2025 and taught myself Python, Git, and the command line — mostly from an <strong>Android phone running Termux</strong>. Since then I've been building small AI tools, automations, and web apps, and practicing data structures and algorithms consistently.</p>
+        <p>I'm looking for <span class="highlight">internship opportunities</span> where I can apply what I've learned, work on real problems, and keep growing as a software engineer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="wrap">
+    <div class="section-title">Hall of Fame</div>
+    <div class="section-sub">A quick scoreboard of what I've been building and grinding on.</div>
+    <div class="fame-grid reveal-stagger">
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🚀</div>
+        <div class="fame-num counter-num" data-target="4">0</div>
+        <div class="fame-label">Projects Shipped</div>
+      </div>
+      <div class="fame-card violet tilt-el tilt-shine">
+        <div class="fame-icon">🧩</div>
+        <div class="fame-num-wrap"><span class="fame-num counter-num" data-target="100">0</span><span class="fame-plus">+</span></div>
+        <div class="fame-label">LeetCode Problems</div>
+      </div>
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🏆</div>
+        <div class="fame-num counter-num" data-target="2">0</div>
+        <div class="fame-label">Hackathons</div>
+      </div>
+      <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
+        <div class="fame-icon">📜</div>
+        <div class="fame-num counter-num" data-target="5">0</div>
+        <div class="fame-label">Certifications · View on LinkedIn</div>
+      </a>
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🎓</div>
+        <div class="fame-num counter-num" data-target="8.4">0</div>
+        <div class="fame-label">CGPA</div>
+      </div>
+      <a href="https://github.com/Gurukiran25" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
+        <div class="fame-icon">🐙</div>
+        <div class="fame-qual">Building in Public</div>
+        <div class="fame-label">GitHub · Gurukiran25</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="academics">
+  <div class="wrap">
+    <div class="section-title">Education</div>
+    <div class="section-sub">My academic background.</div>
+    <div class="timeline reveal-stagger">
+      <div class="tl-card glass-card current">
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+        <div>
+          <div class="tl-year">2025 – 2029</div>
+          <div class="tl-title">B.Tech CSE (Data Science)</div>
+          <div class="tl-org">Dayananda Sagar University</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Bengaluru</div>
+        </div>
+      </div>
+      <div class="tl-card glass-card">
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+        <div>
+          <div class="tl-year">2024 – 2025 · 83%</div>
+          <div class="tl-title">Class 12 (PUC) — Science</div>
+          <div class="tl-org">Gurukul PU College of Science</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Kalaburagi</div>
+        </div>
+      </div>
+      <div class="tl-card glass-card">
+        <div class="tl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+        <div>
+          <div class="tl-year">2022 – 2023 · 91.52%</div>
+          <div class="tl-title">SSLC (10th)</div>
+          <div class="tl-org">Dominant English High School</div>
+          <div class="tl-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Kalaburagi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-title">Certifications</div>
+    <div class="section-sub">5 certifications earned — details below, verified on <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" style="color:var(--amber);">LinkedIn →</a></div>
+    <div class="cert-stack reveal-stagger">
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 1</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
+      </div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 2</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
+      </div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 3</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
+      </div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 4</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
+      </div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 5</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-title">Skills</div>
+    <div class="section-sub">Languages, frameworks, and tools I work with.</div>
+    <div class="skills-grid reveal-stagger">
+      <div class="skill-tile skill-cube" data-proficiency="90">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#3B82F6,#22D3EE);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="skill-name">Python</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">90%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+      <div class="skill-tile skill-cube" data-proficiency="75">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#6366F1,#3B82F6);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="skill-name">C / C++</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">75%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+      <div class="skill-tile skill-cube" data-proficiency="70">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#22D3EE,#3B82F6);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg></div><div class="skill-name">React</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">70%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+      <div class="skill-tile skill-cube" data-proficiency="80">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#F5A623,#EA580C);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h6.6M18 8.5V15.5M8.2 7.5 15.8 16.5"/></svg></div><div class="skill-name">n8n Automation</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">80%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+      <div class="skill-tile skill-cube" data-proficiency="75">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#8B7FD6,#6D28D9);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div><div class="skill-name">Groq API</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">75%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+      <div class="skill-tile skill-cube" data-proficiency="85">
+        <div class="skill-face skill-front"><div class="skill-icon" style="background:linear-gradient(135deg,#10B981,#059669);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><div class="skill-name">Termux / Mobile Dev</div></div>
+        <div class="skill-face skill-back"><div class="skill-pct">85%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-title">Projects</div>
+    <div class="section-sub">A selection of projects I've built and shipped.</div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ai">AI</button>
+      <button class="filter-btn" data-filter="web">Web App</button>
+      <button class="filter-btn" data-filter="automation">Automation</button>
+    </div>
+
+    <div class="proj-stack reveal-stagger">
+
+      <div class="proj-card glass-card proj-foodsnap tilt-el tilt-shine" data-category="web" data-live="https://cheapbite.lovable.app/">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#8CE6B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18"/><circle cx="12" cy="12" r="9"/><path d="M9 9v6M15 9v6"/></svg>
+          <div class="proj-preview" data-preview-slot>
+            <div class="pp-label"><span class="pp-dot"></span>Live Preview</div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">Web App</div>
+          <div class="proj-title">CheapBite</div>
+          <div class="proj-desc">A <span class="highlight">food price comparison</span> web app that pulls listings from multiple sources so users can compare prices before ordering.</div>
+          <div class="proj-tags">
+            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🌐</span>Web App</span><span class="proj-tag"><span class="tag-ic">🎨</span>UX</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://cheapbite.lovable.app/" class="proj-link primary" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live Demo</a>
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card glass-card proj-groq tilt-el tilt-shine" data-category="ai">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#C9BCF7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 10h.01M15 10h.01M9 14h6"/><path d="M12 3v3M4 12H2M22 12h-2"/></svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">AI</div>
+          <div class="proj-title">Groq Chatbot</div>
+          <div class="proj-desc">A command-line AI chatbot built on the <span class="highlight">Groq API with LLaMA 3.1</span>, first written and run from a Termux terminal on Android.</div>
+          <div class="proj-tags">
+            <span class="proj-tag"><span class="tag-ic">🐍</span>Python</span><span class="proj-tag"><span class="tag-ic">⚡</span>Groq API</span><span class="proj-tag"><span class="tag-ic">🧠</span>AI</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/gurukiran25/My-first-repo" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card glass-card proj-n8n tilt-el tilt-shine" data-category="automation">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#9FCBF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h6.6M18 8.5V15.5M8.2 7.5 15.8 16.5"/></svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">Automation</div>
+          <div class="proj-title">n8n Automation Suite</div>
+          <div class="proj-desc">A set of <span class="highlight">workflow automations</span>, including a GitHub Issues → Slack notification pipeline built for a personal dev workspace.</div>
+          <div class="proj-tags">
+            <span class="proj-tag"><span class="tag-ic">🔧</span>n8n</span><span class="proj-tag"><span class="tag-ic">🐙</span>GitHub API</span><span class="proj-tag"><span class="tag-ic">💬</span>Slack</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card glass-card proj-agent tilt-el tilt-shine" data-category="ai">
+        <div class="proj-banner">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F5C579" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 3 5-7"/></svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-badge">AI · Reporting</div>
+          <div class="proj-title">Multi-Agent Reporting System</div>
+          <div class="proj-desc">A <span class="highlight">multi-agent AI system</span> built in React that coordinates data analysis and generates automated reports.</div>
+          <div class="proj-tags">
+            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🤝</span>Multi-Agent</span><span class="proj-tag"><span class="tag-ic">📊</span>Data</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-title">Get in Touch</div>
+    <div class="section-sub">Open to internship opportunities and collaborations.</div>
+
+    <div class="globe-card glass-card reveal">
+      <div class="globe-wrap">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46"></circle>
+          <ellipse cx="50" cy="50" rx="46" ry="18"></ellipse>
+          <ellipse cx="50" cy="50" rx="46" ry="32"></ellipse>
+          <ellipse cx="50" cy="50" rx="18" ry="46"></ellipse>
+          <ellipse cx="50" cy="50" rx="32" ry="46"></ellipse>
+          <line x1="4" y1="50" x2="96" y2="50"></line>
+        </svg>
+        <div class="globe-marker" title="Bengaluru, Karnataka, India"></div>
+      </div>
+      <div class="globe-info">
+        <div class="globe-loc">📍 Bengaluru, Karnataka, India</div>
+        <div class="globe-sub">Open to remote work and relocation for the right internship or opportunity.</div>
+      </div>
+    </div>
+
+    <div class="contact-info reveal-stagger">
+      <a href="mailto:gurukiran0725@gmail.com" class="contact-chip glass-card copyable">
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
+        <div><span class="ci-label">Email</span><span class="ci-value">gurukiran0725@gmail.com</span></div>
+        <button id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
+      </a>
+      <a href="https://github.com/Gurukiran25" class="contact-chip glass-card" target="_blank" rel="noopener" aria-label="GitHub profile">
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></div>
+        <div><span class="ci-label">GitHub</span><span class="ci-value">Gurukiran25</span></div>
+      </a>
+      <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" class="contact-chip glass-card" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.84c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V23H8.5V8.25z"/></svg></div>
+        <div><span class="ci-label">LinkedIn</span><span class="ci-value">gurukiran-nimbal</span></div>
+      </a>
+      <a href="https://www.instagram.com/guru.kiran__?igsh=aDlhc21qbHB5dnlk" class="contact-chip glass-card" target="_blank" rel="noopener" aria-label="Instagram profile">
+        <div class="ci-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+        <div><span class="ci-label">Instagram</span><span class="ci-value">guru.kiran__</span></div>
+      </a>
+    </div>
+
+    <form class="contact-card glass-card reveal" id="contactForm" action="https://formsubmit.co/ajax/gurukiran0725@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New message from your portfolio!">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="4" placeholder="Your message..." required></textarea>
+      </div>
+      <button class="send-btn" type="submit" id="cf-submit">✈ Send Message</button>
+      <p id="cf-status" role="status" aria-live="polite" style="text-align:center;margin-top:14px;font-family:var(--mono);font-size:12.5px;min-height:18px;"></p>
+      <p style="text-align:center;margin-top:2px;font-family:var(--mono);font-size:12px;color:var(--muted);">
+        Prefer email? <a href="mailto:gurukiran0725@gmail.com" style="color:var(--amber);">gurukiran0725@gmail.com →</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">© 2026 Gurukiran Nimbal. Built independently, from an Android phone running Termux.<span class="cursor"></span></div>
+</footer>
+
+<button id="backToTop" title="Back to top" aria-label="Scroll back to top">↑</button>
+
+<button id="chatToggle" class="chat-toggle" title="Chat with Portfolio Assistant" aria-label="Open portfolio assistant chat">
+  <span class="dot"></span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="ch-icon">🤖</div>
+    <div>
+      <div class="ch-title">Portfolio Assistant</div>
+      <div class="ch-sub">Ask me anything about Gurukiran</div>
+    </div>
+    <button class="chat-clear" id="chatClear" title="Clear chat history" aria-label="Clear chat history">Clear</button>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <form class="chat-foot" id="chatForm">
+    <textarea id="chatInput" placeholder="Type a message... (Enter to send, Shift+Enter for new line)" autocomplete="off" rows="1"></textarea>
+    <button type="submit" class="chat-send" id="chatSend" aria-label="Send message"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+  </form>
+  <div class="chat-link">Built on <a href="https://github.com/gurukiran25/My-first-repo/blob/main/chatbot.py" target="_blank" rel="noopener">this chatbot project →</a></div>
+</div>
+
+<script>
+  const PHOTO_SRC = "data:image/webp;base64,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";
+  document.getElementById('heroPhoto').src = PHOTO_SRC;
+  document.getElementById('aboutPhoto').src = PHOTO_SRC;
+  const RESUME_SRC = "data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyA5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKEd1cnVraXJhbiBOaW1iYWwgLSBSZXN1bWUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDUgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI0NTQKPj4Kc3RyZWFtCkdhdWBUPj9CZlYoNFEhWm0kSHMqOkxkKVs3UFtibFsmbkdGYm42SWszMWAiLiNVUnRUOFlxVy4qblFpJjVKKHE8K1Y6cEMyPGs2Ojs+WEMkSUpaPnJhJ1kiRXFCPFpNJ1tGRSgrOWtMXUo2ODZEZGgsaFk6T1xncW5zZChdXF4zLUtjK3NrYT5VKTwiKiEzMGI7dUp0ZTMnZ3VLUUIpWUdQXGtzMC4rcz9VLF4xbTBEWFk6S0R1Mko0MVY+cD9PJDpHUTpSTSxlV1ZkM1QycUAyIlY9cTw1YnVXN2FEUVY+UUxqSlVsKUIqQDlUTlYmaSlrY0ZyOlVgS28lNkVcK1BrZHJoOUo1ODtvOWkyWCc7KVZQQkQzS1YsLXM6ZixYPzZCa0ordFRfIl4+TjcwRl4qNU1USD5PcC9cZDZyTyRzNS1sVVBMY0BkN3F1KExzXiFScCNsZkosNUtnLF0mYy00dXVEOSRlQ2VbcVtQPmcoQGk9XygrdGE6ZktWa2pxIlQrbSI6O01tME1ZVChJPm9XPCYmJGZwa1FJckpYNlpwIiVUSkxHS2o9XSUhTEhETDAhbmgkWWolZmR1JC09YCQiXlZKaSc0QkwpYXU6KUFaNFNDPGQzXDBcIWo8X1ctTSVobGJpY2FgaUVBQjMqUz9DalJcaEBPTVo2Ml4hWl5uYWkiVi1xYVAtRlpDLEpgXmRlSWpgaEFqIWNTTW9Ya2tcQnNxLDk9Um4uV18qXE8uL21OR00iV0dXTy9mQSY1NmhNPC1NPy9kUmNuVz8xTD0oV01VYlsxR0xCTEQ9N1REXThyRmhjLjUpMHRkMGhBU3VpbUBoKS8uJll0MWNXZyswTWBFc1YlPnFNSDg2cDkuXzFBYDZLcDpxIUtILjFeR3FxJGo/PzRGWTVDaCVQNS1rK25HYSJhSzd1aS0hRl0uXnBKRD5wLHJ1bVVCSjooWTsoNnUrJCg8SkwmdUE1Qks4PSQiYT1RPjZVRHRfSTNja008OWM5YWY0OihNVSQpN09kKFVKWEdXUl8rZksyYCljXGVyJEdccWdSMmVpZTU4SzFOc0lLXU4mQ2o7YDozcS80UU8lX3BvZjw5SDRIImhVXG1bRVIxY3E9P3EhOjcoZkxnYWZbUF5iZHEvMFZWTktjY3JQIj0hO1E6YGM/PE9WQ3NkQyxLJ2JzVEYnQ0JyLnVeS1FTNzFGRDs9QlFrcFVqOC9XQidkPCZhJlJQQz8vXzlsTGhnNGxsLSVIUm1sNCRHa1Rlbixoa0FpJ0hyVDJmVERVMWZeR25oXGs7XG1RWWxxLWwiSlo4TGswVkhqOWBjIkRrbj40QixcUF9EYENbPWRJRDxEa10pP3IqKWhoTGZZXG4mXS8yMmlOcjkzY1QjK3AtQmxnV2okbi4kWD4pImZOZ1B1SyZNNCdVMCZfW0BRNUhlT0VfMEtGNE03QFc+SyJhc1BXMiJGTiZrQS9RSjE1Yj1OJVhSTj5ySVU9Y3QyMSsnYWoncyFSckNwbmxqIkVBX01yVnFHW2NaS0EmRUQ9Vk8nKUdUbz1SVXFuUFhvZXMzZi9wNSk2YScpaWVdaDNhMzI0ZUVVQzNDVVsjdThgTVZiSXNDYWNBX20vWy9NSUcvYjVTPlEwX01DaUFASCpcImpzMk1HQiFQVGc5QUJ1SEZEIkguOjBONz8xb1RpbmVuJiFXSUg/Oyc0OVkwX1k1MSw0Wm45Qi5DTUtoLDNhXlVyYCM2IihyYy8zXnFoIjo9ciZPMk1zL3JXOWxcclYnJUZDQytjO09rJy88YChFYVJVaEtKaydLSjFqYTE5Ols1ZTIoTkxTM2BER2BUKEFbPFFiUDxedUtwaTE1aDRWR10yV2hNbkNOcnBsOmo5c19mUy9ncT88UF9wPlw8c00jIWRIQztfT05jZ1VkKmlOMCRTKFByUzlyblxhdV4wSVUhWjUvY05NOT4wJ3EtPzt1Rj9RJEwtSWJaL1hCbClQWiY5KFQnXUwvXDpPOW08OWMzRWgvV1BdU2FyclZsSiEwXHI6XSQ+bkciMjVPZEIyKEZPRlpvOEBHKTMpdFFBPy0uKkMvLnQ8STopTkFVQCFDTGhnYUYiWTNHNG9zNyVILlRdKmdpLEYmXiNDTSRIIkEiK2ZyQGNvIjkldSsxYU5GNUVuU3IwSV1kQkksVEdhT29hUWBxQmxHYSlwaSVZZSsvR29VM04tKmZvckRsSjc8YFRlT20pTzZJZitaRyltX29sNG5bM0xpW2NCJ1V1UWcpI2ZhMUVaS1MnXFRFVjQrX2tXcWtxOUFwP15JK0ondSo7YV1hJVpzLzdYbTFqdDwudDhzZG5qRzdLI2dcL2QmM0ciWl5SXjlkSlJqKF4yMk9fZFZrYWJsalY2WjFULUBaPHAuTi4zOVBWWEYpJStcXClYRTdPSkxARk1CQjBbTk5kTXQyQTVQQC1XIy0/SkhJV2A1OG0nM0tEOmdSaFs/RWgzU1tBZFJAUHJddF03KWNiOWc7P1MvRD8lM2dbYV9INkY5NEI0cXBWVlE9M2MlXmEpIjNOZ19iTilrJTI9Vmc2PFE7cChwJFA+clkjJjtdTiQxRislOzVyTWVTKydLT0U5W2cpMW9HJHNoLFVAbHRJTSVSLGEiMyJCUk0mSlJPZW1edCc7azImNlEvbXFbL2U/Z21Gb25IIUdaSklmcXQ+VGxGMGohWDdfSlJUa2hYMlZ1OzxBaG1aOyhjVyNRRjA6OiwocExVY2pNLVdxKDZuPVhAa0hJOFBnVkInOldgLEA1TDxQa3QwKEIzZjQsWSpBJGQ7NWEwc1s2ODtGSlM2UTg6TklpRHU5KkNGJ04wZFNxOV9bXXVONz1nXnAmJik6OmBOXFMiL11eODszNCxVMD5pK2ROLFlEX18pUyRtcGxkKic3T2clTiRNTUg6M0tFNiVmU1RcPSUwPD1EPnRGLlEjJT4jZkZBJGllVjVOc1pTPi85altEYWFvaGM9JllCMz0sNiM5VnQrN0pXYCldVW84OG1acElCZ1txUUdjRC5KYyMkLiovZT4jL0MxZTNMakYzU2M8P2xyRlVAOzRNT2VzbUUkSCJDclpeKyFoJk9cUTtgISM8LWg6b28pOXFUV0l1P0AxMDlpUlclLFZdXmQ4aSEwY2hpQ0JGJ21OaWo8NFRJSyo7Qj0yTCRZb1JKNmdYSTkzYzhedXNFJFJaTmowLGgkJGljNkBDMyVnNypuTCpvUz9MJm51aiRtckdCPDYoQzU5Ym5nNFR+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDQ2IDAwMDAwIG4gCjAwMDAwMDA2MzkgMDAwMDAgbiAKMDAwMDAwMDcwNyAwMDAwMCBuIAowMDAwMDAwOTk5IDAwMDAwIG4gCjAwMDAwMDEwNTggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YWUwMjc4OWM4NjBhZTFkOGFkOTBmNDYzMWQxNTI1MGY+PGFlMDI3ODljODYwYWUxZDhhZDkwZjQ2MzFkMTUyNTBmPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMAo+PgpzdGFydHhyZWYKMzYwMwolJUVPRgo=";
+  const resumeLink = document.getElementById('resumeLink');
+  if(resumeLink) resumeLink.href = RESUME_SRC;
+</script>
+<script>
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  /* 3D TILT ON CARDS */
+  (function(){
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    document.querySelectorAll('.tilt-el').forEach(el => {
+      let raf = null;
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rx = (0.5 - py) * 10;
+        const ry = (px - 0.5) * 10;
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.015)`;
+        });
+      });
+      el.addEventListener('mouseleave', () => {
+        if(raf) cancelAnimationFrame(raf);
+        el.style.transform = '';
+      });
+    });
+
+    /* Magnetic pull on hero CTA buttons, project links, chat send button,
+       contact chips, and hero social icons */
+    document.querySelectorAll('.hero-actions .btn, .proj-link, .chat-send, .filter-btn, .contact-chip, .hero-social a').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+
+    /* Hero photo parallax tilt */
+    const heroPhoto = document.querySelector('.hero .glow-photo');
+    if(heroPhoto){
+      document.querySelector('.hero').addEventListener('mousemove', (e) => {
+        const rect = heroPhoto.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+        const rx = ((e.clientY - cy) / window.innerHeight) * -14;
+        const ry = ((e.clientX - cx) / window.innerWidth) * 14;
+        heroPhoto.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      document.querySelector('.hero').addEventListener('mouseleave', () => {
+        heroPhoto.style.transform = '';
+      });
+    }
+  })();
+
+  /* CUSTOM CURSOR */
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+    let rx = 0, ry = 0, mx = 0, my = 0, revealed = false;
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      if(!revealed){
+        revealed = true;
+        rx = mx; ry = my;
+        dot.classList.add('visible'); ring.classList.add('visible');
+      }
+    });
+    document.addEventListener('mouseleave', () => {
+      dot.classList.remove('visible'); ring.classList.remove('visible');
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.classList.add('visible'); ring.classList.add('visible');
+    });
+    (function animateRing(){
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+    document.querySelectorAll('a, button, .btn').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('active'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+    });
+
+    /* Click ripple + press feedback */
+    window.addEventListener('mousedown', (e) => {
+      dot.classList.add('click'); ring.classList.add('click');
+      const pulse = document.createElement('div');
+      pulse.className = 'cursor-pulse';
+      pulse.style.left = e.clientX + 'px';
+      pulse.style.top = e.clientY + 'px';
+      document.body.appendChild(pulse);
+      pulse.addEventListener('animationend', () => pulse.remove());
+    });
+    window.addEventListener('mouseup', () => {
+      dot.classList.remove('click'); ring.classList.remove('click');
+    });
+  }
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 500);
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  /* TYPING ANIMATION */
+  (function(){
+    const el = document.getElementById('typedText');
+    if(!el) return;
+    const phrases = [
+      'Building AI-powered tools.',
+      'Solving DSA problems daily.',
+      'Learning full-stack development.',
+      'Automating workflows with n8n.',
+      'Shipping code from a phone.'
+    ];
+    let pIndex = 0, cIndex = 0, deleting = false;
+    function step(){
+      const current = phrases[pIndex];
+      if(!deleting){
+        cIndex++;
+        el.textContent = current.slice(0, cIndex);
+        if(cIndex === current.length){
+          deleting = true;
+          setTimeout(step, 1400);
+          return;
+        }
+      } else {
+        cIndex--;
+        el.textContent = current.slice(0, cIndex);
+        if(cIndex === 0){
+          deleting = false;
+          pIndex = (pIndex + 1) % phrases.length;
+        }
+      }
+      setTimeout(step, deleting ? 35 : 55);
+    }
+    step();
+  })();
+
+  /* ACTIVE NAV LINK ON SCROLL */
+  (function(){
+    const navLinks = document.querySelectorAll('.navlinks a[href^="#"]');
+    if(!navLinks.length) return;
+    const sections = Array.from(navLinks)
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+    const setActive = (id) => {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    };
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {rootMargin: '-45% 0px -50% 0px', threshold: 0});
+    sections.forEach(s => navIo.observe(s));
+  })();
+
+  /* SCROLL PROGRESS BAR */
+  (function(){
+    const bar = document.getElementById('scrollProgress');
+    if(!bar) return;
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = scrolled + '%';
+    });
+  })();
+
+  /* EMBEDDED 404 — HASH ROUTING */
+  (function(){
+    const overlay = document.getElementById('notFound');
+    const homeBtn = document.getElementById('nfHome');
+    const validHashes = ['', '#', '#about', '#academics', '#certifications', '#stats', '#skills', '#projects', '#contact'];
+    function checkRoute(){
+      const isValid = validHashes.includes(window.location.hash);
+      overlay.classList.toggle('show', !isValid);
+      document.body.style.overflow = isValid ? '' : 'hidden';
+    }
+    window.addEventListener('hashchange', checkRoute);
+    window.addEventListener('DOMContentLoaded', checkRoute);
+    homeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      checkRoute();
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+    checkRoute();
+  })();
+
+  /* PROJECT FILTERING */
+  (function(){
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.proj-card');
+    if(!buttons.length) return;
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.filter;
+        cards.forEach(card => {
+          const match = cat === 'all' || card.dataset.category === cat;
+          card.classList.toggle('hide', !match);
+        });
+      });
+    });
+  })();
+
+  /* LIVE PROJECT PREVIEW — lazy-loads a real screenshot of the deployed
+     site via microlink.io the first time a card with a public demo URL
+     is hovered (or tapped on touch devices). Falls back silently to the
+     icon banner if the request ever fails. */
+  (function(){
+    document.querySelectorAll('.proj-card[data-live]').forEach(card => {
+      const slot = card.querySelector('[data-preview-slot]');
+      if(!slot) return;
+      let loaded = false;
+      const load = () => {
+        if(loaded) return;
+        loaded = true;
+        const liveUrl = card.dataset.live;
+        const titleEl = card.querySelector('.proj-title');
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.alt = 'Live preview of ' + (titleEl ? titleEl.textContent : 'the project');
+        img.referrerPolicy = 'no-referrer';
+        img.onerror = () => { slot.style.display = 'none'; };
+        img.src = 'https://api.microlink.io/?url=' + encodeURIComponent(liveUrl) + '&screenshot=true&meta=false&embed=screenshot.url';
+        slot.appendChild(img);
+      };
+      card.addEventListener('mouseenter', load, { once: true });
+      card.addEventListener('touchstart', load, { once: true, passive: true });
+    });
+  })();
+
+  /* EMAIL COPY BUTTON */
+  (function(){
+    const btn = document.getElementById('copyEmail');
+    if(!btn) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = 'gurukiran0725@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+      }).catch(() => {});
+    });
+  })();
+
+  /* ANIMATED COUNTERS */
+  (function(){
+    const counters = document.querySelectorAll('.counter-num');
+    if(!counters.length) return;
+    const animate = (el) => {
+      const raw = el.dataset.target;
+      const target = parseFloat(raw);
+      const decimals = (raw.split('.')[1] || '').length;
+      let current = 0;
+      const steps = 40;
+      const inc = target / steps;
+      const run = () => {
+        current += inc;
+        if(current >= target){ el.textContent = target.toFixed(decimals); return; }
+        el.textContent = current.toFixed(decimals);
+        requestAnimationFrame(run);
+      };
+      run();
+    };
+    const cIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          animate(entry.target);
+          cIo.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.4});
+    counters.forEach(c => cIo.observe(c));
+  })();
+
+  /* CONTACT FORM — inline submit, no redirect away from the page */
+  (function(){
+    const form = document.getElementById('contactForm');
+    if(!form) return;
+    const status = document.getElementById('cf-status');
+    const submitBtn = document.getElementById('cf-submit');
+
+    function burstSuccess(){
+      const rect = submitBtn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+      const colors = ['#F5A623', '#8B7FD6', '#5ED98B'];
+      for(let i = 0; i < 14; i++){
+        const p = document.createElement('div');
+        p.className = 'success-burst';
+        const angle = (Math.PI * 2 * i) / 14;
+        const dist = 60 + Math.random() * 40;
+        p.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        p.style.background = colors[i % colors.length];
+        document.body.appendChild(p);
+        p.addEventListener('animationend', () => p.remove());
+      }
+      submitBtn.classList.add('success');
+      setTimeout(() => submitBtn.classList.remove('success'), 600);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      status.textContent = '';
+      status.style.color = 'var(--muted)';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if(res.ok){
+          status.textContent = '✓ Message sent — thanks for reaching out!';
+          status.style.color = '#5ED98B';
+          burstSuccess();
+          form.reset();
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch(err){
+        status.textContent = '✕ Something went wrong — please email me directly instead.';
+        status.style.color = '#E06666';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  })();
+
+  /* THEME TOGGLE */
+  const themeToggle = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('iconMoon');
+  const iconSun = document.getElementById('iconSun');
+  const applyTheme = (t) => {
+    document.body.classList.toggle('light', t === 'light');
+    iconMoon.style.display = t === 'light' ? 'none' : 'block';
+    iconSun.style.display = t === 'light' ? 'block' : 'none';
+  };
+  let savedTheme = 'dark';
+  try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch(e){}
+  applyTheme(savedTheme);
+  themeToggle.addEventListener('click', () => {
+    const next = document.body.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+    try { localStorage.setItem('theme', next); } catch(e){}
+  });
+
+  /* PAGE LOADER — simulated progress + status cycling + rocket launch,
+     then hands off into the hero entrance animation. */
+  (function(){
+    const loader = document.getElementById('pageLoader');
+    if(!loader) return;
+    const fill = document.getElementById('loaderFill');
+    const statusEl = document.getElementById('loaderStatus');
+    const pctEl = document.getElementById('loaderPct');
+    const messages = [
+      'Initializing Portfolio...',
+      'Loading AI Systems...',
+      'Compiling Projects...',
+      'Calibrating Thrusters...',
+      'Ready for Launch...'
+    ];
+    let pct = 0, msgIndex = 0, done = false;
+    const tick = setInterval(() => {
+      pct = Math.min(pct + (4 + Math.random() * 10), 96);
+      if(fill) fill.style.width = pct + '%';
+      if(pctEl) pctEl.textContent = Math.round(pct) + '%';
+      const next = Math.min(Math.floor((pct / 100) * messages.length), messages.length - 1);
+      if(next !== msgIndex){ msgIndex = next; if(statusEl) statusEl.textContent = messages[msgIndex]; }
+    }, 180);
+
+    const finish = () => {
+      if(done) return;
+      done = true;
+      clearInterval(tick);
+      if(fill) fill.style.width = '100%';
+      if(pctEl) pctEl.textContent = '100%';
+      if(statusEl) statusEl.textContent = messages[messages.length - 1];
+      loader.classList.add('launch');
+      setTimeout(() => {
+        loader.classList.add('hide');
+        document.body.classList.remove('loading');
+        const heroStagger = document.getElementById('heroStagger');
+        if(heroStagger) heroStagger.classList.add('in');
+        setTimeout(() => loader.remove(), 600);
+      }, 380);
+    };
+    if(document.readyState === 'complete'){
+      setTimeout(finish, 500);
+    } else {
+      window.addEventListener('load', () => setTimeout(finish, 500));
+      // Fallback in case 'load' is delayed by slow subresources
+      setTimeout(finish, 2600);
+    }
+  })();
+
+  /* HERO SPOTLIGHT — follows the pointer within the hero */
+  (function(){
+    const hero = document.getElementById('heroSection');
+    const spot = document.getElementById('heroSpotlight');
+    if(!hero || !spot) return;
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      spot.style.setProperty('--sx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+      spot.style.setProperty('--sy', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+      spot.classList.add('active');
+    });
+    hero.addEventListener('mouseleave', () => spot.classList.remove('active'));
+  })();
+
+  /* GLASS WATER-SHINE — pointer-tracked highlight per card */
+  (function(){
+    const cards = document.querySelectorAll('.glass-card');
+    if(!cards.length) return;
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if(!isFinePointer) return;
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const mx = ((e.clientX - rect.left) / rect.width) * 100;
+        const my = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', mx + '%');
+        card.style.setProperty('--my', my + '%');
+      });
+    });
+  })();
+
+  /* 3D BACKGROUND PARALLAX (blobs) */
+  (function(){
+    const layer = document.getElementById('bg3d');
+    if(!layer) return;
+    const blobs = Array.from(layer.querySelectorAll('.bg-blob'));
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let targetX = 0, targetY = 0, curX = 0, curY = 0;
+    if(isFinePointer){
+      window.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+    }
+    let scrollY = 0;
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, {passive:true});
+    function animate(){
+      curX += (targetX - curX) * 0.04;
+      curY += (targetY - curY) * 0.04;
+      blobs.forEach(b => {
+        const depth = parseFloat(b.dataset.depth) || 0.03;
+        const px = curX * 60 * (depth * 20);
+        const py = curY * 60 * (depth * 20) - scrollY * depth;
+        b.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  /* ===== SKILL CUBE PROFICIENCY BARS ===== */
+  (function(){
+    const cubes = document.querySelectorAll('.skill-cube');
+    if(!cubes.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const fill = entry.target.querySelector('.skill-bar-fill');
+          const pct = entry.target.dataset.proficiency;
+          if(fill && pct) fill.style.width = pct + '%';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    cubes.forEach(c => io.observe(c));
+  })();
+
+  /* ===== ANIMATED ENGINEERING BACKGROUND ===== */
+  /* Curated set matching the brief: rockets, robots, gears, laptop,
+     satellite, AI brain, CPU chips, plus floating code symbols. Each node
+     gets a slow independent drift vector (sin/cos, different speed+phase)
+     computed in the same rAF loop as the mouse/scroll parallax, so the
+     "slow moving" motion and the parallax never fight each other. */
+  (function(){
+    const layer = document.getElementById('engBg');
+    if(!layer) return;
+    const EMOJI = ['🚀','🛰️','🤖','⚙️','💻','🧠','🖥️','⚙️','🚀','🤖','🛰️','🧠'];
+    const CODE = ['</>','{ }','01','$_','#!/','=>','01','{ }'];
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const isMobile = window.innerWidth < 700;
+    const EMOJI_COUNT = isMobile ? 8 : 14;
+    const CODE_COUNT = isMobile ? 4 : 8;
+    const nodes = [];
+
+    function makeNode(text, isCode, idx){
+      const wrap = document.createElement('div');
+      wrap.className = 'eng-icon-wrap';
+      wrap.style.top = (Math.random() * 90) + '%';
+      wrap.style.left = (Math.random() * 92) + '%';
+
+      const icon = document.createElement('span');
+      icon.className = isCode ? ('eng-icon eng-code' + (idx % 2 ? ' violet' : '')) : 'eng-icon';
+      icon.textContent = text;
+      const size = isCode ? (14 + Math.random() * 10) : (20 + Math.random() * 24);
+      const dur = 6 + Math.random() * 7;
+      const delay = Math.random() * 5;
+      icon.style.fontSize = size + 'px';
+      icon.style.animationDuration = dur + 's';
+      icon.style.animationDelay = '-' + delay + 's';
+
+      wrap.dataset.depth = 0.02 + Math.random() * 0.07;
+      wrap.dataset.driftAmp = 30 + Math.random() * 50;
+      wrap.dataset.driftSpeed = 0.05 + Math.random() * 0.09;
+      wrap.dataset.phase = Math.random() * Math.PI * 2;
+
+      wrap.appendChild(icon);
+      layer.appendChild(wrap);
+      nodes.push(wrap);
+    }
+
+    for(let i = 0; i < EMOJI_COUNT; i++) makeNode(EMOJI[i % EMOJI.length], false, i);
+    for(let i = 0; i < CODE_COUNT; i++) makeNode(CODE[i % CODE.length], true, i);
+
+    if(reduceMotion || !nodes.length) return;
+
+    let targetX = 0, targetY = 0, curX = 0, curY = 0, scrollY = window.scrollY;
+    if(isFinePointer){
+      window.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+    }
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+
+    function animate(t){
+      curX += (targetX - curX) * 0.04;
+      curY += (targetY - curY) * 0.04;
+      const time = (t || 0) / 1000;
+      nodes.forEach(el => {
+        const depth = parseFloat(el.dataset.depth);
+        const amp = parseFloat(el.dataset.driftAmp);
+        const speed = parseFloat(el.dataset.driftSpeed);
+        const phase = parseFloat(el.dataset.phase);
+        const driftX = Math.sin(time * speed + phase) * amp;
+        const driftY = Math.cos(time * speed * 0.7 + phase) * (amp * 0.5);
+        const px = curX * 90 * depth * 20 + driftX;
+        const py = curY * 90 * depth * 20 - scrollY * depth * 0.6 + driftY;
+        el.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  })();
+
+  /* PARTICLES — depth-based 3D starfield */
+  (function(){
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+    const COUNT = 70;
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let pointerX = 0, pointerY = 0;
+    if(isFinePointer){
+      window.addEventListener('mousemove', (e) => {
+        pointerX = (e.clientX / window.innerWidth - 0.5);
+        pointerY = (e.clientY / window.innerHeight - 0.5);
+      });
+    }
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    function init(){
+      resize();
+      particles = Array.from({length: COUNT}, () => {
+        const z = Math.random();                 // 0 = far, 1 = near
+        return {
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z,
+          r: 0.4 + z * 1.7,                       // nearer = bigger
+          vx: (Math.random() - 0.5) * (0.06 + z * 0.3),
+          vy: (Math.random() - 0.5) * (0.06 + z * 0.3),
+          o: 0.1 + z * 0.55,                      // nearer = more opaque
+          hueAmber: Math.random() > 0.4           // mix amber / violet dots for depth cue
+        };
+      }).sort((a, b) => a.z - b.z);                // draw far to near
+    }
+    function tick(){
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -5) p.x = w + 5; if(p.x > w + 5) p.x = -5;
+        if(p.y < -5) p.y = h + 5; if(p.y > h + 5) p.y = -5;
+
+        // parallax shift scaled by depth — near particles move more with pointer
+        const parX = pointerX * p.z * 26;
+        const parY = pointerY * p.z * 26;
+
+        ctx.beginPath();
+        ctx.arc(p.x + parX, p.y + parY, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.hueAmber
+          ? `rgba(245,166,35,${p.o})`
+          : `rgba(139,127,214,${p.o})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize', resize);
+    init();
+    tick();
+  })();
+
+  /* ============================================================
+     PORTFOLIO ASSISTANT CHATBOT
+     Streaming, markdown-aware, persisted chat widget — wired directly to
+     Groq's OpenAI-compatible chat completions API (api.groq.com). This is
+     a static site (GitHub Pages), so there's no server to hide a key
+     behind; the tradeoff of a client-side key is spelled out right below.
+     If you'd rather not expose a key at all, swap this fetch for a call
+     to a small serverless proxy (Cloudflare Worker / Vercel function)
+     that holds the real key server-side — the streaming parser below
+     will work unchanged as long as the proxy forwards Groq's SSE format.
+     ============================================================ */
+  (function(){
+    const toggle   = document.getElementById('chatToggle');
+    const panel    = document.getElementById('chatPanel');
+    const closeBtn = document.getElementById('chatClose');
+    const clearBtn = document.getElementById('chatClear');
+    const body     = document.getElementById('chatBody');
+    const form     = document.getElementById('chatForm');
+    const input    = document.getElementById('chatInput');
+    const sendBtn  = document.getElementById('chatSend');
+    if(!toggle || !panel) return;
+
+    const STORAGE_KEY = 'gurukiran_portfolio_chat_v1';
+
+    // ---- Groq config -------------------------------------------------
+    // 1. Create a free key at console.groq.com/keys.
+    // 2. Paste it below. Because this key ships in the page source, any
+    //    visitor can read it in devtools and spend your quota — use a key
+    //    you don't mind being public, keep an eye on usage in the Groq
+    //    console, and rotate it if you ever see unexpected activity.
+    // 3. The RATE_LIMIT below caps each visitor's browser to a handful of
+    //    messages per day as a basic abuse guard (not a security measure).
+    const GROQ_API_KEY = 'YOUR_GROQ_API_KEY';           // <-- paste your key here
+    const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+    const GROQ_MODEL = 'openai/gpt-oss-20b';            // fast + current (Groq's Llama 3.1/3.3 models were retired June 2026)
+    const RATE_LIMIT_KEY = 'gurukiran_chat_rate_v1';
+    const RATE_LIMIT_MAX = 25;                          // messages per rolling 24h, per browser
+
+    const SUGGESTIONS = [
+      'Tell me about Gurukiran',
+      'What projects has he built?',
+      'What technologies does he know?',
+      'Show his education',
+      'What are his future goals?',
+      'How can I contact him?'
+    ];
+
+    const SYSTEM_PROMPT = `You are the Portfolio Assistant embedded on Gurukiran's personal portfolio website. You answer visitor questions ONLY using the facts about Gurukiran listed below. Refer to him as "Gurukiran" (third person), in a warm, concise, recruiter-friendly tone. You may use light markdown (bold, bullet lists, short code blocks) when it improves clarity.
+
+Facts about Gurukiran:
+- B.Tech CSE (Data Science) student at Dayananda Sagar University, Bengaluru (2025-2029). Current CGPA: 8.4.
+- Class 12 (PUC) Science, 83%, Gurukul PU College of Science, Kalaburagi (2024-2025).
+- SSLC (10th), 91.52%, Dominant English High School, Kalaburagi (2022-2023).
+- Started coding in early 2025, self-taught Python, Git, and the command line, mostly from an Android phone running Termux.
+- Skills: Python, C/C++, React, n8n automation, Groq API, Termux/mobile dev, AI, full-stack development, DSA (100+ LeetCode problems solved).
+- Achievements: 4 projects shipped, 100+ LeetCode problems, 2 hackathons participated, 5 certifications earned.
+- Projects: CheapBite (food price comparison web app, React), a Groq-powered CLI chatbot (Groq API + LLaMA 3.1, built in Termux), an n8n Automation Suite (GitHub Issues → Slack), and a Multi-Agent Reporting System (React).
+- Future goals: land a software engineering internship, keep deepening AI and full-stack skills, and eventually build products that solve real problems.
+- Contact: gurukiran0725@gmail.com, GitHub github.com/Gurukiran25, LinkedIn linkedin.com/in/gurukiran-nimbal-8a9a90397.
+- A downloadable resume (PDF) is available via the "Download Resume" button in the hero section.
+
+Rules:
+- Keep answers to 2-4 sentences unless the visitor explicitly asks for more detail.
+- If a question is unrelated to Gurukiran or his work (general trivia, other people, unrelated tech help, etc.), reply with EXACTLY: "I'm designed only to answer questions about Gurukiran and his work." and nothing else.
+- Never invent facts that aren't listed above.`;
+
+    let history = [];
+
+    // ---------- persistence ----------
+    function loadHistory(){
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e){ return []; }
+    }
+    function saveHistory(){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(history)); } catch(e){}
+    }
+
+    // ---------- rendering ----------
+    function renderMarkdown(text){
+      if(window.marked){
+        try { return window.marked.parse(text, { breaks: true }); } catch(e){}
+      }
+      // Fallback: escape + basic newlines if marked hasn't loaded yet
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML.replace(/\n/g, '<br>');
+    }
+    function addUserMessage(text){
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg user';
+      msg.textContent = text;
+      body.appendChild(msg);
+      scrollToBottom();
+      return msg;
+    }
+    function addBotMessage(initialText){
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg bot';
+      msg.innerHTML = renderMarkdown(initialText || '');
+      body.appendChild(msg);
+      scrollToBottom();
+      return msg;
+    }
+    function addErrorMessage(text){
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg error';
+      msg.textContent = '⚠ ' + text;
+      body.appendChild(msg);
+      scrollToBottom();
+      return msg;
+    }
+    function addTyping(){
+      const t = document.createElement('div');
+      t.className = 'chat-msg bot typing';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      body.appendChild(t);
+      scrollToBottom();
+      return t;
+    }
+    function scrollToBottom(){
+      body.scrollTop = body.scrollHeight;
+    }
+    function renderSuggestions(){
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-suggestions';
+      wrap.id = 'chatSuggestions';
+      SUGGESTIONS.forEach(q => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chat-sugg-btn';
+        btn.textContent = q;
+        btn.addEventListener('click', () => sendMessage(q));
+        wrap.appendChild(btn);
+      });
+      body.appendChild(wrap);
+    }
+    function clearSuggestions(){
+      const s = document.getElementById('chatSuggestions');
+      if(s) s.remove();
+    }
+    function renderWelcome(){
+      body.innerHTML = '';
+      addBotMessage("Hi 👋 I'm here to help you learn more about Gurukiran. Feel free to ask me anything, or try one of these:");
+      renderSuggestions();
+    }
+    function renderFromHistory(){
+      body.innerHTML = '';
+      if(history.length === 0){
+        renderWelcome();
+        return;
+      }
+      history.forEach(m => {
+        if(m.role === 'user') addUserMessage(m.content);
+        else addBotMessage(m.content);
+      });
+    }
+
+    // ---------- offline fallback (used only if backend is unreachable) ----------
+    function localFallback(q){
+      const s = q.toLowerCase();
+      if(s.includes('project')) return "Gurukiran has built **CheapBite** (a food price comparison web app) and a **Groq-powered CLI chatbot** using LLaMA 3.1 — both linked in the Projects section above.";
+      if(s.includes('tech') || s.includes('skill') || s.includes('stack')) return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, alongside consistent DSA practice.";
+      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern')) return "You can reach Gurukiran at **gurukiran0725@gmail.com** or through the contact form below — he's currently looking for internship opportunities!";
+      if(s.includes('educat') || s.includes('college') || s.includes('study') || s.includes('school')) return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, Bengaluru (2025-2029).";
+      if(s.includes('goal') || s.includes('future') || s.includes('plan')) return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and build products that solve real problems.";
+      return "I'm having trouble reaching my live AI backend right now, so here's what I can tell you offline — try asking about his projects, skills, education, goals, or how to contact him!";
+    }
+
+    // ---------- simple client-side rate limiter (abuse guard, not security) ----------
+    function checkRateLimit(){
+      let data;
+      try { data = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '{}'); } catch(e){ data = {}; }
+      const now = Date.now();
+      const DAY = 24 * 60 * 60 * 1000;
+      if(!data.windowStart || now - data.windowStart > DAY){
+        data = { windowStart: now, count: 0 };
+      }
+      if(data.count >= RATE_LIMIT_MAX) return false;
+      data.count++;
+      try { localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(data)); } catch(e){}
+      return true;
+    }
+
+    // ---------- streaming request — talks directly to Groq's chat completions API ----------
+    async function streamReply(userText){
+      const typingEl = addTyping();
+      let botEl = null;
+      let fullText = '';
+
+      const keyReady = GROQ_API_KEY && GROQ_API_KEY !== 'YOUR_GROQ_API_KEY';
+
+      if(!keyReady || !checkRateLimit()){
+        typingEl.remove();
+        fullText = !keyReady
+          ? localFallback(userText)
+          : "I've hit my question limit for this browser for now — try again tomorrow, or reach Gurukiran directly below.";
+        addBotMessage(fullText);
+        history.push({ role: 'assistant', content: fullText });
+        saveHistory();
+        return;
+      }
+
+      try {
+        const res = await fetch(GROQ_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + GROQ_API_KEY
+          },
+          body: JSON.stringify({
+            model: GROQ_MODEL,
+            stream: true,
+            temperature: 0.6,
+            max_completion_tokens: 500,
+            messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history]
+          })
+        });
+        if(!res.ok || !res.body) throw new Error('Groq request failed (' + res.status + ')');
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while(true){
+          const { done, value } = await reader.read();
+          if(done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop(); // keep any incomplete trailing line
+          for(const line of lines){
+            if(!line.startsWith('data:')) continue;
+            const jsonStr = line.slice(5).trim();
+            if(!jsonStr || jsonStr === '[DONE]') continue;
+            let parsed;
+            try { parsed = JSON.parse(jsonStr); } catch(e){ continue; }
+            const delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta;
+            if(delta && delta.content){
+              if(!botEl){ typingEl.remove(); botEl = addBotMessage(''); }
+              fullText += delta.content;
+              botEl.innerHTML = renderMarkdown(fullText);
+              scrollToBottom();
+            }
+          }
+        }
+        if(!fullText) throw new Error('empty response from Groq');
+      } catch(err){
+        if(typingEl.parentNode) typingEl.remove();
+        fullText = localFallback(userText);
+        if(botEl){ botEl.innerHTML = renderMarkdown(fullText); }
+        else { addErrorMessage("Couldn't reach the live AI — showing an offline answer instead."); addBotMessage(fullText); }
+      }
+
+      history.push({ role: 'assistant', content: fullText });
+      saveHistory();
+    }
+
+    async function sendMessage(text){
+      text = text.trim();
+      if(!text) return;
+      clearSuggestions();
+      addUserMessage(text);
+      history.push({ role: 'user', content: text });
+      saveHistory();
+      input.value = '';
+      autoResize();
+      sendBtn.disabled = true;
+      input.disabled = true;
+      await streamReply(text);
+      sendBtn.disabled = false;
+      input.disabled = false;
+      input.focus();
+    }
+
+    // ---------- input handling: Enter to send, Shift+Enter for newline ----------
+    function autoResize(){
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+    }
+    input.addEventListener('input', autoResize);
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' && !e.shiftKey){
+        e.preventDefault();
+        form.requestSubmit ? form.requestSubmit() : sendMessage(input.value);
+      }
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendMessage(input.value);
+    });
+
+    // ---------- open/close/clear ----------
+    toggle.addEventListener('click', () => {
+      panel.classList.toggle('open');
+      if(panel.classList.contains('open')) input.focus();
+    });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    clearBtn.addEventListener('click', () => {
+      history = [];
+      saveHistory();
+      renderWelcome();
+    });
+
+    // ---------- init ----------
+    history = loadHistory();
+    renderFromHistory();
+  })();
+</script>
+
+</body>
+</html>
