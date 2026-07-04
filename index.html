@@ -85,23 +85,40 @@
   }
 
   /* ===== ANIMATED ENGINEERING BACKGROUND ===== */
-  /* A quiet layer of floating tech/engineering glyphs behind every section.
-     Wrap div gets a mouse/scroll-driven parallax transform from JS; the
-     inner icon runs its own independent float+rotate CSS animation, so the
-     two transforms never fight each other. */
+  /* A layer of slow-drifting tech/engineering glyphs behind every section.
+     Wrap div gets a continuous drift + mouse/scroll parallax transform from
+     JS (one rAF loop, so nothing fights); the inner icon runs its own
+     independent bob+rotate CSS animation on top. */
   .eng-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
-  .eng-icon-wrap{position:absolute;will-change:transform;transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+  .eng-icon-wrap{position:absolute;will-change:transform;}
   .eng-icon{
-    display:inline-block;opacity:.15;filter:grayscale(.4) blur(.3px);
+    display:inline-block;opacity:.32;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25));
     animation:engFloat linear infinite;will-change:transform;user-select:none;
   }
+  .eng-icon.eng-code{
+    font-family:var(--mono);font-weight:700;opacity:.22;color:var(--amber);
+    filter:none;text-shadow:0 0 12px rgba(245,166,35,0.25);
+  }
+  .eng-icon.eng-code.violet{color:var(--violet);text-shadow:0 0 12px rgba(139,127,214,0.25);}
   @keyframes engFloat{
     0%{transform:translateY(0) rotate(0deg);}
     50%{transform:translateY(-18px) rotate(9deg);}
     100%{transform:translateY(0) rotate(0deg);}
   }
-  @media(max-width:768px){ .eng-icon{opacity:.11;} }
+  @media(max-width:768px){ .eng-icon{opacity:.22;} .eng-icon.eng-code{opacity:.16;} }
   @media(prefers-reduced-motion:reduce){ .eng-icon{animation:none;} }
+  body.light .eng-icon{opacity:.24;filter:drop-shadow(0 0 8px rgba(0,0,0,0.08));}
+  body.light .eng-icon.eng-code{opacity:.28;}
+
+  /* ===== CIRCUIT LINES (very quiet, animated trace layer) ===== */
+  .circuit-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;opacity:.5;}
+  .circuit-bg path{
+    fill:none;stroke-width:1;stroke-dasharray:6 10;
+    animation:circuitFlow 14s linear infinite;
+  }
+  @keyframes circuitFlow{ to{ stroke-dashoffset:-320; } }
+  @media(prefers-reduced-motion:reduce){ .circuit-bg path{animation:none;} }
+  @media(max-width:768px){ .circuit-bg{opacity:.32;} }
   ::selection{background:var(--amber);color:#0F0F14;}
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
     outline:2px solid var(--amber);outline-offset:3px;border-radius:4px;
@@ -151,10 +168,10 @@
   .navlinks a.active::after{width:100%;}
   @media(max-width:640px){.navlinks{gap:14px;font-size:10px;}}
 
-  /* PAGE LOADER */
+  /* PAGE LOADER — rocket launch sequence */
   #pageLoader{
     position:fixed;inset:0;z-index:200;background:var(--bg);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
     transition:opacity .5s ease, visibility .5s ease;
   }
   #pageLoader.hide{opacity:0;visibility:hidden;pointer-events:none;}
@@ -162,19 +179,46 @@
     font-family:var(--mono);font-weight:800;font-size:20px;color:var(--amber);
     letter-spacing:.02em;
   }
+  .loader-rocket-wrap{position:relative;height:56px;display:flex;align-items:flex-end;justify-content:center;width:56px;}
+  .loader-rocket{
+    font-size:32px;display:inline-block;transform-origin:center;
+    animation:rocketIdle 1.6s ease-in-out infinite;position:relative;z-index:1;
+  }
+  .loader-rocket::after{
+    content:"";position:absolute;left:50%;bottom:-8px;width:10px;height:22px;transform:translateX(-50%);
+    border-radius:50% 50% 60% 60%;filter:blur(4px);
+    background:linear-gradient(180deg, rgba(245,166,35,0.9), rgba(245,166,35,0));
+    animation:flamePulse .35s ease-in-out infinite alternate;
+  }
+  @keyframes rocketIdle{ 0%,100%{transform:translateY(0) rotate(-6deg);} 50%{transform:translateY(-5px) rotate(-3deg);} }
+  @keyframes flamePulse{ from{ transform:translateX(-50%) scaleY(0.8); opacity:.7; } to{ transform:translateX(-50%) scaleY(1.15); opacity:1; } }
+  #pageLoader.launch .loader-rocket{ animation:rocketLaunch .7s cubic-bezier(.4,0,.6,1) forwards; }
+  @keyframes rocketLaunch{
+    0%{transform:translateY(0) rotate(-6deg) scale(1); opacity:1;}
+    100%{transform:translateY(-220px) rotate(-2deg) scale(.6); opacity:0;}
+  }
   .loader-bar{
     width:140px;height:3px;border-radius:var(--r-pill);background:var(--border);overflow:hidden;position:relative;
   }
-  .loader-bar::after{
-    content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;border-radius:var(--r-pill);
-    background:linear-gradient(90deg, transparent, var(--amber), var(--violet), transparent);
-    animation:loaderSweep 1.1s ease-in-out infinite;
+  .loader-bar-fill{
+    height:100%;width:0%;border-radius:var(--r-pill);
+    background:linear-gradient(90deg, var(--amber), var(--violet));
+    transition:width .3s ease;
   }
-  @keyframes loaderSweep{ 0%{left:-40%;} 100%{left:100%;} }
+  .loader-status{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em;min-height:16px;}
+  .loader-pct{font-family:var(--mono);font-size:12px;color:var(--amber);font-weight:700;}
+  @media(prefers-reduced-motion:reduce){ .loader-rocket, .loader-rocket::after{animation:none;} }
 
   /* HERO */
   .hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden;}
   .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 20%, rgba(139,127,214,0.18) 0%, transparent 60%);pointer-events:none;}
+  /* Mouse-following spotlight — a soft light that tracks the pointer */
+  .hero-spotlight{
+    position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity .4s ease;
+    background:radial-gradient(360px circle at var(--sx,50%) var(--sy,30%), rgba(245,166,35,0.14), transparent 65%);
+  }
+  .hero-spotlight.active{opacity:1;}
+  @media(hover:none){ .hero-spotlight{display:none;} }
   .hero-name{
     font-family:var(--mono);font-weight:800;font-size:44px;letter-spacing:-0.01em;line-height:1.1;position:relative;z-index:1;
     background:linear-gradient(135deg, #FFFFFF 20%, var(--amber) 60%, var(--violet) 100%);
@@ -191,17 +235,6 @@
   .btn.primary:active{transform:translateY(0);box-shadow:0 6px 16px -8px rgba(245,166,35,0.5);}
   .btn.ghost{background:transparent;color:var(--text);}
   .btn.ghost:hover{border-color:var(--amber);color:var(--amber);}
-  .btn.resume{
-    display:inline-flex;align-items:center;gap:8px;
-    background:transparent;color:var(--violet);border:1.5px solid var(--violet);
-    box-shadow:0 0 0 0 rgba(139,127,214,0.0);
-  }
-  .btn.resume svg{transition:transform .2s ease;}
-  .btn.resume:hover{
-    background:var(--violet);color:#0F0F14;transform:translateY(-2px);
-    box-shadow:0 12px 26px -10px rgba(139,127,214,0.6);
-  }
-  .btn.resume:hover svg{transform:translateY(2px);}
   .hero-social{display:flex;gap:22px;margin-top:36px;position:relative;z-index:1;}
   .hero-social a{color:var(--muted);display:flex;align-items:center;justify-content:center;transition:color .2s ease, transform .2s ease;}
   .hero-social a:hover{color:var(--amber);transform:translateY(-2px);}
@@ -250,21 +283,6 @@
   .tl-title{font-weight:700;font-size:16px;margin-top:2px;}
   .tl-org{color:var(--muted);font-size:13.5px;margin-top:3px;line-height:1.6;}
   .tl-loc{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:8px;display:flex;align-items:center;gap:4px;}
-
-  /* CERTIFICATIONS */
-  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-  @media(max-width:700px){ .cert-grid{grid-template-columns:1fr;} }
-  .cert-card{
-    padding:22px;border-radius:var(--r-md);display:flex;gap:16px;align-items:flex-start;
-    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  }
-  .cert-card:hover{transform:translateY(-3px);border-color:var(--amber);box-shadow:0 16px 30px -18px rgba(245,166,35,0.4);}
-  .cert-icon{width:44px;height:44px;border-radius:var(--r-sm);background:var(--bg-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .cert-name{font-weight:700;font-size:15.5px;line-height:1.4;}
-  .cert-issuer{color:var(--muted);font-size:13.5px;margin-top:3px;}
-  .cert-meta{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .cert-link{color:var(--violet);text-decoration:underline;text-decoration-color:rgba(139,127,214,0.4);}
-  .cert-link:hover{color:var(--amber);text-decoration-color:var(--amber);}
 
   /* SKILLS GRID */
   .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -318,6 +336,7 @@
     animation:projBorderSpin 4s linear infinite;pointer-events:none;
   }
   .proj-card:hover::before{opacity:.55;}
+  .proj-card::before{opacity:.14;}
   @keyframes projBorderSpin{ to{ transform:rotate(360deg); } }
   .proj-banner{
     height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
@@ -328,7 +347,26 @@
     background-image:radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
     background-size:16px 16px;
   }
-  .proj-banner svg{position:relative;z-index:1;opacity:0.92;}
+  .proj-banner svg{position:relative;z-index:1;opacity:0.92;transition:opacity .35s ease, transform .35s ease;}
+
+  /* Live preview screenshot — fades in over the banner on hover, only for
+     cards with a public demo URL (data-live attribute drives the JS). */
+  .proj-preview{
+    position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .45s ease;
+    background:var(--bg-raised);
+  }
+  .proj-preview img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .proj-preview .pp-label{
+    position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:9.5px;font-weight:700;
+    padding:4px 9px;border-radius:var(--r-pill);background:rgba(15,15,20,0.75);color:#5ED98B;
+    display:flex;align-items:center;gap:5px;letter-spacing:.03em;
+  }
+  .pp-label .pp-dot{width:6px;height:6px;border-radius:50%;background:#5ED98B;animation:ppPulse 1.4s ease-in-out infinite;}
+  @keyframes ppPulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .proj-card:hover .proj-preview{opacity:1;}
+  .proj-card:hover .proj-banner svg{opacity:0;transform:scale(.9);}
+  @media(hover:none){ .proj-preview{display:none;} }
+
   .proj-body{padding:24px 26px 28px;}
   .proj-badge{
     display:inline-flex;align-items:center;gap:6px;
@@ -338,7 +376,14 @@
   .proj-title{font-size:21px;font-weight:800;line-height:1.3;margin-bottom:10px;}
   .proj-desc{color:#D6D6DE;font-size:14.5px;line-height:1.75;margin-bottom:20px;}
   .proj-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
-  .proj-tag{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:var(--r-pill);background:rgba(255,255,255,0.08);color:var(--text);}
+  .proj-tag{
+    font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:var(--r-pill);
+    background:rgba(255,255,255,0.08);color:var(--text);display:inline-flex;align-items:center;gap:5px;
+    transition:transform .2s cubic-bezier(.3,1.5,.5,1), background .2s ease, color .2s ease;
+  }
+  .proj-tag .tag-ic{font-size:11px;line-height:1;transition:transform .25s ease;}
+  .proj-tag:hover{transform:translateY(-2px) scale(1.05);background:rgba(245,166,35,0.16);color:var(--amber);}
+  .proj-tag:hover .tag-ic{transform:rotate(-10deg) scale(1.15);}
   .proj-links{display:flex;gap:12px;flex-wrap:wrap;}
   .proj-link{
     font-family:var(--mono);font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
@@ -372,20 +417,30 @@
   .cert-desc{color:#C8C8D4;font-size:14px;line-height:1.75;margin-bottom:16px;}
   .cert-verify{font-family:var(--mono);font-size:12.5px;color:var(--amber);display:inline-flex;align-items:center;gap:6px;}
 
-  /* HALL OF FAME */
-  .fame-wrap{text-align:center;}
-  .fame-icon{
-    width:80px;height:80px;border-radius:50%;margin:0 auto 20px;
-    background:radial-gradient(circle, var(--amber) 0%, #C9791A 100%);
-    display:flex;align-items:center;justify-content:center;font-size:34px;
-    box-shadow:0 0 50px rgba(245,166,35,0.3);
-  }
+  /* HALL OF FAME — animated achievement grid */
+  .fame-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media(min-width:640px){.fame-grid{grid-template-columns:repeat(3,1fr);}}
   .fame-card{
     background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
-    padding:24px;text-align:left;margin-top:32px;
-    transition:transform .25s ease, box-shadow .25s ease;
+    padding:26px 18px;text-align:center;position:relative;overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
-  .fame-card:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(245,166,35,0.35);}
+  .fame-card:hover{transform:translateY(-4px);border-color:var(--amber);box-shadow:0 20px 36px -18px rgba(245,166,35,0.35);}
+  .fame-icon{
+    width:56px;height:56px;border-radius:50%;margin:0 auto 14px;
+    background:radial-gradient(circle, var(--amber) 0%, #C9791A 100%);
+    display:flex;align-items:center;justify-content:center;font-size:24px;
+    box-shadow:0 0 30px rgba(245,166,35,0.3);
+  }
+  .fame-card.violet .fame-icon{background:radial-gradient(circle, var(--violet) 0%, #5B4EA8 100%);box-shadow:0 0 30px rgba(139,127,214,0.35);}
+  .fame-num{font-family:var(--mono);font-weight:800;font-size:26px;color:var(--amber);}
+  .fame-card.violet .fame-num{color:var(--violet);}
+  .fame-num-wrap{display:flex;align-items:baseline;justify-content:center;gap:2px;}
+  .fame-plus{font-family:var(--mono);font-weight:800;font-size:20px;color:var(--violet);}
+  .fame-label{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .fame-qual{font-family:var(--mono);font-weight:700;font-size:14px;line-height:1.4;}
+  .fame-card.violet .fame-qual{color:var(--violet);}
+  .fame-card:not(.violet) .fame-qual{color:var(--amber);}
   .fame-award{font-family:var(--mono);color:var(--amber);font-size:12px;font-weight:700;margin-bottom:10px;}
 
   /* CONTACT */
@@ -588,9 +643,90 @@
   }
   @keyframes spinGlow{ to{ transform:rotate(360deg); } }
 
+  /* ===== ORBITING ICONS AROUND HERO PHOTO ===== */
+  .hero-orbit{position:absolute;inset:0;pointer-events:none;}
+  .orbit-icon{
+    position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+    border-radius:50%;background:var(--panel);border:1px solid var(--glass-border);
+    box-shadow:0 4px 14px -4px rgba(0,0,0,0.5);
+    animation:orbitSpin linear infinite;transform-origin:center;
+  }
+  .orbit-icon span{display:inline-block;animation:orbitCounter linear infinite;}
+  .orbit-icon.o1{animation-duration:13s;}
+  .orbit-icon.o2{animation-duration:17s;animation-direction:reverse;}
+  .orbit-icon.o3{animation-duration:21s;}
+  .orbit-icon.o1 span{animation-duration:13s;}
+  .orbit-icon.o2 span{animation-duration:17s;animation-direction:reverse;}
+  .orbit-icon.o3 span{animation-duration:21s;}
+  @keyframes orbitSpin{ from{ transform:rotate(0deg) translateX(95px) rotate(0deg); } to{ transform:rotate(360deg) translateX(95px) rotate(-360deg); } }
+  @keyframes orbitCounter{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
+  @media(max-width:640px){ .orbit-icon{transform-origin:center;} @keyframes orbitSpin{ from{ transform:rotate(0deg) translateX(78px) rotate(0deg); } to{ transform:rotate(360deg) translateX(78px) rotate(-360deg); } } }
+  @media(prefers-reduced-motion:reduce){ .orbit-icon, .orbit-icon span{animation:none;} }
+
+  /* ===== FLOATING 3D ROCKET (hero) ===== */
+  .hero-rocket{
+    position:absolute;font-size:40px;z-index:1;pointer-events:none;user-select:none;
+    top:14%;right:8%;filter:drop-shadow(0 10px 18px rgba(245,166,35,0.35));
+    animation:rocketFloat 6s ease-in-out infinite;
+  }
+  @keyframes rocketFloat{
+    0%,100%{transform:translate(0,0) rotate(-8deg);}
+    50%{transform:translate(-6px,-22px) rotate(2deg);}
+  }
+  @media(max-width:768px){ .hero-rocket{font-size:28px;top:8%;right:6%;} }
+  @media(prefers-reduced-motion:reduce){ .hero-rocket{animation:none;} }
+
+  /* ===== ROTATING GEAR BESIDE NAME ===== */
+  .hero-gear{
+    display:inline-block;font-size:0.62em;margin-left:10px;vertical-align:middle;
+    animation:gearSpin 5s linear infinite;filter:drop-shadow(0 0 10px rgba(139,127,214,0.4));
+    -webkit-text-fill-color:initial;color:initial;
+  }
+  @keyframes gearSpin{ to{ transform:rotate(360deg); } }
+  @media(prefers-reduced-motion:reduce){ .hero-gear{animation:none;} }
+
+  /* ===== HERO ENTRANCE ===== */
+  .hero-stagger > *{opacity:0;transform:translateY(22px) scale(.97);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);}
+  .hero-stagger.in > *{opacity:1;transform:translateY(0) scale(1);}
+  .hero-stagger.in > *:nth-child(1){transition-delay:.05s;}
+  .hero-stagger.in > *:nth-child(2){transition-delay:.16s;}
+  .hero-stagger.in > *:nth-child(3){transition-delay:.27s;}
+  .hero-stagger.in > *:nth-child(4){transition-delay:.38s;}
+  .hero-stagger.in > *:nth-child(5){transition-delay:.49s;}
+  .hero-stagger.in > *:nth-child(6){transition-delay:.60s;}
+  .hero-stagger.in > *:nth-child(7){transition-delay:.70s;}
+  .hero-stagger.in > *:nth-child(8){transition-delay:.80s;}
+  @media(prefers-reduced-motion:reduce){ .hero-stagger > *{transition:opacity .3s ease;transform:none;} }
+
   /* ===== PROJECT CARD HOVER ===== */
   .proj-card{transition:transform .3s ease, box-shadow .3s ease;}
   .proj-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 28px 50px -20px rgba(0,0,0,0.7);}
+
+  /* ===== GLOBE / LOCATION CARD (interactive world map, stylized) ===== */
+  .globe-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .globe-card:hover{border-color:var(--violet);transform:translateY(-2px);}
+  .globe-wrap{width:86px;height:86px;position:relative;flex-shrink:0;}
+  .globe-wrap svg{width:100%;height:100%;animation:globeSpin 22s linear infinite;}
+  .globe-wrap svg circle, .globe-wrap svg ellipse, .globe-wrap svg line{fill:none;stroke:var(--violet);stroke-width:1;opacity:.5;}
+  @keyframes globeSpin{ to{ transform:rotate(360deg); } }
+  .globe-marker{
+    position:absolute;width:9px;height:9px;border-radius:50%;background:var(--amber);
+    top:36%;left:60%;box-shadow:0 0 8px rgba(245,166,35,0.8);cursor:pointer;
+  }
+  .globe-marker::after{
+    content:"";position:absolute;inset:-8px;border-radius:50%;border:1.5px solid var(--amber);
+    animation:globePing 1.8s cubic-bezier(0,.6,.4,1) infinite;
+  }
+  @keyframes globePing{ 0%{transform:scale(0.4);opacity:1;} 100%{transform:scale(2.4);opacity:0;} }
+  .globe-info{flex:1;min-width:200px;}
+  .globe-loc{font-family:var(--mono);font-weight:700;font-size:14px;}
+  .globe-sub{color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.6;}
+  @media(prefers-reduced-motion:reduce){ .globe-wrap svg{animation:none;} .globe-marker::after{animation:none;} }
 
   /* ===== CONTACT INFO GRID ===== */
   .contact-info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
@@ -641,6 +777,14 @@
     padding:5px 10px;cursor:pointer;margin-left:auto;flex-shrink:0;transition:background .2s ease;
   }
   #copyEmail:hover{background:rgba(245,166,35,0.22);}
+  #copyEmail.copied{background:rgba(94,217,139,0.22);border-color:rgba(94,217,139,0.5);color:#5ED98B;animation:copyPop .4s ease;}
+  @keyframes copyPop{ 0%{transform:scale(1);} 40%{transform:scale(1.18);} 100%{transform:scale(1);} }
+
+  /* ===== FORM SUCCESS ANIMATION ===== */
+  .send-btn.success{background:#5ED98B;animation:sendPulse .5s ease;}
+  @keyframes sendPulse{ 0%{transform:scale(1);} 45%{transform:scale(1.04);} 100%{transform:scale(1);} }
+  .success-burst{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:90;animation:burstFly .8s ease-out forwards;}
+  @keyframes burstFly{ to{ transform:translate(var(--bx), var(--by)) scale(0); opacity:0; } }
 
   /* ===== ANIMATED COUNTERS ===== */
   .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
@@ -735,218 +879,15 @@
     .skills-grid{gap:10px;}
     .hero-badge{font-size:11px;padding:7px 13px;}
   }
-
-  /* ===================================================================
-     SIGNATURE EFFECT 1 — circuit-line background layer (very slow drift)
-  =================================================================== */
-  .circuit-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;will-change:transform;}
-  body.light .circuit-bg{opacity:.09;}
-  .circuit-bg svg{width:140%;height:140%;position:absolute;top:-20%;left:-20%;animation:circuitDrift 140s linear infinite;}
-  @keyframes circuitDrift{
-    0%{transform:translate(0,0);}
-    50%{transform:translate(-2%,-1.5%);}
-    100%{transform:translate(0,0);}
-  }
-  .circuit-bg path{fill:none;stroke:var(--amber);stroke-width:1;}
-  .circuit-bg circle{fill:var(--violet);}
-  @media(prefers-reduced-motion:reduce){ .circuit-bg svg{animation:none;} }
-
-  .eng-icon.eng-code{font-family:var(--mono);font-weight:700;color:var(--violet);opacity:.18;filter:none;}
-  .eng-icon.eng-emoji{opacity:.16;}
-
-  /* ===================================================================
-     SIGNATURE EFFECT 2 — hero mouse-spotlight + entrance choreography
-  =================================================================== */
-  .hero{isolation:isolate;}
-  .hero-spotlight{
-    position:absolute;inset:0;z-index:0;pointer-events:none;
-    background:radial-gradient(420px circle at var(--sx,50%) var(--sy,30%), rgba(245,166,35,0.10), transparent 65%);
-    transition:background .15s ease;
-  }
-  .hero-rocket{
-    position:absolute;font-size:38px;top:14%;right:10%;z-index:0;pointer-events:none;
-    animation:rocketFloat 7s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(245,166,35,0.35));
-  }
-  @keyframes rocketFloat{
-    0%,100%{transform:translateY(0) rotate(-8deg);}
-    50%{transform:translateY(-22px) rotate(-2deg);}
-  }
-  .hero-gear{
-    display:inline-block;margin-left:10px;font-size:.72em;
-    animation:gearSpin 9s linear infinite;transform-origin:50% 50%;
-  }
-  @keyframes gearSpin{ to{transform:rotate(360deg);} }
-  .hero-orbit{
-    position:absolute;inset:0;pointer-events:none;z-index:0;
-    top:-40px;left:50%;width:220px;height:220px;transform:translateX(-50%);
-  }
-  .hero-orbit span{
-    position:absolute;top:50%;left:50%;font-size:20px;
-    transform-origin:0 0;animation:orbitSpin linear infinite;opacity:.85;
-  }
-  .hero-orbit span:nth-child(1){animation-duration:14s;--r:110px;}
-  .hero-orbit span:nth-child(2){animation-duration:19s;--r:110px;animation-direction:reverse;}
-  .hero-orbit span:nth-child(3){animation-duration:24s;--r:110px;}
-  @keyframes orbitSpin{
-    from{transform:rotate(0deg) translateX(var(--r)) rotate(0deg);}
-    to{transform:rotate(360deg) translateX(var(--r)) rotate(-360deg);}
-  }
-  @media(max-width:640px){ .hero-rocket{display:none;} .hero-orbit{width:160px;height:160px;} .hero-orbit span:nth-child(n){--r:78px;} }
-  @media(prefers-reduced-motion:reduce){
-    .hero-rocket, .hero-gear, .hero-orbit span{animation:none;}
-  }
-  .hero-name, .hero-badges, .hero-typing, .hero-tagline, .hero-actions, .hero-social, .glow-photo{
-    opacity:0;transform:translateY(22px);
-    animation:heroRise .7s cubic-bezier(.16,1,.3,1) forwards;
-  }
-  .glow-photo{animation-delay:.05s;}
-  .hero-name{animation-delay:.15s;}
-  .hero-badges{animation-delay:.25s;}
-  .hero-typing{animation-delay:.33s;}
-  .hero-tagline{animation-delay:.4s;}
-  .hero-actions{animation-delay:.48s;}
-  .hero-social{animation-delay:.55s;}
-  @keyframes heroRise{ to{opacity:1;transform:translateY(0);} }
-  @media(prefers-reduced-motion:reduce){
-    .hero-name, .hero-badges, .hero-typing, .hero-tagline, .hero-actions, .hero-social, .glow-photo{animation:none;opacity:1;transform:none;}
-  }
-
-  /* ===================================================================
-     SIGNATURE EFFECT 3 — 3D interactive project cards: animated
-     gradient border + shine sweep + tech-icon hover pop
-  =================================================================== */
-  .proj-card{position:relative;}
-  .proj-card.tilt-el{transform-style:preserve-3d;}
-  .proj-card::before{
-    content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;z-index:0;pointer-events:none;
-    background:conic-gradient(from var(--ang,0deg), var(--amber), var(--violet), transparent 40%, var(--amber));
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor; mask-composite:exclude;
-    opacity:0; transition:opacity .35s ease;
-    animation:borderSpin 5s linear infinite;
-  }
-  .proj-card:hover::before{opacity:1;}
-  @keyframes borderSpin{ to{ --ang:360deg; } }
-  @property --ang{ syntax:'<angle>'; inherits:false; initial-value:0deg; }
-  .proj-card .proj-shine{
-    position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;overflow:hidden;
-  }
-  .proj-card .proj-shine::after{
-    content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
-    background:linear-gradient(75deg, transparent, rgba(255,255,255,0.16), transparent);
-    transform:skewX(-18deg);transition:left .75s ease;
-  }
-  .proj-card:hover .proj-shine::after{left:130%;}
-  .proj-tag{transition:transform .2s ease, background .2s ease, color .2s ease;display:inline-flex;align-items:center;gap:5px;}
-  .proj-tag:hover{transform:translateY(-2px) scale(1.06);background:var(--amber);color:#0F0F14;cursor:default;}
-  .proj-preview-badge{
-    position:absolute;top:14px;right:14px;z-index:2;font-family:var(--mono);font-size:10.5px;font-weight:700;
-    padding:5px 10px;border-radius:var(--r-pill);background:rgba(93,217,139,0.16);color:#5ED98B;
-    opacity:0;transform:translateY(-4px);transition:opacity .25s ease, transform .25s ease;
-    display:flex;align-items:center;gap:5px;
-  }
-  .proj-card:hover .proj-preview-badge{opacity:1;transform:translateY(0);}
-  .proj-preview-badge .dot{width:6px;height:6px;border-radius:50%;background:#5ED98B;animation:pulseDot 1.4s ease-in-out infinite;}
-  @keyframes pulseDot{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
-
-  /* ===================================================================
-     HALL OF FAME
-  =================================================================== */
-  .fame-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  @media(max-width:900px){ .fame-grid{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:560px){ .fame-grid{grid-template-columns:1fr;} }
-  .fame-tile{
-    position:relative;text-align:center;padding:30px 18px;border-radius:var(--r-lg);overflow:hidden;
-    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
-  }
-  .fame-tile:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 40px -18px rgba(245,166,35,0.4);}
-  .fame-tile .fame-glow{
-    position:absolute;inset:-20%;z-index:0;pointer-events:none;opacity:0;transition:opacity .4s ease;
-    background:radial-gradient(circle at 50% 0%, rgba(245,166,35,0.25), transparent 60%);
-  }
-  .fame-tile:hover .fame-glow{opacity:1;}
-  .fame-tile .fame-emoji{font-size:34px;margin-bottom:12px;position:relative;z-index:1;display:inline-block;animation:fameBob 3.4s ease-in-out infinite;}
-  .fame-tile:nth-child(2) .fame-emoji{animation-delay:.3s;}
-  .fame-tile:nth-child(3) .fame-emoji{animation-delay:.6s;}
-  .fame-tile:nth-child(4) .fame-emoji{animation-delay:.9s;}
-  .fame-tile:nth-child(5) .fame-emoji{animation-delay:1.2s;}
-  .fame-tile:nth-child(6) .fame-emoji{animation-delay:1.5s;}
-  @keyframes fameBob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
-  .fame-num{position:relative;z-index:1;font-family:var(--mono);font-weight:800;font-size:34px;
-    background:linear-gradient(135deg,#FFFFFF,var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-  .fame-label{position:relative;z-index:1;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px;letter-spacing:.02em;}
-  @media(prefers-reduced-motion:reduce){ .fame-tile .fame-emoji{animation:none;} }
-
-  /* ===================================================================
-     CONTACT — magnetic social icons, mini map, success burst
-  =================================================================== */
-  .contact-chip{transition:transform .2s ease;}
-  .contact-map{
-    position:relative;border-radius:var(--r-lg);overflow:hidden;margin-bottom:28px;padding:0;
-    aspect-ratio:16/7;
-  }
-  .contact-map svg{width:100%;height:100%;display:block;}
-  .contact-map .map-land{fill:var(--border);opacity:.7;}
-  body.light .contact-map .map-land{opacity:.5;}
-  .contact-map .map-pin{transform-origin:center;animation:pinPulse 2.2s ease-in-out infinite;}
-  @keyframes pinPulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.25);} }
-  .contact-map .map-ring{animation:mapRing 2.2s ease-out infinite;transform-origin:center;}
-  @keyframes mapRing{ 0%{r:3;opacity:.9;} 100%{r:22;opacity:0;} }
-  .contact-map .map-label{
-    position:absolute;bottom:12px;left:14px;font-family:var(--mono);font-size:11.5px;color:var(--muted);
-    background:var(--glass-bg);backdrop-filter:blur(8px);padding:6px 12px;border-radius:var(--r-pill);border:1px solid var(--glass-border);
-  }
-  .send-success{
-    display:none;align-items:center;justify-content:center;gap:10px;margin-top:14px;
-    font-family:var(--mono);font-size:13px;color:#5ED98B;opacity:0;transform:scale(.9);
-  }
-  .send-success.show{display:flex;animation:successPop .5s cubic-bezier(.2,1.4,.4,1) forwards;}
-  @keyframes successPop{ to{opacity:1;transform:scale(1);} }
-  .send-success .check-circle{
-    width:22px;height:22px;border-radius:50%;background:#5ED98B;color:#0F0F14;
-    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;
-  }
-
-  /* ===================================================================
-     LOADER — rocket launch + staged status + percentage
-  =================================================================== */
-  #pageLoader{gap:22px;}
-  .loader-rocket-wrap{position:relative;width:60px;height:90px;display:flex;align-items:flex-end;justify-content:center;}
-  .loader-rocket{font-size:32px;animation:loaderRocketShake 2.6s ease-in-out infinite, loaderLaunch 2.6s cubic-bezier(.6,0,.9,.4) infinite;}
-  @keyframes loaderRocketShake{
-    0%,60%{transform:translateX(0) rotate(0deg);}
-    62%{transform:translateX(-2px) rotate(-3deg);}
-    64%{transform:translateX(2px) rotate(3deg);}
-    66%{transform:translateX(-1px) rotate(-1deg);}
-    68%,100%{transform:translateX(0) rotate(0deg);}
-  }
-  @keyframes loaderLaunch{
-    0%,68%{transform:translateY(0);}
-    100%{transform:translateY(-140px);opacity:0;}
-  }
-  .loader-flame{
-    position:absolute;bottom:-6px;width:10px;height:0;border-radius:50%;
-    background:radial-gradient(circle, #FFD37A, var(--amber) 60%, transparent 75%);
-    filter:blur(2px);animation:loaderFlame 2.6s ease-in-out infinite;
-  }
-  @keyframes loaderFlame{
-    0%,66%{height:0;opacity:0;}
-    70%{height:34px;opacity:1;}
-    100%{height:0;opacity:0;}
-  }
-  .loader-status{font-family:var(--mono);font-size:12.5px;color:var(--muted);min-height:16px;letter-spacing:.02em;}
-  .loader-pct{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.05em;}
 </style>
 </head>
 <body class="loading">
+<noscript><style>#pageLoader{display:none!important;} .hero-stagger>*, .reveal, .reveal-stagger>*{opacity:1!important;transform:none!important;}</style></noscript>
 
 <div id="pageLoader">
   <div class="loader-mark">gurukiran.dev</div>
-  <div class="loader-rocket-wrap">
-    <div class="loader-flame"></div>
-    <div class="loader-rocket">🚀</div>
-  </div>
-  <div class="loader-bar"></div>
+  <div class="loader-rocket-wrap"><span class="loader-rocket">🚀</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
   <div class="loader-status" id="loaderStatus">Initializing Portfolio...</div>
   <div class="loader-pct" id="loaderPct">0%</div>
 </div>
@@ -966,19 +907,17 @@
   <div class="bg-blob bg-blob-2" data-depth="0.045"></div>
   <div class="bg-blob bg-blob-3" data-depth="0.03"></div>
 </div>
-<div class="circuit-bg" aria-hidden="true">
-  <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 60 H180 V160 H400 V60 H620 V220 H800"/>
-    <path d="M0 420 H140 V320 H360 V420 H560 V300 H800"/>
-    <path d="M120 0 V120 H280 V260"/>
-    <path d="M700 0 V90 H520 V180 H700 V500"/>
-    <path d="M0 250 H90 V180"/>
-    <circle cx="180" cy="60" r="4"/><circle cx="400" cy="160" r="4"/><circle cx="620" cy="220" r="4"/>
-    <circle cx="140" cy="420" r="4"/><circle cx="360" cy="320" r="4"/><circle cx="560" cy="300" r="4"/>
-    <circle cx="280" cy="120" r="4"/><circle cx="520" cy="90" r="4"/><circle cx="90" cy="250" r="4"/>
-  </svg>
-</div>
 <div class="eng-bg" id="engBg" aria-hidden="true"></div>
+<svg class="circuit-bg" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+  <path d="M0 120 H180 V260 H420 V90 H700 V310" stroke="#F5A623"></path>
+  <path d="M1000 400 H760 V520 H520 V680 H260" stroke="#8B7FD6"></path>
+  <path d="M0 780 H220 V620 H480" stroke="#8B7FD6"></path>
+  <path d="M1000 60 H840 V220 H620" stroke="#F5A623"></path>
+  <path d="M120 1000 V860 H360 V940 H600" stroke="#8B7FD6"></path>
+  <circle cx="420" cy="90" r="4" fill="#F5A623" opacity=".6"></circle>
+  <circle cx="520" cy="680" r="4" fill="#8B7FD6" opacity=".6"></circle>
+  <circle cx="840" cy="220" r="4" fill="#F5A623" opacity=".6"></circle>
+</svg>
 <canvas id="particles"></canvas>
 
 <nav>
@@ -987,8 +926,8 @@
     <div class="navlinks">
       <a href="#about">about</a>
       <a href="#academics">academics</a>
+      <a href="#certifications">certs</a>
       <a href="#skills">skills</a>
-      <a href="#certs">certifications</a>
       <a href="#projects">projects</a>
       <a href="#contact">contact</a>
       <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark theme">
@@ -999,15 +938,18 @@
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-spotlight" id="heroSpotlight" aria-hidden="true"></div>
-  <div class="hero-rocket" aria-hidden="true">🚀</div>
-  <div class="hero-orbit" aria-hidden="true">
-    <span>⚙️</span><span>🛰️</span><span>💻</span>
-  </div>
+<header class="hero" id="heroSection">
+  <div class="hero-spotlight" id="heroSpotlight"></div>
+  <div class="hero-stagger" id="heroStagger">
+  <span class="hero-rocket" aria-hidden="true">🚀</span>
   <div class="glow-photo">
-  <img id="heroPhoto" alt="Gurukiran" style="width:160px;height:160px;border-radius:50%;object-fit:contain;object-position:center;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
-  <div class="hero-name">GURUKIRAN <span class="hero-gear" aria-hidden="true">⚙️</span></div>
+  <div class="hero-orbit" aria-hidden="true">
+    <div class="orbit-icon o1"><span>⚡</span></div>
+    <div class="orbit-icon o2"><span>🧩</span></div>
+    <div class="orbit-icon o3"><span>🐍</span></div>
+  </div>
+  <img id="heroPhoto" alt="Gurukiran" style="width:150px;height:150px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
+  <div class="hero-name">GURUKIRAN<span class="hero-gear" aria-hidden="true">⚙️</span></div>
   <div class="hero-badges">
     <span class="hero-badge">B.Tech CSE (Data Science)</span>
     <span class="hero-badge">Python &amp; AI</span>
@@ -1018,16 +960,14 @@
   <p class="hero-tagline">B.Tech CSE (Data Science) student focused on <span class="highlight">Python, AI, and full-stack development</span>. I build practical projects and sharpen my problem-solving through consistent DSA practice.</p>
   <div class="hero-actions">
     <a href="#projects" class="btn primary">View Work →</a>
-    <a href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyA5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKEd1cnVraXJhbiBOaW1iYWwgLSBSZXN1bWUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDUgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI0NTQKPj4Kc3RyZWFtCkdhdWBUPj9CZlYoNFEhWm0kSHMqOkxkKVs3UFtibFsmbkdGYm42SWszMWAiLiNVUnRUOFlxVy4qblFpJjVKKHE8K1Y6cEMyPGs2Ojs+WEMkSUpaPnJhJ1kiRXFCPFpNJ1tGRSgrOWtMXUo2ODZEZGgsaFk6T1xncW5zZChdXF4zLUtjK3NrYT5VKTwiKiEzMGI7dUp0ZTMnZ3VLUUIpWUdQXGtzMC4rcz9VLF4xbTBEWFk6S0R1Mko0MVY+cD9PJDpHUTpSTSxlV1ZkM1QycUAyIlY9cTw1YnVXN2FEUVY+UUxqSlVsKUIqQDlUTlYmaSlrY0ZyOlVgS28lNkVcK1BrZHJoOUo1ODtvOWkyWCc7KVZQQkQzS1YsLXM6ZixYPzZCa0ordFRfIl4+TjcwRl4qNU1USD5PcC9cZDZyTyRzNS1sVVBMY0BkN3F1KExzXiFScCNsZkosNUtnLF0mYy00dXVEOSRlQ2VbcVtQPmcoQGk9XygrdGE6ZktWa2pxIlQrbSI6O01tME1ZVChJPm9XPCYmJGZwa1FJckpYNlpwIiVUSkxHS2o9XSUhTEhETDAhbmgkWWolZmR1JC09YCQiXlZKaSc0QkwpYXU6KUFaNFNDPGQzXDBcIWo8X1ctTSVobGJpY2FgaUVBQjMqUz9DalJcaEBPTVo2Ml4hWl5uYWkiVi1xYVAtRlpDLEpgXmRlSWpgaEFqIWNTTW9Ya2tcQnNxLDk9Um4uV18qXE8uL21OR00iV0dXTy9mQSY1NmhNPC1NPy9kUmNuVz8xTD0oV01VYlsxR0xCTEQ9N1REXThyRmhjLjUpMHRkMGhBU3VpbUBoKS8uJll0MWNXZyswTWBFc1YlPnFNSDg2cDkuXzFBYDZLcDpxIUtILjFeR3FxJGo/PzRGWTVDaCVQNS1rK25HYSJhSzd1aS0hRl0uXnBKRD5wLHJ1bVVCSjooWTsoNnUrJCg8SkwmdUE1Qks4PSQiYT1RPjZVRHRfSTNja008OWM5YWY0OihNVSQpN09kKFVKWEdXUl8rZksyYCljXGVyJEdccWdSMmVpZTU4SzFOc0lLXU4mQ2o7YDozcS80UU8lX3BvZjw5SDRIImhVXG1bRVIxY3E9P3EhOjcoZkxnYWZbUF5iZHEvMFZWTktjY3JQIj0hO1E6YGM/PE9WQ3NkQyxLJ2JzVEYnQ0JyLnVeS1FTNzFGRDs9QlFrcFVqOC9XQidkPCZhJlJQQz8vXzlsTGhnNGxsLSVIUm1sNCRHa1Rlbixoa0FpJ0hyVDJmVERVMWZeR25oXGs7XG1RWWxxLWwiSlo4TGswVkhqOWBjIkRrbj40QixcUF9EYENbPWRJRDxEa10pP3IqKWhoTGZZXG4mXS8yMmlOcjkzY1QjK3AtQmxnV2okbi4kWD4pImZOZ1B1SyZNNCdVMCZfW0BRNUhlT0VfMEtGNE03QFc+SyJhc1BXMiJGTiZrQS9RSjE1Yj1OJVhSTj5ySVU9Y3QyMSsnYWoncyFSckNwbmxqIkVBX01yVnFHW2NaS0EmRUQ9Vk8nKUdUbz1SVXFuUFhvZXMzZi9wNSk2YScpaWVdaDNhMzI0ZUVVQzNDVVsjdThgTVZiSXNDYWNBX20vWy9NSUcvYjVTPlEwX01DaUFASCpcImpzMk1HQiFQVGc5QUJ1SEZEIkguOjBONz8xb1RpbmVuJiFXSUg/Oyc0OVkwX1k1MSw0Wm45Qi5DTUtoLDNhXlVyYCM2IihyYy8zXnFoIjo9ciZPMk1zL3JXOWxcclYnJUZDQytjO09rJy88YChFYVJVaEtKaydLSjFqYTE5Ols1ZTIoTkxTM2BER2BUKEFbPFFiUDxedUtwaTE1aDRWR10yV2hNbkNOcnBsOmo5c19mUy9ncT88UF9wPlw8c00jIWRIQztfT05jZ1VkKmlOMCRTKFByUzlyblxhdV4wSVUhWjUvY05NOT4wJ3EtPzt1Rj9RJEwtSWJaL1hCbClQWiY5KFQnXUwvXDpPOW08OWMzRWgvV1BdU2FyclZsSiEwXHI6XSQ+bkciMjVPZEIyKEZPRlpvOEBHKTMpdFFBPy0uKkMvLnQ8STopTkFVQCFDTGhnYUYiWTNHNG9zNyVILlRdKmdpLEYmXiNDTSRIIkEiK2ZyQGNvIjkldSsxYU5GNUVuU3IwSV1kQkksVEdhT29hUWBxQmxHYSlwaSVZZSsvR29VM04tKmZvckRsSjc8YFRlT20pTzZJZitaRyltX29sNG5bM0xpW2NCJ1V1UWcpI2ZhMUVaS1MnXFRFVjQrX2tXcWtxOUFwP15JK0ondSo7YV1hJVpzLzdYbTFqdDwudDhzZG5qRzdLI2dcL2QmM0ciWl5SXjlkSlJqKF4yMk9fZFZrYWJsalY2WjFULUBaPHAuTi4zOVBWWEYpJStcXClYRTdPSkxARk1CQjBbTk5kTXQyQTVQQC1XIy0/SkhJV2A1OG0nM0tEOmdSaFs/RWgzU1tBZFJAUHJddF03KWNiOWc7P1MvRD8lM2dbYV9INkY5NEI0cXBWVlE9M2MlXmEpIjNOZ19iTilrJTI9Vmc2PFE7cChwJFA+clkjJjtdTiQxRislOzVyTWVTKydLT0U5W2cpMW9HJHNoLFVAbHRJTSVSLGEiMyJCUk0mSlJPZW1edCc7azImNlEvbXFbL2U/Z21Gb25IIUdaSklmcXQ+VGxGMGohWDdfSlJUa2hYMlZ1OzxBaG1aOyhjVyNRRjA6OiwocExVY2pNLVdxKDZuPVhAa0hJOFBnVkInOldgLEA1TDxQa3QwKEIzZjQsWSpBJGQ7NWEwc1s2ODtGSlM2UTg6TklpRHU5KkNGJ04wZFNxOV9bXXVONz1nXnAmJik6OmBOXFMiL11eODszNCxVMD5pK2ROLFlEX18pUyRtcGxkKic3T2clTiRNTUg6M0tFNiVmU1RcPSUwPD1EPnRGLlEjJT4jZkZBJGllVjVOc1pTPi85altEYWFvaGM9JllCMz0sNiM5VnQrN0pXYCldVW84OG1acElCZ1txUUdjRC5KYyMkLiovZT4jL0MxZTNMakYzU2M8P2xyRlVAOzRNT2VzbUUkSCJDclpeKyFoJk9cUTtgISM8LWg6b28pOXFUV0l1P0AxMDlpUlclLFZdXmQ4aSEwY2hpQ0JGJ21OaWo8NFRJSyo7Qj0yTCRZb1JKNmdYSTkzYzhedXNFJFJaTmowLGgkJGljNkBDMyVnNypuTCpvUz9MJm51aiRtckdCPDYoQzU5Ym5nNFR+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDQ2IDAwMDAwIG4gCjAwMDAwMDA2MzkgMDAwMDAgbiAKMDAwMDAwMDcwNyAwMDAwMCBuIAowMDAwMDAwOTk5IDAwMDAwIG4gCjAwMDAwMDEwNTggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YWUwMjc4OWM4NjBhZTFkOGFkOTBmNDYzMWQxNTI1MGY+PGFlMDI3ODljODYwYWUxZDhhZDkwZjQ2MzFkMTUyNTBmPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMAo+PgpzdGFydHhyZWYKMzYwMwolJUVPRgo=" class="btn resume" download="Gurukiran-Resume.pdf">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Resume
-    </a>
+    <a href="#" id="resumeLink" class="btn ghost" download="Gurukiran-Resume.pdf">📄 Download Resume</a>
     <a href="#contact" class="btn ghost">Contact Me</a>
   </div>
   <div class="hero-social">
     <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397" title="LinkedIn" aria-label="LinkedIn profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.84c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V23H8.5V8.25z"/></svg></a>
     <a href="https://github.com/Gurukiran25" title="GitHub" aria-label="GitHub profile" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
     <a href="mailto:gurukiran0725@gmail.com" title="Email" aria-label="Send an email"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></a>
+  </div>
   </div>
 </header>
 
@@ -1037,7 +977,7 @@
     <div class="section-sub">A quick introduction.</div>
     <div class="about-grid reveal">
       <div class="about-card glass-card" style="text-align:center;">
-        <img id="aboutPhoto" alt="Gurukiran" style="width:190px;height:190px;border-radius:50%;object-fit:contain;object-position:center;background:var(--bg-raised);border:3px solid var(--amber);margin:0 auto 16px;box-shadow:0 10px 30px -10px rgba(245,166,35,0.4);">
+        <img id="aboutPhoto" alt="Gurukiran" style="width:180px;height:180px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin:0 auto 16px;box-shadow:0 10px 30px -10px rgba(245,166,35,0.4);">
         <div class="about-tag">Gurukiran Nimbal</div>
         <div class="about-mode">B.Tech CSE (Data Science)</div>
       </div>
@@ -1052,23 +992,39 @@
 
 <section id="stats">
   <div class="wrap">
-    <div class="stats-grid reveal-stagger">
-      <div class="stat-card glass-card tilt-el tilt-shine">
-        <div class="counter-num" data-target="4">0</div>
-        <div class="counter-label">Projects Built</div>
+    <div class="section-title">Hall of Fame</div>
+    <div class="section-sub">A quick scoreboard of what I've been building and grinding on.</div>
+    <div class="fame-grid reveal-stagger">
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🚀</div>
+        <div class="fame-num counter-num" data-target="4">0</div>
+        <div class="fame-label">Projects Shipped</div>
       </div>
-      <div class="stat-card glass-card tilt-el tilt-shine">
-        <div class="counter-num" data-target="100">0</div>
-        <div class="counter-label">DSA Problems Solved</div>
+      <div class="fame-card violet tilt-el tilt-shine">
+        <div class="fame-icon">🧩</div>
+        <div class="fame-num-wrap"><span class="fame-num counter-num" data-target="100">0</span><span class="fame-plus">+</span></div>
+        <div class="fame-label">LeetCode Problems</div>
       </div>
-      <div class="stat-card glass-card tilt-el tilt-shine">
-        <div class="counter-num" data-target="6">0</div>
-        <div class="counter-label">Tools &amp; Languages</div>
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🏆</div>
+        <div class="fame-num counter-num" data-target="2">0</div>
+        <div class="fame-label">Hackathons</div>
       </div>
-      <div class="stat-card glass-card tilt-el tilt-shine">
-        <div class="counter-num" data-target="1">0</div>
-        <div class="counter-label">Year of Building</div>
+      <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
+        <div class="fame-icon">📜</div>
+        <div class="fame-num counter-num" data-target="5">0</div>
+        <div class="fame-label">Certifications · View on LinkedIn</div>
+      </a>
+      <div class="fame-card tilt-el tilt-shine">
+        <div class="fame-icon">🎓</div>
+        <div class="fame-num counter-num" data-target="8.4">0</div>
+        <div class="fame-label">CGPA</div>
       </div>
+      <a href="https://github.com/Gurukiran25" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
+        <div class="fame-icon">🐙</div>
+        <div class="fame-qual">Building in Public</div>
+        <div class="fame-label">GitHub · Gurukiran25</div>
+      </a>
     </div>
   </div>
 </section>
@@ -1109,51 +1065,52 @@
   </div>
 </section>
 
-<section id="fame">
-  <div class="wrap fame-wrap">
-    <div class="section-title">Hall of Fame</div>
-    <div class="section-sub">Milestones from the journey so far.</div>
-    <div class="fame-grid reveal-stagger">
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">🧩</div>
-        <div class="fame-num"><span class="counter-num" data-target="100">0</span>+</div>
-        <div class="fame-label">LEETCODE SOLVED</div>
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-title">Certifications</div>
+    <div class="section-sub">5 certifications earned — details below, verified on <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" style="color:var(--amber);">LinkedIn →</a></div>
+    <div class="cert-stack reveal-stagger">
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 1</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
       </div>
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">🐙</div>
-        <div class="fame-num counter-num" data-target="400">0</div>
-        <div class="fame-label">GITHUB CONTRIBUTIONS</div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 2</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
       </div>
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">🏆</div>
-        <div class="fame-num counter-num" data-target="2">0</div>
-        <div class="fame-label">HACKATHONS</div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 3</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
       </div>
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">📜</div>
-        <div class="fame-num counter-num" data-target="5">0</div>
-        <div class="fame-label">CERTIFICATIONS</div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 4</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
       </div>
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">🎓</div>
-        <div class="fame-num" data-decimal="8.4">0.0</div>
-        <div class="fame-label">CURRENT CGPA</div>
-      </div>
-      <div class="fame-tile glass-card">
-        <div class="fame-glow"></div>
-        <div class="fame-emoji">🛠️</div>
-        <div class="fame-num counter-num" data-target="4">0</div>
-        <div class="fame-label">PROJECTS SHIPPED</div>
+      <div class="cert-card glass-card tilt-el tilt-shine">
+        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
+        <div class="cert-icon">📜</div>
+        <div class="cert-title">Certification Title 5</div>
+        <div class="cert-org">Issuing Platform / Organization</div>
+        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
+        <a href="#" class="cert-verify">Verify credential →</a>
       </div>
     </div>
-    <p style="text-align:center;margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted);">
-      Placeholder figures — swap in your real numbers before publishing.
-    </p>
   </div>
 </section>
 
@@ -1190,58 +1147,6 @@
   </div>
 </section>
 
-<section id="certs">
-  <div class="wrap">
-    <div class="section-title">Certifications</div>
-    <div class="section-sub">Courses and credentials I've completed along the way.</div>
-    <div class="cert-grid reveal-stagger">
-      <div class="cert-card glass-card">
-        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
-        <div>
-          <div class="cert-name">Python for Data Science</div>
-          <div class="cert-issuer">NPTEL / IIT</div>
-          <div class="cert-meta">2024 <a href="#" class="cert-link">View credential →</a></div>
-        </div>
-      </div>
-      <div class="cert-card glass-card">
-        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
-        <div>
-          <div class="cert-name">Machine Learning Foundations</div>
-          <div class="cert-issuer">Coursera</div>
-          <div class="cert-meta">2024 <a href="#" class="cert-link">View credential →</a></div>
-        </div>
-      </div>
-      <div class="cert-card glass-card">
-        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
-        <div>
-          <div class="cert-name">Full-Stack Web Development</div>
-          <div class="cert-issuer">freeCodeCamp</div>
-          <div class="cert-meta">2023 <a href="#" class="cert-link">View credential →</a></div>
-        </div>
-      </div>
-      <div class="cert-card glass-card">
-        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
-        <div>
-          <div class="cert-name">Data Structures & Algorithms</div>
-          <div class="cert-issuer">GeeksforGeeks</div>
-          <div class="cert-meta">2023 <a href="#" class="cert-link">View credential →</a></div>
-        </div>
-      </div>
-      <div class="cert-card glass-card">
-        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
-        <div>
-          <div class="cert-name">Automation with n8n</div>
-          <div class="cert-issuer">n8n Academy</div>
-          <div class="cert-meta">2025 <a href="#" class="cert-link">View credential →</a></div>
-        </div>
-      </div>
-    </div>
-    <p style="text-align:center;margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted);">
-      Placeholder entries — replace names, issuers, dates, and links with your real certificates.
-    </p>
-  </div>
-</section>
-
 <section id="projects">
   <div class="wrap">
     <div class="section-title">Projects</div>
@@ -1256,18 +1161,19 @@
 
     <div class="proj-stack reveal-stagger">
 
-      <div class="proj-card glass-card proj-foodsnap tilt-el tilt-shine" data-category="web">
-        <div class="proj-preview-badge"><span class="dot"></span>Live Demo Ready</div>
-        <div class="proj-shine"></div>
+      <div class="proj-card glass-card proj-foodsnap tilt-el tilt-shine" data-category="web" data-live="https://cheapbite.lovable.app/">
         <div class="proj-banner">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#8CE6B0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18"/><circle cx="12" cy="12" r="9"/><path d="M9 9v6M15 9v6"/></svg>
+          <div class="proj-preview" data-preview-slot>
+            <div class="pp-label"><span class="pp-dot"></span>Live Preview</div>
+          </div>
         </div>
         <div class="proj-body">
           <div class="proj-badge">Web App</div>
           <div class="proj-title">CheapBite</div>
           <div class="proj-desc">A <span class="highlight">food price comparison</span> web app that pulls listings from multiple sources so users can compare prices before ordering.</div>
           <div class="proj-tags">
-            <span class="proj-tag">React</span><span class="proj-tag">Web App</span><span class="proj-tag">UX</span>
+            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🌐</span>Web App</span><span class="proj-tag"><span class="tag-ic">🎨</span>UX</span>
           </div>
           <div class="proj-links">
             <a href="https://cheapbite.lovable.app/" class="proj-link primary" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live Demo</a>
@@ -1277,8 +1183,6 @@
       </div>
 
       <div class="proj-card glass-card proj-groq tilt-el tilt-shine" data-category="ai">
-        <div class="proj-preview-badge"><span class="dot"></span>AI Powered</div>
-        <div class="proj-shine"></div>
         <div class="proj-banner">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#C9BCF7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 10h.01M15 10h.01M9 14h6"/><path d="M12 3v3M4 12H2M22 12h-2"/></svg>
         </div>
@@ -1287,7 +1191,7 @@
           <div class="proj-title">Groq Chatbot</div>
           <div class="proj-desc">A command-line AI chatbot built on the <span class="highlight">Groq API with LLaMA 3.1</span>, first written and run from a Termux terminal on Android.</div>
           <div class="proj-tags">
-            <span class="proj-tag">Python</span><span class="proj-tag">Groq API</span><span class="proj-tag">AI</span>
+            <span class="proj-tag"><span class="tag-ic">🐍</span>Python</span><span class="proj-tag"><span class="tag-ic">⚡</span>Groq API</span><span class="proj-tag"><span class="tag-ic">🧠</span>AI</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/gurukiran25/My-first-repo" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1296,8 +1200,6 @@
       </div>
 
       <div class="proj-card glass-card proj-n8n tilt-el tilt-shine" data-category="automation">
-        <div class="proj-preview-badge"><span class="dot"></span>Automated</div>
-        <div class="proj-shine"></div>
         <div class="proj-banner">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#9FCBF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h6.6M18 8.5V15.5M8.2 7.5 15.8 16.5"/></svg>
         </div>
@@ -1306,7 +1208,7 @@
           <div class="proj-title">n8n Automation Suite</div>
           <div class="proj-desc">A set of <span class="highlight">workflow automations</span>, including a GitHub Issues → Slack notification pipeline built for a personal dev workspace.</div>
           <div class="proj-tags">
-            <span class="proj-tag">n8n</span><span class="proj-tag">GitHub API</span><span class="proj-tag">Slack</span>
+            <span class="proj-tag"><span class="tag-ic">🔧</span>n8n</span><span class="proj-tag"><span class="tag-ic">🐙</span>GitHub API</span><span class="proj-tag"><span class="tag-ic">💬</span>Slack</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1315,8 +1217,6 @@
       </div>
 
       <div class="proj-card glass-card proj-agent tilt-el tilt-shine" data-category="ai">
-        <div class="proj-preview-badge"><span class="dot"></span>AI Powered</div>
-        <div class="proj-shine"></div>
         <div class="proj-banner">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F5C579" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 3 5-7"/></svg>
         </div>
@@ -1325,7 +1225,7 @@
           <div class="proj-title">Multi-Agent Reporting System</div>
           <div class="proj-desc">A <span class="highlight">multi-agent AI system</span> built in React that coordinates data analysis and generates automated reports.</div>
           <div class="proj-tags">
-            <span class="proj-tag">React</span><span class="proj-tag">Multi-Agent</span><span class="proj-tag">Data</span>
+            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🤝</span>Multi-Agent</span><span class="proj-tag"><span class="tag-ic">📊</span>Data</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1342,21 +1242,22 @@
     <div class="section-title">Get in Touch</div>
     <div class="section-sub">Open to internship opportunities and collaborations.</div>
 
-    <div class="contact-map glass-card reveal">
-      <svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
-        <g class="map-land">
-          <path d="M60 90c30-20 70-10 90 10 20-15 60-10 70 10 30-5 60 10 55 30-10 20-50 15-70 25-10 20-45 25-65 10-25 5-55-5-60-25-20-5-30-30-20-60z"/>
-          <path d="M330 60c40-15 90-5 100 20 30-10 70 5 65 30 25 10 20 40-5 45-20 15-60 10-80 25-30 5-60-10-65-35-25-5-35-35-15-55z"/>
-          <path d="M470 150c50-10 110 5 130 35 20 25 5 55-25 65-35 20-85 15-115-5-30-10-40-45-20-70 8-11 18-19 30-25z"/>
-          <path d="M600 40c35-10 75 5 85 30 15 20 0 40-25 45-25 15-60 5-75-15-15-20-5-45 15-60z"/>
-          <path d="M110 220c25-10 55 0 60 20 10 20-5 40-30 45-25 10-50-5-55-25-5-18 5-32 25-40z"/>
-        </g>
-        <g>
-          <circle class="map-ring" cx="512" cy="196" r="3" fill="none" stroke="var(--amber)" stroke-width="2"/>
-          <circle class="map-pin" cx="512" cy="196" r="6" fill="var(--amber)"/>
-        </g>
-      </svg>
-      <div class="map-label">📍 Bengaluru, India — open to remote work</div>
+    <div class="globe-card glass-card reveal">
+      <div class="globe-wrap">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46"></circle>
+          <ellipse cx="50" cy="50" rx="46" ry="18"></ellipse>
+          <ellipse cx="50" cy="50" rx="46" ry="32"></ellipse>
+          <ellipse cx="50" cy="50" rx="18" ry="46"></ellipse>
+          <ellipse cx="50" cy="50" rx="32" ry="46"></ellipse>
+          <line x1="4" y1="50" x2="96" y2="50"></line>
+        </svg>
+        <div class="globe-marker" title="Bengaluru, Karnataka, India"></div>
+      </div>
+      <div class="globe-info">
+        <div class="globe-loc">📍 Bengaluru, Karnataka, India</div>
+        <div class="globe-sub">Open to remote work and relocation for the right internship or opportunity.</div>
+      </div>
     </div>
 
     <div class="contact-info reveal-stagger">
@@ -1397,7 +1298,6 @@
       </div>
       <button class="send-btn" type="submit" id="cf-submit">✈ Send Message</button>
       <p id="cf-status" role="status" aria-live="polite" style="text-align:center;margin-top:14px;font-family:var(--mono);font-size:12.5px;min-height:18px;"></p>
-      <div class="send-success" id="cfSuccess"><span class="check-circle">✓</span> Message launched — I'll reply soon!</div>
       <p style="text-align:center;margin-top:2px;font-family:var(--mono);font-size:12px;color:var(--muted);">
         Prefer email? <a href="mailto:gurukiran0725@gmail.com" style="color:var(--amber);">gurukiran0725@gmail.com →</a>
       </p>
@@ -1438,6 +1338,9 @@
   const PHOTO_SRC = "data:image/webp;base64,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";
   document.getElementById('heroPhoto').src = PHOTO_SRC;
   document.getElementById('aboutPhoto').src = PHOTO_SRC;
+  const RESUME_SRC = "data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyA5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKEd1cnVraXJhbiBOaW1iYWwgLSBSZXN1bWUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDUgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI0NTQKPj4Kc3RyZWFtCkdhdWBUPj9CZlYoNFEhWm0kSHMqOkxkKVs3UFtibFsmbkdGYm42SWszMWAiLiNVUnRUOFlxVy4qblFpJjVKKHE8K1Y6cEMyPGs2Ojs+WEMkSUpaPnJhJ1kiRXFCPFpNJ1tGRSgrOWtMXUo2ODZEZGgsaFk6T1xncW5zZChdXF4zLUtjK3NrYT5VKTwiKiEzMGI7dUp0ZTMnZ3VLUUIpWUdQXGtzMC4rcz9VLF4xbTBEWFk6S0R1Mko0MVY+cD9PJDpHUTpSTSxlV1ZkM1QycUAyIlY9cTw1YnVXN2FEUVY+UUxqSlVsKUIqQDlUTlYmaSlrY0ZyOlVgS28lNkVcK1BrZHJoOUo1ODtvOWkyWCc7KVZQQkQzS1YsLXM6ZixYPzZCa0ordFRfIl4+TjcwRl4qNU1USD5PcC9cZDZyTyRzNS1sVVBMY0BkN3F1KExzXiFScCNsZkosNUtnLF0mYy00dXVEOSRlQ2VbcVtQPmcoQGk9XygrdGE6ZktWa2pxIlQrbSI6O01tME1ZVChJPm9XPCYmJGZwa1FJckpYNlpwIiVUSkxHS2o9XSUhTEhETDAhbmgkWWolZmR1JC09YCQiXlZKaSc0QkwpYXU6KUFaNFNDPGQzXDBcIWo8X1ctTSVobGJpY2FgaUVBQjMqUz9DalJcaEBPTVo2Ml4hWl5uYWkiVi1xYVAtRlpDLEpgXmRlSWpgaEFqIWNTTW9Ya2tcQnNxLDk9Um4uV18qXE8uL21OR00iV0dXTy9mQSY1NmhNPC1NPy9kUmNuVz8xTD0oV01VYlsxR0xCTEQ9N1REXThyRmhjLjUpMHRkMGhBU3VpbUBoKS8uJll0MWNXZyswTWBFc1YlPnFNSDg2cDkuXzFBYDZLcDpxIUtILjFeR3FxJGo/PzRGWTVDaCVQNS1rK25HYSJhSzd1aS0hRl0uXnBKRD5wLHJ1bVVCSjooWTsoNnUrJCg8SkwmdUE1Qks4PSQiYT1RPjZVRHRfSTNja008OWM5YWY0OihNVSQpN09kKFVKWEdXUl8rZksyYCljXGVyJEdccWdSMmVpZTU4SzFOc0lLXU4mQ2o7YDozcS80UU8lX3BvZjw5SDRIImhVXG1bRVIxY3E9P3EhOjcoZkxnYWZbUF5iZHEvMFZWTktjY3JQIj0hO1E6YGM/PE9WQ3NkQyxLJ2JzVEYnQ0JyLnVeS1FTNzFGRDs9QlFrcFVqOC9XQidkPCZhJlJQQz8vXzlsTGhnNGxsLSVIUm1sNCRHa1Rlbixoa0FpJ0hyVDJmVERVMWZeR25oXGs7XG1RWWxxLWwiSlo4TGswVkhqOWBjIkRrbj40QixcUF9EYENbPWRJRDxEa10pP3IqKWhoTGZZXG4mXS8yMmlOcjkzY1QjK3AtQmxnV2okbi4kWD4pImZOZ1B1SyZNNCdVMCZfW0BRNUhlT0VfMEtGNE03QFc+SyJhc1BXMiJGTiZrQS9RSjE1Yj1OJVhSTj5ySVU9Y3QyMSsnYWoncyFSckNwbmxqIkVBX01yVnFHW2NaS0EmRUQ9Vk8nKUdUbz1SVXFuUFhvZXMzZi9wNSk2YScpaWVdaDNhMzI0ZUVVQzNDVVsjdThgTVZiSXNDYWNBX20vWy9NSUcvYjVTPlEwX01DaUFASCpcImpzMk1HQiFQVGc5QUJ1SEZEIkguOjBONz8xb1RpbmVuJiFXSUg/Oyc0OVkwX1k1MSw0Wm45Qi5DTUtoLDNhXlVyYCM2IihyYy8zXnFoIjo9ciZPMk1zL3JXOWxcclYnJUZDQytjO09rJy88YChFYVJVaEtKaydLSjFqYTE5Ols1ZTIoTkxTM2BER2BUKEFbPFFiUDxedUtwaTE1aDRWR10yV2hNbkNOcnBsOmo5c19mUy9ncT88UF9wPlw8c00jIWRIQztfT05jZ1VkKmlOMCRTKFByUzlyblxhdV4wSVUhWjUvY05NOT4wJ3EtPzt1Rj9RJEwtSWJaL1hCbClQWiY5KFQnXUwvXDpPOW08OWMzRWgvV1BdU2FyclZsSiEwXHI6XSQ+bkciMjVPZEIyKEZPRlpvOEBHKTMpdFFBPy0uKkMvLnQ8STopTkFVQCFDTGhnYUYiWTNHNG9zNyVILlRdKmdpLEYmXiNDTSRIIkEiK2ZyQGNvIjkldSsxYU5GNUVuU3IwSV1kQkksVEdhT29hUWBxQmxHYSlwaSVZZSsvR29VM04tKmZvckRsSjc8YFRlT20pTzZJZitaRyltX29sNG5bM0xpW2NCJ1V1UWcpI2ZhMUVaS1MnXFRFVjQrX2tXcWtxOUFwP15JK0ondSo7YV1hJVpzLzdYbTFqdDwudDhzZG5qRzdLI2dcL2QmM0ciWl5SXjlkSlJqKF4yMk9fZFZrYWJsalY2WjFULUBaPHAuTi4zOVBWWEYpJStcXClYRTdPSkxARk1CQjBbTk5kTXQyQTVQQC1XIy0/SkhJV2A1OG0nM0tEOmdSaFs/RWgzU1tBZFJAUHJddF03KWNiOWc7P1MvRD8lM2dbYV9INkY5NEI0cXBWVlE9M2MlXmEpIjNOZ19iTilrJTI9Vmc2PFE7cChwJFA+clkjJjtdTiQxRislOzVyTWVTKydLT0U5W2cpMW9HJHNoLFVAbHRJTSVSLGEiMyJCUk0mSlJPZW1edCc7azImNlEvbXFbL2U/Z21Gb25IIUdaSklmcXQ+VGxGMGohWDdfSlJUa2hYMlZ1OzxBaG1aOyhjVyNRRjA6OiwocExVY2pNLVdxKDZuPVhAa0hJOFBnVkInOldgLEA1TDxQa3QwKEIzZjQsWSpBJGQ7NWEwc1s2ODtGSlM2UTg6TklpRHU5KkNGJ04wZFNxOV9bXXVONz1nXnAmJik6OmBOXFMiL11eODszNCxVMD5pK2ROLFlEX18pUyRtcGxkKic3T2clTiRNTUg6M0tFNiVmU1RcPSUwPD1EPnRGLlEjJT4jZkZBJGllVjVOc1pTPi85altEYWFvaGM9JllCMz0sNiM5VnQrN0pXYCldVW84OG1acElCZ1txUUdjRC5KYyMkLiovZT4jL0MxZTNMakYzU2M8P2xyRlVAOzRNT2VzbUUkSCJDclpeKyFoJk9cUTtgISM8LWg6b28pOXFUV0l1P0AxMDlpUlclLFZdXmQ4aSEwY2hpQ0JGJ21OaWo8NFRJSyo7Qj0yTCRZb1JKNmdYSTkzYzhedXNFJFJaTmowLGgkJGljNkBDMyVnNypuTCpvUz9MJm51aiRtckdCPDYoQzU5Ym5nNFR+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDQ2IDAwMDAwIG4gCjAwMDAwMDA2MzkgMDAwMDAgbiAKMDAwMDAwMDcwNyAwMDAwMCBuIAowMDAwMDAwOTk5IDAwMDAwIG4gCjAwMDAwMDEwNTggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YWUwMjc4OWM4NjBhZTFkOGFkOTBmNDYzMWQxNTI1MGY+PGFlMDI3ODljODYwYWUxZDhhZDkwZjQ2MzFkMTUyNTBmPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMAo+PgpzdGFydHhyZWYKMzYwMwolJUVPRgo=";
+  const resumeLink = document.getElementById('resumeLink');
+  if(resumeLink) resumeLink.href = RESUME_SRC;
 </script>
 <script>
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
@@ -1475,12 +1378,13 @@
       });
     });
 
-    /* Magnetic pull on hero CTA buttons, project links, and chat send button */
+    /* Magnetic pull on hero CTA buttons, project links, chat send button,
+       contact chips, and hero social icons */
     document.querySelectorAll('.hero-actions .btn, .proj-link, .chat-send, .filter-btn, .contact-chip, .hero-social a').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.22;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
         btn.style.transform = `translate(${x}px, ${y}px)`;
       });
       btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
@@ -1546,21 +1450,6 @@
       dot.classList.remove('click'); ring.classList.remove('click');
     });
   }
-
-  /* HERO MOUSE SPOTLIGHT */
-  (function(){
-    const hero = document.querySelector('.hero');
-    const spot = document.getElementById('heroSpotlight');
-    if(!hero || !spot) return;
-    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      spot.style.setProperty('--sx', x + '%');
-      spot.style.setProperty('--sy', y + '%');
-    });
-  })();
 
   /* BACK TO TOP */
   const backToTop = document.getElementById('backToTop');
@@ -1637,7 +1526,7 @@
   (function(){
     const overlay = document.getElementById('notFound');
     const homeBtn = document.getElementById('nfHome');
-    const validHashes = ['', '#', '#about', '#academics', '#stats', '#fame', '#skills', '#projects', '#contact'];
+    const validHashes = ['', '#', '#about', '#academics', '#certifications', '#stats', '#skills', '#projects', '#contact'];
     function checkRoute(){
       const isValid = validHashes.includes(window.location.hash);
       overlay.classList.toggle('show', !isValid);
@@ -1672,6 +1561,33 @@
     });
   })();
 
+  /* LIVE PROJECT PREVIEW — lazy-loads a real screenshot of the deployed
+     site via microlink.io the first time a card with a public demo URL
+     is hovered (or tapped on touch devices). Falls back silently to the
+     icon banner if the request ever fails. */
+  (function(){
+    document.querySelectorAll('.proj-card[data-live]').forEach(card => {
+      const slot = card.querySelector('[data-preview-slot]');
+      if(!slot) return;
+      let loaded = false;
+      const load = () => {
+        if(loaded) return;
+        loaded = true;
+        const liveUrl = card.dataset.live;
+        const titleEl = card.querySelector('.proj-title');
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.alt = 'Live preview of ' + (titleEl ? titleEl.textContent : 'the project');
+        img.referrerPolicy = 'no-referrer';
+        img.onerror = () => { slot.style.display = 'none'; };
+        img.src = 'https://api.microlink.io/?url=' + encodeURIComponent(liveUrl) + '&screenshot=true&meta=false&embed=screenshot.url';
+        slot.appendChild(img);
+      };
+      card.addEventListener('mouseenter', load, { once: true });
+      card.addEventListener('touchstart', load, { once: true, passive: true });
+    });
+  })();
+
   /* EMAIL COPY BUTTON */
   (function(){
     const btn = document.getElementById('copyEmail');
@@ -1682,7 +1598,8 @@
       navigator.clipboard.writeText(email).then(() => {
         const original = btn.textContent;
         btn.textContent = '✓ Copied';
-        setTimeout(() => btn.textContent = original, 1600);
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
       }).catch(() => {});
     });
   })();
@@ -1692,13 +1609,16 @@
     const counters = document.querySelectorAll('.counter-num');
     if(!counters.length) return;
     const animate = (el) => {
-      const target = parseInt(el.dataset.target, 10);
+      const raw = el.dataset.target;
+      const target = parseFloat(raw);
+      const decimals = (raw.split('.')[1] || '').length;
       let current = 0;
-      const step = Math.max(1, Math.ceil(target / 60));
+      const steps = 40;
+      const inc = target / steps;
       const run = () => {
-        current += step;
-        if(current >= target){ el.textContent = target; return; }
-        el.textContent = current;
+        current += inc;
+        if(current >= target){ el.textContent = target.toFixed(decimals); return; }
+        el.textContent = current.toFixed(decimals);
         requestAnimationFrame(run);
       };
       run();
@@ -1714,36 +1634,34 @@
     counters.forEach(c => cIo.observe(c));
   })();
 
-  /* DECIMAL COUNTER (e.g. CGPA) */
-  (function(){
-    const els = document.querySelectorAll('.fame-num[data-decimal]');
-    if(!els.length) return;
-    const animate = (el) => {
-      const target = parseFloat(el.dataset.decimal);
-      let current = 0;
-      const step = target / 40;
-      const run = () => {
-        current += step;
-        if(current >= target){ el.textContent = target.toFixed(1); return; }
-        el.textContent = current.toFixed(1);
-        requestAnimationFrame(run);
-      };
-      run();
-    };
-    const dIo = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){ animate(entry.target); dIo.unobserve(entry.target); }
-      });
-    }, {threshold: 0.4});
-    els.forEach(e => dIo.observe(e));
-  })();
-
   /* CONTACT FORM — inline submit, no redirect away from the page */
   (function(){
     const form = document.getElementById('contactForm');
     if(!form) return;
     const status = document.getElementById('cf-status');
     const submitBtn = document.getElementById('cf-submit');
+
+    function burstSuccess(){
+      const rect = submitBtn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+      const colors = ['#F5A623', '#8B7FD6', '#5ED98B'];
+      for(let i = 0; i < 14; i++){
+        const p = document.createElement('div');
+        p.className = 'success-burst';
+        const angle = (Math.PI * 2 * i) / 14;
+        const dist = 60 + Math.random() * 40;
+        p.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        p.style.background = colors[i % colors.length];
+        document.body.appendChild(p);
+        p.addEventListener('animationend', () => p.remove());
+      }
+      submitBtn.classList.add('success');
+      setTimeout(() => submitBtn.classList.remove('success'), 600);
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       submitBtn.disabled = true;
@@ -1758,14 +1676,10 @@
           body: new FormData(form)
         });
         if(res.ok){
-          status.textContent = '';
+          status.textContent = '✓ Message sent — thanks for reaching out!';
+          status.style.color = '#5ED98B';
+          burstSuccess();
           form.reset();
-          const success = document.getElementById('cfSuccess');
-          if(success){
-            success.classList.remove('show');
-            void success.offsetWidth;
-            success.classList.add('show');
-          }
         } else {
           throw new Error('Request failed');
         }
@@ -1797,54 +1711,68 @@
     try { localStorage.setItem('theme', next); } catch(e){}
   });
 
-  /* PAGE LOADER — rocket launch, staged messages, live percentage */
+  /* PAGE LOADER — simulated progress + status cycling + rocket launch,
+     then hands off into the hero entrance animation. */
   (function(){
     const loader = document.getElementById('pageLoader');
     if(!loader) return;
+    const fill = document.getElementById('loaderFill');
     const statusEl = document.getElementById('loaderStatus');
     const pctEl = document.getElementById('loaderPct');
-    const stages = [
-      { at: 0,  text: 'Initializing Portfolio...' },
-      { at: 30, text: 'Loading AI Systems...' },
-      { at: 60, text: 'Compiling Projects...' },
-      { at: 85, text: 'Almost there...' }
+    const messages = [
+      'Initializing Portfolio...',
+      'Loading AI Systems...',
+      'Compiling Projects...',
+      'Calibrating Thrusters...',
+      'Ready for Launch...'
     ];
-    let pct = 0, doneLoading = false, stopped = false;
-    function renderStage(){
-      let msg = stages[0].text;
-      for(const s of stages){ if(pct >= s.at) msg = s.text; }
-      if(statusEl) statusEl.textContent = msg;
-      if(pctEl) pctEl.textContent = Math.floor(pct) + '%';
-    }
-    function tick(){
-      if(stopped) return;
-      const ceiling = doneLoading ? 100 : 92;
-      if(pct < ceiling){
-        pct += (ceiling - pct) * 0.08 + 0.4;
-        if(pct > ceiling) pct = ceiling;
-        renderStage();
-        requestAnimationFrame(tick);
-      } else if(doneLoading){
-        renderStage();
-        finish();
-      } else {
-        requestAnimationFrame(tick);
-      }
-    }
+    let pct = 0, msgIndex = 0, done = false;
+    const tick = setInterval(() => {
+      pct = Math.min(pct + (4 + Math.random() * 10), 96);
+      if(fill) fill.style.width = pct + '%';
+      if(pctEl) pctEl.textContent = Math.round(pct) + '%';
+      const next = Math.min(Math.floor((pct / 100) * messages.length), messages.length - 1);
+      if(next !== msgIndex){ msgIndex = next; if(statusEl) statusEl.textContent = messages[msgIndex]; }
+    }, 180);
+
     const finish = () => {
-      if(stopped) return;
-      stopped = true;
-      loader.classList.add('hide');
-      document.body.classList.remove('loading');
-      setTimeout(() => loader.remove(), 600);
+      if(done) return;
+      done = true;
+      clearInterval(tick);
+      if(fill) fill.style.width = '100%';
+      if(pctEl) pctEl.textContent = '100%';
+      if(statusEl) statusEl.textContent = messages[messages.length - 1];
+      loader.classList.add('launch');
+      setTimeout(() => {
+        loader.classList.add('hide');
+        document.body.classList.remove('loading');
+        const heroStagger = document.getElementById('heroStagger');
+        if(heroStagger) heroStagger.classList.add('in');
+        setTimeout(() => loader.remove(), 600);
+      }, 380);
     };
-    requestAnimationFrame(tick);
     if(document.readyState === 'complete'){
-      doneLoading = true;
+      setTimeout(finish, 500);
     } else {
-      window.addEventListener('load', () => { doneLoading = true; });
-      setTimeout(() => { doneLoading = true; }, 2500);
+      window.addEventListener('load', () => setTimeout(finish, 500));
+      // Fallback in case 'load' is delayed by slow subresources
+      setTimeout(finish, 2600);
     }
+  })();
+
+  /* HERO SPOTLIGHT — follows the pointer within the hero */
+  (function(){
+    const hero = document.getElementById('heroSection');
+    const spot = document.getElementById('heroSpotlight');
+    if(!hero || !spot) return;
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      spot.style.setProperty('--sx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+      spot.style.setProperty('--sy', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+      spot.classList.add('active');
+    });
+    hero.addEventListener('mouseleave', () => spot.classList.remove('active'));
   })();
 
   /* GLASS WATER-SHINE — pointer-tracked highlight per card */
@@ -1911,43 +1839,51 @@
   })();
 
   /* ===== ANIMATED ENGINEERING BACKGROUND ===== */
+  /* Curated set matching the brief: rockets, robots, gears, laptop,
+     satellite, AI brain, CPU chips, plus floating code symbols. Each node
+     gets a slow independent drift vector (sin/cos, different speed+phase)
+     computed in the same rAF loop as the mouse/scroll parallax, so the
+     "slow moving" motion and the parallax never fight each other. */
   (function(){
     const layer = document.getElementById('engBg');
     if(!layer) return;
-    const EMOJI_ICONS = ['🚀','🛰️','🤖','⚙️','🔩','💻','⌨️','🖥️','📱','📡','⚡','🧠','💾','🌐','☁️','🐍','⚛️','🔧'];
-    const CODE_ICONS  = ['</>','{ }','01','#!','[ ]','=>','&&','::'];
+    const EMOJI = ['🚀','🛰️','🤖','⚙️','💻','🧠','🖥️','⚙️','🚀','🤖','🛰️','🧠'];
+    const CODE = ['</>','{ }','01','$_','#!/','=>','01','{ }'];
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const COUNT = window.innerWidth < 700 ? 10 : 20;
+    const isMobile = window.innerWidth < 700;
+    const EMOJI_COUNT = isMobile ? 8 : 14;
+    const CODE_COUNT = isMobile ? 4 : 8;
     const nodes = [];
 
-    for(let i = 0; i < COUNT; i++){
+    function makeNode(text, isCode, idx){
       const wrap = document.createElement('div');
       wrap.className = 'eng-icon-wrap';
-      const top = Math.random() * 90;
-      const left = Math.random() * 92;
-      wrap.style.top = top + '%';
-      wrap.style.left = left + '%';
+      wrap.style.top = (Math.random() * 90) + '%';
+      wrap.style.left = (Math.random() * 92) + '%';
 
-      const useCode = i % 4 === 3; // 1 in 4 nodes is a floating code symbol
       const icon = document.createElement('span');
-      icon.className = 'eng-icon ' + (useCode ? 'eng-code' : 'eng-emoji');
-      icon.textContent = useCode ? CODE_ICONS[i % CODE_ICONS.length] : EMOJI_ICONS[i % EMOJI_ICONS.length];
-      const size = useCode ? (14 + Math.random() * 8) : (20 + Math.random() * 22);
-      // Very slow, unhurried drift so the layer never competes for attention
-      const dur = 22 + Math.random() * 26;
-      const delay = Math.random() * 12;
+      icon.className = isCode ? ('eng-icon eng-code' + (idx % 2 ? ' violet' : '')) : 'eng-icon';
+      icon.textContent = text;
+      const size = isCode ? (14 + Math.random() * 10) : (20 + Math.random() * 24);
+      const dur = 6 + Math.random() * 7;
+      const delay = Math.random() * 5;
       icon.style.fontSize = size + 'px';
       icon.style.animationDuration = dur + 's';
       icon.style.animationDelay = '-' + delay + 's';
 
-      const depth = 0.02 + Math.random() * 0.07;
-      wrap.dataset.depth = depth;
+      wrap.dataset.depth = 0.02 + Math.random() * 0.07;
+      wrap.dataset.driftAmp = 30 + Math.random() * 50;
+      wrap.dataset.driftSpeed = 0.05 + Math.random() * 0.09;
+      wrap.dataset.phase = Math.random() * Math.PI * 2;
 
       wrap.appendChild(icon);
       layer.appendChild(wrap);
       nodes.push(wrap);
     }
+
+    for(let i = 0; i < EMOJI_COUNT; i++) makeNode(EMOJI[i % EMOJI.length], false, i);
+    for(let i = 0; i < CODE_COUNT; i++) makeNode(CODE[i % CODE.length], true, i);
 
     if(reduceMotion || !nodes.length) return;
 
@@ -1960,18 +1896,24 @@
     }
     window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
 
-    function animate(){
+    function animate(t){
       curX += (targetX - curX) * 0.04;
       curY += (targetY - curY) * 0.04;
+      const time = (t || 0) / 1000;
       nodes.forEach(el => {
         const depth = parseFloat(el.dataset.depth);
-        const px = curX * 90 * depth * 20;
-        const py = curY * 90 * depth * 20 - scrollY * depth * 0.6;
+        const amp = parseFloat(el.dataset.driftAmp);
+        const speed = parseFloat(el.dataset.driftSpeed);
+        const phase = parseFloat(el.dataset.phase);
+        const driftX = Math.sin(time * speed + phase) * amp;
+        const driftY = Math.cos(time * speed * 0.7 + phase) * (amp * 0.5);
+        const px = curX * 90 * depth * 20 + driftX;
+        const py = curY * 90 * depth * 20 - scrollY * depth * 0.6 + driftY;
         el.style.transform = `translate3d(${px}px, ${py}px, 0)`;
       });
       requestAnimationFrame(animate);
     }
-    animate();
+    requestAnimationFrame(animate);
   })();
 
   /* PARTICLES — depth-based 3D starfield */
@@ -2035,10 +1977,14 @@
 
   /* ============================================================
      PORTFOLIO ASSISTANT CHATBOT
-     Streaming, markdown-aware, persisted chat widget.
-     Talks to /api/portfolio-chat (a serverless proxy that streams
-     Server-Sent Events from the Anthropic Messages API — see the
-     project README for deployment instructions).
+     Streaming, markdown-aware, persisted chat widget — wired directly to
+     Groq's OpenAI-compatible chat completions API (api.groq.com). This is
+     a static site (GitHub Pages), so there's no server to hide a key
+     behind; the tradeoff of a client-side key is spelled out right below.
+     If you'd rather not expose a key at all, swap this fetch for a call
+     to a small serverless proxy (Cloudflare Worker / Vercel function)
+     that holds the real key server-side — the streaming parser below
+     will work unchanged as long as the proxy forwards Groq's SSE format.
      ============================================================ */
   (function(){
     const toggle   = document.getElementById('chatToggle');
@@ -2053,17 +1999,19 @@
 
     const STORAGE_KEY = 'gurukiran_portfolio_chat_v1';
 
-    // ⚠️ SECURITY WARNING — read this before deploying publicly:
-    // This key is visible to anyone who views this page's source or opens
-    // dev tools. On a public portfolio, anyone could copy it and use up
-    // your Groq quota. This single-file setup is meant for private/local
-    // testing. For a public site, use a server-side proxy instead so the
-    // key never reaches the browser.
-    const GROQ_API_KEY = 'PASTE_YOUR_GROQ_API_KEY_HERE';
-    const CHAT_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-    // Flip this to false to fall back to instant local answers with no
-    // network call at all (e.g. while testing without a real key set).
-    const BACKEND_ENABLED = true;
+    // ---- Groq config -------------------------------------------------
+    // 1. Create a free key at console.groq.com/keys.
+    // 2. Paste it below. Because this key ships in the page source, any
+    //    visitor can read it in devtools and spend your quota — use a key
+    //    you don't mind being public, keep an eye on usage in the Groq
+    //    console, and rotate it if you ever see unexpected activity.
+    // 3. The RATE_LIMIT below caps each visitor's browser to a handful of
+    //    messages per day as a basic abuse guard (not a security measure).
+    const GROQ_API_KEY = 'YOUR_GROQ_API_KEY';           // <-- paste your key here
+    const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+    const GROQ_MODEL = 'openai/gpt-oss-20b';            // fast + current (Groq's Llama 3.1/3.3 models were retired June 2026)
+    const RATE_LIMIT_KEY = 'gurukiran_chat_rate_v1';
+    const RATE_LIMIT_MAX = 25;                          // messages per rolling 24h, per browser
 
     const SUGGESTIONS = [
       'Tell me about Gurukiran',
@@ -2074,20 +2022,19 @@
       'How can I contact him?'
     ];
 
-    // Sent directly to Groq with every request (see fetch call below).
-    // Remember: since this is client-side, a visitor could read this too.
     const SYSTEM_PROMPT = `You are the Portfolio Assistant embedded on Gurukiran's personal portfolio website. You answer visitor questions ONLY using the facts about Gurukiran listed below. Refer to him as "Gurukiran" (third person), in a warm, concise, recruiter-friendly tone. You may use light markdown (bold, bullet lists, short code blocks) when it improves clarity.
 
 Facts about Gurukiran:
-- B.Tech CSE (Data Science) student at Dayananda Sagar University, Bengaluru (2025-2029).
+- B.Tech CSE (Data Science) student at Dayananda Sagar University, Bengaluru (2025-2029). Current CGPA: 8.4.
 - Class 12 (PUC) Science, 83%, Gurukul PU College of Science, Kalaburagi (2024-2025).
 - SSLC (10th), 91.52%, Dominant English High School, Kalaburagi (2022-2023).
 - Started coding in early 2025, self-taught Python, Git, and the command line, mostly from an Android phone running Termux.
-- Skills: Python, C/C++, React, n8n automation, Groq API, Termux/mobile dev, AI, full-stack development, DSA (150+ problems solved).
-- Projects: CheapBite (food price comparison web app, React) and a Groq-powered CLI chatbot (Groq API + LLaMA 3.1, built in Termux).
+- Skills: Python, C/C++, React, n8n automation, Groq API, Termux/mobile dev, AI, full-stack development, DSA (100+ LeetCode problems solved).
+- Achievements: 4 projects shipped, 100+ LeetCode problems, 2 hackathons participated, 5 certifications earned.
+- Projects: CheapBite (food price comparison web app, React), a Groq-powered CLI chatbot (Groq API + LLaMA 3.1, built in Termux), an n8n Automation Suite (GitHub Issues → Slack), and a Multi-Agent Reporting System (React).
 - Future goals: land a software engineering internship, keep deepening AI and full-stack skills, and eventually build products that solve real problems.
-- Hobbies & interests: playing chess, listening to music, solving LeetCode problems, and "vibe coding" (building and experimenting with code just for fun/curiosity).
-- Contact & socials: gurukiran0725@gmail.com | GitHub: github.com/gurukiran25 | LinkedIn: linkedin.com/in/gurukiran-nimbal-8a9a90397 | Instagram: instagram.com/guru.kiran__ | YouTube: youtube.com/@gurukivlogs
+- Contact: gurukiran0725@gmail.com, GitHub github.com/Gurukiran25, LinkedIn linkedin.com/in/gurukiran-nimbal-8a9a90397.
+- A downloadable resume (PDF) is available via the "Download Resume" button in the hero section.
 
 Rules:
 - Keep answers to 2-4 sentences unless the visitor explicitly asks for more detail.
@@ -2187,97 +2134,67 @@ Rules:
       });
     }
 
-    // ---------- local knowledge-based assistant ----------
-    // This portfolio is a static site with no live backend, so this function
-    // IS the assistant. It matches visitor questions against facts about
-    // Gurukiran and returns a friendly, on-brand answer.
+    // ---------- offline fallback (used only if backend is unreachable) ----------
     function localFallback(q){
       const s = q.toLowerCase();
-
-      // greetings / small talk
-      if(/^(hi|hey|hello|yo|sup|hii+|helo)\b/.test(s) || s.includes('how are you'))
-        return "Hey there! 👋 I'm Gurukiran's portfolio assistant. Ask me about his projects, skills, education, certifications, achievements, or how to get in touch.";
-      if(s.includes('thank'))
-        return "You're welcome! Let me know if there's anything else you'd like to know about Gurukiran. 🙂";
-
-      // identity / about
-      if(/who (is|are you)|about (him|gurukiran)|tell me about|introduce/.test(s) || s === 'gurukiran')
-        return "**Gurukiran** is a B.Tech CSE (Data Science) student at Dayananda Sagar University, Bengaluru. He's self-taught in Python, Git, and full-stack dev — mostly learned from an Android phone running Termux — and he's now building AI tools, automation, and web apps.";
-      if(s.includes('name'))
-        return "His name is **Gurukiran Nimbal**.";
-      if(s.includes('where') && (s.includes('live') || s.includes('from') || s.includes('based') || s.includes('location')))
-        return "Gurukiran is based in **Kalaburagi** and currently studying in **Bengaluru**, Karnataka.";
-
-      // education
-      if(s.includes('educat') || s.includes('college') || s.includes('university') || s.includes('degree') || s.includes('study') || s.includes('school') || s.includes('cgpa') || s.includes('academic'))
-        return "Gurukiran is pursuing a **B.Tech in CSE (Data Science)** at Dayananda Sagar University, Bengaluru (2025–2029). Before that: Class 12 (PUC Science) at Gurukul PU College with 83%, and SSLC (10th) at Dominant English High School with 91.52%.";
-
-      // skills
-      if(s.includes('tech') || s.includes('skill') || s.includes('stack') || s.includes('language') || s.includes('framework') || s.includes('tool'))
-        return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, plus mobile/Termux-based development — alongside consistent DSA practice (150+ problems solved).";
-
-      // projects
-      if(s.includes('project') || s.includes('built') || s.includes('build') || s.includes('portfolio') || s.includes('cheapbite') || s.includes('chatbot'))
-        return "Gurukiran has built **CheapBite** (a food price comparison web app in React) and a **Groq-powered CLI chatbot** using LLaMA 3.1, built entirely in Termux — check out the Projects section above for links.";
-
-      // certifications
-      if(s.includes('certificat') || s.includes('course') || s.includes('credential'))
-        return "He's completed several certifications in areas like Python for Data Science, Machine Learning, full-stack web development, DSA, and automation — see the Certifications section above for details and links.";
-
-      // achievements / stats
-      if(s.includes('leetcode') || s.includes('github') || s.includes('hackathon') || s.includes('achievement') || s.includes('contribution'))
-        return "A few highlights: 100+ LeetCode problems solved, 400+ GitHub contributions, and participation in hackathons — see the Hall of Fame section above for the full numbers.";
-
-      // goals
-      if(s.includes('goal') || s.includes('future') || s.includes('plan') || s.includes('aim') || s.includes('aspir'))
-        return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and eventually build products that solve real problems.";
-
-      // hobbies / interests
-      if(s.includes('hobb') || s.includes('interest') || s.includes('free time') || s.includes('spare time') || s.includes('fun') || s.includes('chess') || s.includes('music') || s.includes('vibe cod') || s.includes('leetcode'))
-        return "Outside of coding, Gurukiran enjoys playing **chess**, listening to **music**, solving **LeetCode** problems for fun, and what he calls **\"vibe coding\"** — building and experimenting with projects just out of curiosity.";
-
-      // contact / socials
-      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern') || s.includes('reach') || s.includes('linkedin') || s.includes('instagram') || s.includes('youtube') || s.includes('github.com') || s.includes('social'))
-        return "You can reach Gurukiran at **gurukiran0725@gmail.com**, through the contact form below, or find him on:\n- GitHub: [github.com/gurukiran25](https://github.com/gurukiran25)\n- LinkedIn: [linkedin.com/in/gurukiran-nimbal](https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397)\n- Instagram: [@guru.kiran__](https://www.instagram.com/guru.kiran__)\n- YouTube: [@gurukivlogs](https://youtube.com/@gurukivlogs)\n\nHe's currently looking for internship opportunities!";
-
-      // fallback for anything unrecognized
-      return "I mainly know about Gurukiran — his **education, skills, projects, certifications, achievements, hobbies, and how to contact him**. Try asking about one of those, or use the suggestion buttons above!";
+      if(s.includes('project')) return "Gurukiran has built **CheapBite** (a food price comparison web app) and a **Groq-powered CLI chatbot** using LLaMA 3.1 — both linked in the Projects section above.";
+      if(s.includes('tech') || s.includes('skill') || s.includes('stack')) return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, alongside consistent DSA practice.";
+      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern')) return "You can reach Gurukiran at **gurukiran0725@gmail.com** or through the contact form below — he's currently looking for internship opportunities!";
+      if(s.includes('educat') || s.includes('college') || s.includes('study') || s.includes('school')) return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, Bengaluru (2025-2029).";
+      if(s.includes('goal') || s.includes('future') || s.includes('plan')) return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and build products that solve real problems.";
+      return "I'm having trouble reaching my live AI backend right now, so here's what I can tell you offline — try asking about his projects, skills, education, goals, or how to contact him!";
     }
 
-    // ---------- streaming request ----------
+    // ---------- simple client-side rate limiter (abuse guard, not security) ----------
+    function checkRateLimit(){
+      let data;
+      try { data = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '{}'); } catch(e){ data = {}; }
+      const now = Date.now();
+      const DAY = 24 * 60 * 60 * 1000;
+      if(!data.windowStart || now - data.windowStart > DAY){
+        data = { windowStart: now, count: 0 };
+      }
+      if(data.count >= RATE_LIMIT_MAX) return false;
+      data.count++;
+      try { localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(data)); } catch(e){}
+      return true;
+    }
+
+    // ---------- streaming request — talks directly to Groq's chat completions API ----------
     async function streamReply(userText){
       const typingEl = addTyping();
       let botEl = null;
       let fullText = '';
-      let usedFallback = false;
 
-      if(!BACKEND_ENABLED || GROQ_API_KEY === 'PASTE_YOUR_GROQ_API_KEY_HERE'){
-        // No real key set yet — answer locally, always guaranteed to respond.
-        await new Promise(r => setTimeout(r, 350 + Math.random()*300));
-        if(typingEl.parentNode) typingEl.remove();
-        usedFallback = true;
-        fullText = localFallback(userText);
+      const keyReady = GROQ_API_KEY && GROQ_API_KEY !== 'YOUR_GROQ_API_KEY';
+
+      if(!keyReady || !checkRateLimit()){
+        typingEl.remove();
+        fullText = !keyReady
+          ? localFallback(userText)
+          : "I've hit my question limit for this browser for now — try again tomorrow, or reach Gurukiran directly below.";
         addBotMessage(fullText);
         history.push({ role: 'assistant', content: fullText });
         saveHistory();
-        return usedFallback;
+        return;
       }
 
       try {
-        const res = await fetch(CHAT_ENDPOINT, {
+        const res = await fetch(GROQ_ENDPOINT, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + GROQ_API_KEY
           },
           body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
-            messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+            model: GROQ_MODEL,
             stream: true,
-            max_tokens: 400
+            temperature: 0.6,
+            max_completion_tokens: 500,
+            messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history]
           })
         });
-        if(!res.ok || !res.body) throw new Error('backend unavailable (' + res.status + ')');
+        if(!res.ok || !res.body) throw new Error('Groq request failed (' + res.status + ')');
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
@@ -2287,43 +2204,33 @@ Rules:
           const { done, value } = await reader.read();
           if(done) break;
           buffer += decoder.decode(value, { stream: true });
-          const events = buffer.split('\n\n');
-          buffer = events.pop(); // keep any incomplete trailing chunk
-          for(const evt of events){
-            const lines = evt.split('\n');
-            for(const line of lines){
-              if(!line.startsWith('data:')) continue;
-              const jsonStr = line.slice(5).trim();
-              if(!jsonStr || jsonStr === '[DONE]') continue;
-              let parsed;
-              try { parsed = JSON.parse(jsonStr); } catch(e){ continue; }
-              const delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta;
-              if(delta && delta.content){
-                if(!botEl){ typingEl.remove(); botEl = addBotMessage(''); }
-                fullText += delta.content;
-                botEl.innerHTML = renderMarkdown(fullText);
-                scrollToBottom();
-              }
-              if(parsed.error){
-                throw new Error(parsed.error.message || 'stream error');
-              }
+          const lines = buffer.split('\n');
+          buffer = lines.pop(); // keep any incomplete trailing line
+          for(const line of lines){
+            if(!line.startsWith('data:')) continue;
+            const jsonStr = line.slice(5).trim();
+            if(!jsonStr || jsonStr === '[DONE]') continue;
+            let parsed;
+            try { parsed = JSON.parse(jsonStr); } catch(e){ continue; }
+            const delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta;
+            if(delta && delta.content){
+              if(!botEl){ typingEl.remove(); botEl = addBotMessage(''); }
+              fullText += delta.content;
+              botEl.innerHTML = renderMarkdown(fullText);
+              scrollToBottom();
             }
           }
         }
-        if(!fullText) throw new Error('empty response');
+        if(!fullText) throw new Error('empty response from Groq');
       } catch(err){
         if(typingEl.parentNode) typingEl.remove();
-        usedFallback = true;
         fullText = localFallback(userText);
-        // small natural delay so the reply doesn't appear instantly
-        await new Promise(r => setTimeout(r, 350 + Math.random()*300));
         if(botEl){ botEl.innerHTML = renderMarkdown(fullText); }
-        else { addBotMessage(fullText); }
+        else { addErrorMessage("Couldn't reach the live AI — showing an offline answer instead."); addBotMessage(fullText); }
       }
 
       history.push({ role: 'assistant', content: fullText });
       saveHistory();
-      return usedFallback;
     }
 
     async function sendMessage(text){
@@ -2337,18 +2244,10 @@ Rules:
       autoResize();
       sendBtn.disabled = true;
       input.disabled = true;
-      try {
-        await Promise.race([
-          streamReply(text),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
-        ]);
-      } catch(err) {
-        addBotMessage("Something went wrong on my end — please try asking that again.");
-      } finally {
-        sendBtn.disabled = false;
-        input.disabled = false;
-        input.focus();
-      }
+      await streamReply(text);
+      sendBtn.disabled = false;
+      input.disabled = false;
+      input.focus();
     }
 
     // ---------- input handling: Enter to send, Shift+Enter for newline ----------
