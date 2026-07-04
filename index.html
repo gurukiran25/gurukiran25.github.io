@@ -251,6 +251,21 @@
   .tl-org{color:var(--muted);font-size:13.5px;margin-top:3px;line-height:1.6;}
   .tl-loc{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:8px;display:flex;align-items:center;gap:4px;}
 
+  /* CERTIFICATIONS */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  @media(max-width:700px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert-card{
+    padding:22px;border-radius:var(--r-md);display:flex;gap:16px;align-items:flex-start;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .cert-card:hover{transform:translateY(-3px);border-color:var(--amber);box-shadow:0 16px 30px -18px rgba(245,166,35,0.4);}
+  .cert-icon{width:44px;height:44px;border-radius:var(--r-sm);background:var(--bg-raised);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cert-name{font-weight:700;font-size:15.5px;line-height:1.4;}
+  .cert-issuer{color:var(--muted);font-size:13.5px;margin-top:3px;}
+  .cert-meta{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .cert-link{color:var(--violet);text-decoration:underline;text-decoration-color:rgba(139,127,214,0.4);}
+  .cert-link:hover{color:var(--amber);text-decoration-color:var(--amber);}
+
   /* SKILLS GRID */
   .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
   @media(max-width:560px){.skills-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
@@ -973,6 +988,7 @@
       <a href="#about">about</a>
       <a href="#academics">academics</a>
       <a href="#skills">skills</a>
+      <a href="#certs">certifications</a>
       <a href="#projects">projects</a>
       <a href="#contact">contact</a>
       <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark theme">
@@ -1171,6 +1187,58 @@
         <div class="skill-face skill-back"><div class="skill-pct">85%</div><div class="skill-pct-label">PROFICIENCY</div><div class="skill-bar"><div class="skill-bar-fill"></div></div></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-title">Certifications</div>
+    <div class="section-sub">Courses and credentials I've completed along the way.</div>
+    <div class="cert-grid reveal-stagger">
+      <div class="cert-card glass-card">
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <div>
+          <div class="cert-name">Python for Data Science</div>
+          <div class="cert-issuer">NPTEL / IIT</div>
+          <div class="cert-meta">2024 <a href="#" class="cert-link">View credential →</a></div>
+        </div>
+      </div>
+      <div class="cert-card glass-card">
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <div>
+          <div class="cert-name">Machine Learning Foundations</div>
+          <div class="cert-issuer">Coursera</div>
+          <div class="cert-meta">2024 <a href="#" class="cert-link">View credential →</a></div>
+        </div>
+      </div>
+      <div class="cert-card glass-card">
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <div>
+          <div class="cert-name">Full-Stack Web Development</div>
+          <div class="cert-issuer">freeCodeCamp</div>
+          <div class="cert-meta">2023 <a href="#" class="cert-link">View credential →</a></div>
+        </div>
+      </div>
+      <div class="cert-card glass-card">
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <div>
+          <div class="cert-name">Data Structures & Algorithms</div>
+          <div class="cert-issuer">GeeksforGeeks</div>
+          <div class="cert-meta">2023 <a href="#" class="cert-link">View credential →</a></div>
+        </div>
+      </div>
+      <div class="cert-card glass-card">
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div>
+        <div>
+          <div class="cert-name">Automation with n8n</div>
+          <div class="cert-issuer">n8n Academy</div>
+          <div class="cert-meta">2025 <a href="#" class="cert-link">View credential →</a></div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted);">
+      Placeholder entries — replace names, issuers, dates, and links with your real certificates.
+    </p>
   </div>
 </section>
 
@@ -1984,7 +2052,18 @@
     if(!toggle || !panel) return;
 
     const STORAGE_KEY = 'gurukiran_portfolio_chat_v1';
-    const CHAT_ENDPOINT = '/api/portfolio-chat'; // point this at your deployed backend
+
+    // ⚠️ SECURITY WARNING — read this before deploying publicly:
+    // This key is visible to anyone who views this page's source or opens
+    // dev tools. On a public portfolio, anyone could copy it and use up
+    // your Groq quota. This single-file setup is meant for private/local
+    // testing. For a public site, use a server-side proxy instead so the
+    // key never reaches the browser.
+    const GROQ_API_KEY = 'PASTE_YOUR_GROQ_API_KEY_HERE';
+    const CHAT_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+    // Flip this to false to fall back to instant local answers with no
+    // network call at all (e.g. while testing without a real key set).
+    const BACKEND_ENABLED = true;
 
     const SUGGESTIONS = [
       'Tell me about Gurukiran',
@@ -1995,6 +2074,8 @@
       'How can I contact him?'
     ];
 
+    // Sent directly to Groq with every request (see fetch call below).
+    // Remember: since this is client-side, a visitor could read this too.
     const SYSTEM_PROMPT = `You are the Portfolio Assistant embedded on Gurukiran's personal portfolio website. You answer visitor questions ONLY using the facts about Gurukiran listed below. Refer to him as "Gurukiran" (third person), in a warm, concise, recruiter-friendly tone. You may use light markdown (bold, bullet lists, short code blocks) when it improves clarity.
 
 Facts about Gurukiran:
@@ -2005,7 +2086,8 @@ Facts about Gurukiran:
 - Skills: Python, C/C++, React, n8n automation, Groq API, Termux/mobile dev, AI, full-stack development, DSA (150+ problems solved).
 - Projects: CheapBite (food price comparison web app, React) and a Groq-powered CLI chatbot (Groq API + LLaMA 3.1, built in Termux).
 - Future goals: land a software engineering internship, keep deepening AI and full-stack skills, and eventually build products that solve real problems.
-- Contact: gurukiran0725@gmail.com, GitHub github.com/Gurukiran25.
+- Hobbies & interests: playing chess, listening to music, solving LeetCode problems, and "vibe coding" (building and experimenting with code just for fun/curiosity).
+- Contact & socials: gurukiran0725@gmail.com | GitHub: github.com/gurukiran25 | LinkedIn: linkedin.com/in/gurukiran-nimbal-8a9a90397 | Instagram: instagram.com/guru.kiran__ | YouTube: youtube.com/@gurukivlogs
 
 Rules:
 - Keep answers to 2-4 sentences unless the visitor explicitly asks for more detail.
@@ -2105,15 +2187,61 @@ Rules:
       });
     }
 
-    // ---------- offline fallback (used only if backend is unreachable) ----------
+    // ---------- local knowledge-based assistant ----------
+    // This portfolio is a static site with no live backend, so this function
+    // IS the assistant. It matches visitor questions against facts about
+    // Gurukiran and returns a friendly, on-brand answer.
     function localFallback(q){
       const s = q.toLowerCase();
-      if(s.includes('project')) return "Gurukiran has built **CheapBite** (a food price comparison web app) and a **Groq-powered CLI chatbot** using LLaMA 3.1 — both linked in the Projects section above.";
-      if(s.includes('tech') || s.includes('skill') || s.includes('stack')) return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, alongside consistent DSA practice.";
-      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern')) return "You can reach Gurukiran at **gurukiran0725@gmail.com** or through the contact form below — he's currently looking for internship opportunities!";
-      if(s.includes('educat') || s.includes('college') || s.includes('study') || s.includes('school')) return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, Bengaluru (2025-2029).";
-      if(s.includes('goal') || s.includes('future') || s.includes('plan')) return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and build products that solve real problems.";
-      return "I'm having trouble reaching my live AI backend right now, so here's what I can tell you offline — try asking about his projects, skills, education, goals, or how to contact him!";
+
+      // greetings / small talk
+      if(/^(hi|hey|hello|yo|sup|hii+|helo)\b/.test(s) || s.includes('how are you'))
+        return "Hey there! 👋 I'm Gurukiran's portfolio assistant. Ask me about his projects, skills, education, certifications, achievements, or how to get in touch.";
+      if(s.includes('thank'))
+        return "You're welcome! Let me know if there's anything else you'd like to know about Gurukiran. 🙂";
+
+      // identity / about
+      if(/who (is|are you)|about (him|gurukiran)|tell me about|introduce/.test(s) || s === 'gurukiran')
+        return "**Gurukiran** is a B.Tech CSE (Data Science) student at Dayananda Sagar University, Bengaluru. He's self-taught in Python, Git, and full-stack dev — mostly learned from an Android phone running Termux — and he's now building AI tools, automation, and web apps.";
+      if(s.includes('name'))
+        return "His name is **Gurukiran Nimbal**.";
+      if(s.includes('where') && (s.includes('live') || s.includes('from') || s.includes('based') || s.includes('location')))
+        return "Gurukiran is based in **Kalaburagi** and currently studying in **Bengaluru**, Karnataka.";
+
+      // education
+      if(s.includes('educat') || s.includes('college') || s.includes('university') || s.includes('degree') || s.includes('study') || s.includes('school') || s.includes('cgpa') || s.includes('academic'))
+        return "Gurukiran is pursuing a **B.Tech in CSE (Data Science)** at Dayananda Sagar University, Bengaluru (2025–2029). Before that: Class 12 (PUC Science) at Gurukul PU College with 83%, and SSLC (10th) at Dominant English High School with 91.52%.";
+
+      // skills
+      if(s.includes('tech') || s.includes('skill') || s.includes('stack') || s.includes('language') || s.includes('framework') || s.includes('tool'))
+        return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, plus mobile/Termux-based development — alongside consistent DSA practice (150+ problems solved).";
+
+      // projects
+      if(s.includes('project') || s.includes('built') || s.includes('build') || s.includes('portfolio') || s.includes('cheapbite') || s.includes('chatbot'))
+        return "Gurukiran has built **CheapBite** (a food price comparison web app in React) and a **Groq-powered CLI chatbot** using LLaMA 3.1, built entirely in Termux — check out the Projects section above for links.";
+
+      // certifications
+      if(s.includes('certificat') || s.includes('course') || s.includes('credential'))
+        return "He's completed several certifications in areas like Python for Data Science, Machine Learning, full-stack web development, DSA, and automation — see the Certifications section above for details and links.";
+
+      // achievements / stats
+      if(s.includes('leetcode') || s.includes('github') || s.includes('hackathon') || s.includes('achievement') || s.includes('contribution'))
+        return "A few highlights: 100+ LeetCode problems solved, 400+ GitHub contributions, and participation in hackathons — see the Hall of Fame section above for the full numbers.";
+
+      // goals
+      if(s.includes('goal') || s.includes('future') || s.includes('plan') || s.includes('aim') || s.includes('aspir'))
+        return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and eventually build products that solve real problems.";
+
+      // hobbies / interests
+      if(s.includes('hobb') || s.includes('interest') || s.includes('free time') || s.includes('spare time') || s.includes('fun') || s.includes('chess') || s.includes('music') || s.includes('vibe cod') || s.includes('leetcode'))
+        return "Outside of coding, Gurukiran enjoys playing **chess**, listening to **music**, solving **LeetCode** problems for fun, and what he calls **\"vibe coding\"** — building and experimenting with projects just out of curiosity.";
+
+      // contact / socials
+      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern') || s.includes('reach') || s.includes('linkedin') || s.includes('instagram') || s.includes('youtube') || s.includes('github.com') || s.includes('social'))
+        return "You can reach Gurukiran at **gurukiran0725@gmail.com**, through the contact form below, or find him on:\n- GitHub: [github.com/gurukiran25](https://github.com/gurukiran25)\n- LinkedIn: [linkedin.com/in/gurukiran-nimbal](https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397)\n- Instagram: [@guru.kiran__](https://www.instagram.com/guru.kiran__)\n- YouTube: [@gurukivlogs](https://youtube.com/@gurukivlogs)\n\nHe's currently looking for internship opportunities!";
+
+      // fallback for anything unrecognized
+      return "I mainly know about Gurukiran — his **education, skills, projects, certifications, achievements, hobbies, and how to contact him**. Try asking about one of those, or use the suggestion buttons above!";
     }
 
     // ---------- streaming request ----------
@@ -2123,11 +2251,31 @@ Rules:
       let fullText = '';
       let usedFallback = false;
 
+      if(!BACKEND_ENABLED || GROQ_API_KEY === 'PASTE_YOUR_GROQ_API_KEY_HERE'){
+        // No real key set yet — answer locally, always guaranteed to respond.
+        await new Promise(r => setTimeout(r, 350 + Math.random()*300));
+        if(typingEl.parentNode) typingEl.remove();
+        usedFallback = true;
+        fullText = localFallback(userText);
+        addBotMessage(fullText);
+        history.push({ role: 'assistant', content: fullText });
+        saveHistory();
+        return usedFallback;
+      }
+
       try {
         const res = await fetch(CHAT_ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ system: SYSTEM_PROMPT, messages: history })
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + GROQ_API_KEY
+          },
+          body: JSON.stringify({
+            model: 'llama-3.1-8b-instant',
+            messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+            stream: true,
+            max_tokens: 400
+          })
         });
         if(!res.ok || !res.body) throw new Error('backend unavailable (' + res.status + ')');
 
@@ -2149,14 +2297,15 @@ Rules:
               if(!jsonStr || jsonStr === '[DONE]') continue;
               let parsed;
               try { parsed = JSON.parse(jsonStr); } catch(e){ continue; }
-              if(parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.type === 'text_delta'){
+              const delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta;
+              if(delta && delta.content){
                 if(!botEl){ typingEl.remove(); botEl = addBotMessage(''); }
-                fullText += parsed.delta.text;
+                fullText += delta.content;
                 botEl.innerHTML = renderMarkdown(fullText);
                 scrollToBottom();
               }
-              if(parsed.type === 'error'){
-                throw new Error(parsed.error && parsed.error.message ? parsed.error.message : 'stream error');
+              if(parsed.error){
+                throw new Error(parsed.error.message || 'stream error');
               }
             }
           }
@@ -2166,8 +2315,10 @@ Rules:
         if(typingEl.parentNode) typingEl.remove();
         usedFallback = true;
         fullText = localFallback(userText);
+        // small natural delay so the reply doesn't appear instantly
+        await new Promise(r => setTimeout(r, 350 + Math.random()*300));
         if(botEl){ botEl.innerHTML = renderMarkdown(fullText); }
-        else { addErrorMessage("Couldn't reach the live AI — showing an offline answer instead."); addBotMessage(fullText); }
+        else { addBotMessage(fullText); }
       }
 
       history.push({ role: 'assistant', content: fullText });
@@ -2186,10 +2337,18 @@ Rules:
       autoResize();
       sendBtn.disabled = true;
       input.disabled = true;
-      await streamReply(text);
-      sendBtn.disabled = false;
-      input.disabled = false;
-      input.focus();
+      try {
+        await Promise.race([
+          streamReply(text),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+        ]);
+      } catch(err) {
+        addBotMessage("Something went wrong on my end — please try asking that again.");
+      } finally {
+        sendBtn.disabled = false;
+        input.disabled = false;
+        input.focus();
+      }
     }
 
     // ---------- input handling: Enter to send, Shift+Enter for newline ----------
