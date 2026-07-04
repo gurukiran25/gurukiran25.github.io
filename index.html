@@ -1068,7 +1068,7 @@
 <section id="certifications">
   <div class="wrap">
     <div class="section-title">Certifications</div>
-    <div class="section-sub">5 certifications earned — details below, verified on <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" style="color:var(--amber);">LinkedIn →</a></div>
+    <div class="section-sub">4 certifications earned — details below, verified on <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" style="color:var(--amber);">LinkedIn →</a></div>
     <div class="cert-stack reveal-stagger">
       <div class="cert-card glass-card tilt-el tilt-shine">
         <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
@@ -1098,14 +1098,6 @@
         <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
         <div class="cert-icon">📜</div>
         <div class="cert-title">Certification Title 4</div>
-        <div class="cert-org">Issuing Platform / Organization</div>
-        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
-        <a href="#" class="cert-verify">Verify credential →</a>
-      </div>
-      <div class="cert-card glass-card tilt-el tilt-shine">
-        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
-        <div class="cert-icon">📜</div>
-        <div class="cert-title">Certification Title 5</div>
         <div class="cert-org">Issuing Platform / Organization</div>
         <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
         <a href="#" class="cert-verify">Verify credential →</a>
@@ -2030,7 +2022,7 @@ Facts about Gurukiran:
 - SSLC (10th), 91.52%, Dominant English High School, Kalaburagi (2022-2023).
 - Started coding in early 2025, self-taught Python, Git, and the command line, mostly from an Android phone running Termux.
 - Skills: Python, C/C++, React, n8n automation, Groq API, Termux/mobile dev, AI, full-stack development, DSA (100+ LeetCode problems solved).
-- Achievements: 4 projects shipped, 100+ LeetCode problems, 2 hackathons participated, 5 certifications earned.
+- Achievements: 4 projects shipped, 100+ LeetCode problems, 2 hackathons participated, 4 certifications earned.
 - Projects: CheapBite (food price comparison web app, React), a Groq-powered CLI chatbot (Groq API + LLaMA 3.1, built in Termux), an n8n Automation Suite (GitHub Issues → Slack), and a Multi-Agent Reporting System (React).
 - Future goals: land a software engineering internship, keep deepening AI and full-stack skills, and eventually build products that solve real problems.
 - Contact: gurukiran0725@gmail.com, GitHub github.com/Gurukiran25, LinkedIn linkedin.com/in/gurukiran-nimbal-8a9a90397.
@@ -2137,6 +2129,7 @@ Rules:
     // ---------- offline fallback (used only if backend is unreachable) ----------
     function localFallback(q){
       const s = q.toLowerCase();
+      if(s.includes('about') || s.includes('who is') || s.includes("who's") || s === 'hi' || s === 'hello') return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, self-taught in Python and full-stack dev — starting out from an Android phone running Termux. He's built projects like **CheapBite** and a Groq-powered CLI chatbot, solved 100+ LeetCode problems, and is currently looking for a **software engineering internship**.";
       if(s.includes('project')) return "Gurukiran has built **CheapBite** (a food price comparison web app) and a **Groq-powered CLI chatbot** using LLaMA 3.1 — both linked in the Projects section above.";
       if(s.includes('tech') || s.includes('skill') || s.includes('stack')) return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, alongside consistent DSA practice.";
       if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern')) return "You can reach Gurukiran at **gurukiran0725@gmail.com** or through the contact form below — he's currently looking for internship opportunities!";
