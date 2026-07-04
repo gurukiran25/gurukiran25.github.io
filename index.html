@@ -1186,7 +1186,7 @@
             <span class="proj-tag"><span class="tag-ic">🐍</span>Python</span><span class="proj-tag"><span class="tag-ic">⚡</span>Groq API</span><span class="proj-tag"><span class="tag-ic">🧠</span>AI</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/gurukiran25/My-first-repo" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
+            <a href="https://github.com/gurukiran25/My-first-repo/tree/main" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
           </div>
         </div>
       </div>
@@ -2126,16 +2126,65 @@ Rules:
       });
     }
 
-    // ---------- offline fallback (used only if backend is unreachable) ----------
+    // ---------- offline responder (this portfolio runs fully rule-based, no live backend) ----------
     function localFallback(q){
-      const s = q.toLowerCase();
-      if(s.includes('about') || s.includes('who is') || s.includes("who's") || s === 'hi' || s === 'hello') return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, self-taught in Python and full-stack dev — starting out from an Android phone running Termux. He's built projects like **CheapBite** and a Groq-powered CLI chatbot, solved 100+ LeetCode problems, and is currently looking for a **software engineering internship**.";
-      if(s.includes('project')) return "Gurukiran has built **CheapBite** (a food price comparison web app) and a **Groq-powered CLI chatbot** using LLaMA 3.1 — both linked in the Projects section above.";
-      if(s.includes('tech') || s.includes('skill') || s.includes('stack')) return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, alongside consistent DSA practice.";
-      if(s.includes('contact') || s.includes('email') || s.includes('hire') || s.includes('intern')) return "You can reach Gurukiran at **gurukiran0725@gmail.com** or through the contact form below — he's currently looking for internship opportunities!";
-      if(s.includes('educat') || s.includes('college') || s.includes('study') || s.includes('school')) return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, Bengaluru (2025-2029).";
-      if(s.includes('goal') || s.includes('future') || s.includes('plan')) return "He's aiming to land a **software engineering internship**, keep sharpening his AI and full-stack skills, and build products that solve real problems.";
-      return "I'm having trouble reaching my live AI backend right now, so here's what I can tell you offline — try asking about his projects, skills, education, goals, or how to contact him!";
+      const s = (q || '').toLowerCase().trim();
+
+      // greetings / small talk
+      if(/^(hi|hello|hey|yo|sup|hola)\b/.test(s) || s === '') {
+        return "Hey there 👋 Ask me anything about Gurukiran — his projects, skills, education, goals, or how to reach him.";
+      }
+      if(/\b(thanks|thank you|thx|cheers)\b/.test(s)) {
+        return "You're welcome! Anything else you'd like to know about Gurukiran?";
+      }
+
+      // about / general intro
+      if(/\b(about|who is|who's|introduce|tell me about|summary|overview)\b/.test(s) || /\bguru(kiran)?\b/.test(s)) {
+        return "Gurukiran is a **B.Tech CSE (Data Science)** student at Dayananda Sagar University, Bengaluru, self-taught in Python and full-stack dev — starting out from an Android phone running Termux. He's built projects like **CheapBite** and a Groq-powered CLI chatbot, solved **100+ LeetCode problems**, and is currently looking for a **software engineering internship**.";
+      }
+
+      // projects
+      if(/\b(project|built|build|app|repo|repository|portfolio work)\b/.test(s)) {
+        return "Gurukiran has shipped 4 projects:\n- **CheapBite** — a food price comparison web app (React)\n- **Groq Chatbot** — a Groq-powered CLI AI agent (LLaMA/GPT-OSS, built in Termux)\n- **n8n Automation Suite** — GitHub Issues → Slack pipeline\n- **Multi-Agent Reporting System** — a React-based multi-agent reporting tool\n\nAll are linked in the Projects section above.";
+      }
+
+      // skills / tech stack
+      if(/\b(tech|skill|stack|language|framework|tools?)\b/.test(s)) {
+        return "He works mainly with **Python, C/C++, React, n8n automation, and the Groq API**, plus consistent DSA practice (100+ LeetCode problems solved).";
+      }
+
+      // education
+      if(/\b(educat|college|university|degree|study|studies|school|cgpa|marks|grade)\b/.test(s)) {
+        return "Gurukiran is pursuing **B.Tech CSE (Data Science)** at Dayananda Sagar University, Bengaluru (2025–2029), currently at **8.4 CGPA**. Before that: Class 12 Science (83%) and SSLC (91.52%).";
+      }
+
+      // achievements / hackathons / certifications
+      if(/\b(achieve|hackathon|certificat|leetcode|dsa)\b/.test(s)) {
+        return "Highlights so far: **4 projects shipped, 100+ LeetCode problems solved, 2 hackathons, and 4 certifications** earned.";
+      }
+
+      // goals / future
+      if(/\b(goal|future|plan|aim|aspir)\b/.test(s)) {
+        return "He's aiming to land a **software engineering internship**, keep deepening his AI and full-stack skills, and eventually build products that solve real problems.";
+      }
+
+      // contact / hiring
+      if(/\b(contact|email|hire|hiring|intern|reach|linkedin|github\b|social)\b/.test(s)) {
+        return "You can reach Gurukiran at **gurukiran0725@gmail.com**, on GitHub at **github.com/Gurukiran25**, or LinkedIn — or just use the contact form below. He's currently open to internship opportunities!";
+      }
+
+      // resume
+      if(/\b(resume|cv)\b/.test(s)) {
+        return "You can grab his resume from the **Download Resume** button in the hero section at the top of the page.";
+      }
+
+      // location
+      if(/\b(where|location|based|live|city)\b/.test(s)) {
+        return "Gurukiran is based in **Bengaluru, Karnataka, India**, and is open to remote work or relocating for the right opportunity.";
+      }
+
+      // out-of-scope catch-all
+      return "I'm designed only to answer questions about Gurukiran and his work — try asking about his projects, skills, education, goals, or how to contact him!";
     }
 
     // ---------- simple client-side rate limiter (abuse guard, not security) ----------
@@ -2219,7 +2268,7 @@ Rules:
         if(typingEl.parentNode) typingEl.remove();
         fullText = localFallback(userText);
         if(botEl){ botEl.innerHTML = renderMarkdown(fullText); }
-        else { addErrorMessage("Couldn't reach the live AI — showing an offline answer instead."); addBotMessage(fullText); }
+        else { addBotMessage(fullText); }
       }
 
       history.push({ role: 'assistant', content: fullText });
