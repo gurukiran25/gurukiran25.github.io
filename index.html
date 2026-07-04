@@ -191,6 +191,17 @@
   .btn.primary:active{transform:translateY(0);box-shadow:0 6px 16px -8px rgba(245,166,35,0.5);}
   .btn.ghost{background:transparent;color:var(--text);}
   .btn.ghost:hover{border-color:var(--amber);color:var(--amber);}
+  .btn.resume{
+    display:inline-flex;align-items:center;gap:8px;
+    background:transparent;color:var(--violet);border:1.5px solid var(--violet);
+    box-shadow:0 0 0 0 rgba(139,127,214,0.0);
+  }
+  .btn.resume svg{transition:transform .2s ease;}
+  .btn.resume:hover{
+    background:var(--violet);color:#0F0F14;transform:translateY(-2px);
+    box-shadow:0 12px 26px -10px rgba(139,127,214,0.6);
+  }
+  .btn.resume:hover svg{transform:translateY(2px);}
   .hero-social{display:flex;gap:22px;margin-top:36px;position:relative;z-index:1;}
   .hero-social a{color:var(--muted);display:flex;align-items:center;justify-content:center;transition:color .2s ease, transform .2s ease;}
   .hero-social a:hover{color:var(--amber);transform:translateY(-2px);}
@@ -979,7 +990,7 @@
     <span>⚙️</span><span>🛰️</span><span>💻</span>
   </div>
   <div class="glow-photo">
-  <img id="heroPhoto" alt="Gurukiran" style="width:160px;height:160px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
+  <img id="heroPhoto" alt="Gurukiran" style="width:160px;height:160px;border-radius:50%;object-fit:contain;object-position:center;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
   <div class="hero-name">GURUKIRAN <span class="hero-gear" aria-hidden="true">⚙️</span></div>
   <div class="hero-badges">
     <span class="hero-badge">B.Tech CSE (Data Science)</span>
@@ -991,6 +1002,10 @@
   <p class="hero-tagline">B.Tech CSE (Data Science) student focused on <span class="highlight">Python, AI, and full-stack development</span>. I build practical projects and sharpen my problem-solving through consistent DSA practice.</p>
   <div class="hero-actions">
     <a href="#projects" class="btn primary">View Work →</a>
+    <a href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyA5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA3MDQwODM0MzcrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKEd1cnVraXJhbiBOaW1iYWwgLSBSZXN1bWUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDUgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI0NTQKPj4Kc3RyZWFtCkdhdWBUPj9CZlYoNFEhWm0kSHMqOkxkKVs3UFtibFsmbkdGYm42SWszMWAiLiNVUnRUOFlxVy4qblFpJjVKKHE8K1Y6cEMyPGs2Ojs+WEMkSUpaPnJhJ1kiRXFCPFpNJ1tGRSgrOWtMXUo2ODZEZGgsaFk6T1xncW5zZChdXF4zLUtjK3NrYT5VKTwiKiEzMGI7dUp0ZTMnZ3VLUUIpWUdQXGtzMC4rcz9VLF4xbTBEWFk6S0R1Mko0MVY+cD9PJDpHUTpSTSxlV1ZkM1QycUAyIlY9cTw1YnVXN2FEUVY+UUxqSlVsKUIqQDlUTlYmaSlrY0ZyOlVgS28lNkVcK1BrZHJoOUo1ODtvOWkyWCc7KVZQQkQzS1YsLXM6ZixYPzZCa0ordFRfIl4+TjcwRl4qNU1USD5PcC9cZDZyTyRzNS1sVVBMY0BkN3F1KExzXiFScCNsZkosNUtnLF0mYy00dXVEOSRlQ2VbcVtQPmcoQGk9XygrdGE6ZktWa2pxIlQrbSI6O01tME1ZVChJPm9XPCYmJGZwa1FJckpYNlpwIiVUSkxHS2o9XSUhTEhETDAhbmgkWWolZmR1JC09YCQiXlZKaSc0QkwpYXU6KUFaNFNDPGQzXDBcIWo8X1ctTSVobGJpY2FgaUVBQjMqUz9DalJcaEBPTVo2Ml4hWl5uYWkiVi1xYVAtRlpDLEpgXmRlSWpgaEFqIWNTTW9Ya2tcQnNxLDk9Um4uV18qXE8uL21OR00iV0dXTy9mQSY1NmhNPC1NPy9kUmNuVz8xTD0oV01VYlsxR0xCTEQ9N1REXThyRmhjLjUpMHRkMGhBU3VpbUBoKS8uJll0MWNXZyswTWBFc1YlPnFNSDg2cDkuXzFBYDZLcDpxIUtILjFeR3FxJGo/PzRGWTVDaCVQNS1rK25HYSJhSzd1aS0hRl0uXnBKRD5wLHJ1bVVCSjooWTsoNnUrJCg8SkwmdUE1Qks4PSQiYT1RPjZVRHRfSTNja008OWM5YWY0OihNVSQpN09kKFVKWEdXUl8rZksyYCljXGVyJEdccWdSMmVpZTU4SzFOc0lLXU4mQ2o7YDozcS80UU8lX3BvZjw5SDRIImhVXG1bRVIxY3E9P3EhOjcoZkxnYWZbUF5iZHEvMFZWTktjY3JQIj0hO1E6YGM/PE9WQ3NkQyxLJ2JzVEYnQ0JyLnVeS1FTNzFGRDs9QlFrcFVqOC9XQidkPCZhJlJQQz8vXzlsTGhnNGxsLSVIUm1sNCRHa1Rlbixoa0FpJ0hyVDJmVERVMWZeR25oXGs7XG1RWWxxLWwiSlo4TGswVkhqOWBjIkRrbj40QixcUF9EYENbPWRJRDxEa10pP3IqKWhoTGZZXG4mXS8yMmlOcjkzY1QjK3AtQmxnV2okbi4kWD4pImZOZ1B1SyZNNCdVMCZfW0BRNUhlT0VfMEtGNE03QFc+SyJhc1BXMiJGTiZrQS9RSjE1Yj1OJVhSTj5ySVU9Y3QyMSsnYWoncyFSckNwbmxqIkVBX01yVnFHW2NaS0EmRUQ9Vk8nKUdUbz1SVXFuUFhvZXMzZi9wNSk2YScpaWVdaDNhMzI0ZUVVQzNDVVsjdThgTVZiSXNDYWNBX20vWy9NSUcvYjVTPlEwX01DaUFASCpcImpzMk1HQiFQVGc5QUJ1SEZEIkguOjBONz8xb1RpbmVuJiFXSUg/Oyc0OVkwX1k1MSw0Wm45Qi5DTUtoLDNhXlVyYCM2IihyYy8zXnFoIjo9ciZPMk1zL3JXOWxcclYnJUZDQytjO09rJy88YChFYVJVaEtKaydLSjFqYTE5Ols1ZTIoTkxTM2BER2BUKEFbPFFiUDxedUtwaTE1aDRWR10yV2hNbkNOcnBsOmo5c19mUy9ncT88UF9wPlw8c00jIWRIQztfT05jZ1VkKmlOMCRTKFByUzlyblxhdV4wSVUhWjUvY05NOT4wJ3EtPzt1Rj9RJEwtSWJaL1hCbClQWiY5KFQnXUwvXDpPOW08OWMzRWgvV1BdU2FyclZsSiEwXHI6XSQ+bkciMjVPZEIyKEZPRlpvOEBHKTMpdFFBPy0uKkMvLnQ8STopTkFVQCFDTGhnYUYiWTNHNG9zNyVILlRdKmdpLEYmXiNDTSRIIkEiK2ZyQGNvIjkldSsxYU5GNUVuU3IwSV1kQkksVEdhT29hUWBxQmxHYSlwaSVZZSsvR29VM04tKmZvckRsSjc8YFRlT20pTzZJZitaRyltX29sNG5bM0xpW2NCJ1V1UWcpI2ZhMUVaS1MnXFRFVjQrX2tXcWtxOUFwP15JK0ondSo7YV1hJVpzLzdYbTFqdDwudDhzZG5qRzdLI2dcL2QmM0ciWl5SXjlkSlJqKF4yMk9fZFZrYWJsalY2WjFULUBaPHAuTi4zOVBWWEYpJStcXClYRTdPSkxARk1CQjBbTk5kTXQyQTVQQC1XIy0/SkhJV2A1OG0nM0tEOmdSaFs/RWgzU1tBZFJAUHJddF03KWNiOWc7P1MvRD8lM2dbYV9INkY5NEI0cXBWVlE9M2MlXmEpIjNOZ19iTilrJTI9Vmc2PFE7cChwJFA+clkjJjtdTiQxRislOzVyTWVTKydLT0U5W2cpMW9HJHNoLFVAbHRJTSVSLGEiMyJCUk0mSlJPZW1edCc7azImNlEvbXFbL2U/Z21Gb25IIUdaSklmcXQ+VGxGMGohWDdfSlJUa2hYMlZ1OzxBaG1aOyhjVyNRRjA6OiwocExVY2pNLVdxKDZuPVhAa0hJOFBnVkInOldgLEA1TDxQa3QwKEIzZjQsWSpBJGQ7NWEwc1s2ODtGSlM2UTg6TklpRHU5KkNGJ04wZFNxOV9bXXVONz1nXnAmJik6OmBOXFMiL11eODszNCxVMD5pK2ROLFlEX18pUyRtcGxkKic3T2clTiRNTUg6M0tFNiVmU1RcPSUwPD1EPnRGLlEjJT4jZkZBJGllVjVOc1pTPi85altEYWFvaGM9JllCMz0sNiM5VnQrN0pXYCldVW84OG1acElCZ1txUUdjRC5KYyMkLiovZT4jL0MxZTNMakYzU2M8P2xyRlVAOzRNT2VzbUUkSCJDclpeKyFoJk9cUTtgISM8LWg6b28pOXFUV0l1P0AxMDlpUlclLFZdXmQ4aSEwY2hpQ0JGJ21OaWo8NFRJSyo7Qj0yTCRZb1JKNmdYSTkzYzhedXNFJFJaTmowLGgkJGljNkBDMyVnNypuTCpvUz9MJm51aiRtckdCPDYoQzU5Ym5nNFR+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDQ2IDAwMDAwIG4gCjAwMDAwMDA2MzkgMDAwMDAgbiAKMDAwMDAwMDcwNyAwMDAwMCBuIAowMDAwMDAwOTk5IDAwMDAwIG4gCjAwMDAwMDEwNTggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YWUwMjc4OWM4NjBhZTFkOGFkOTBmNDYzMWQxNTI1MGY+PGFlMDI3ODljODYwYWUxZDhhZDkwZjQ2MzFkMTUyNTBmPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMAo+PgpzdGFydHhyZWYKMzYwMwolJUVPRgo=" class="btn resume" download="Gurukiran-Resume.pdf">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Resume
+    </a>
     <a href="#contact" class="btn ghost">Contact Me</a>
   </div>
   <div class="hero-social">
@@ -1006,7 +1021,7 @@
     <div class="section-sub">A quick introduction.</div>
     <div class="about-grid reveal">
       <div class="about-card glass-card" style="text-align:center;">
-        <img id="aboutPhoto" alt="Gurukiran" style="width:190px;height:190px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin:0 auto 16px;box-shadow:0 10px 30px -10px rgba(245,166,35,0.4);">
+        <img id="aboutPhoto" alt="Gurukiran" style="width:190px;height:190px;border-radius:50%;object-fit:contain;object-position:center;background:var(--bg-raised);border:3px solid var(--amber);margin:0 auto 16px;box-shadow:0 10px 30px -10px rgba(245,166,35,0.4);">
         <div class="about-tag">Gurukiran Nimbal</div>
         <div class="about-mode">B.Tech CSE (Data Science)</div>
       </div>
@@ -1027,7 +1042,7 @@
         <div class="counter-label">Projects Built</div>
       </div>
       <div class="stat-card glass-card tilt-el tilt-shine">
-        <div class="counter-num" data-target="150">0</div>
+        <div class="counter-num" data-target="100">0</div>
         <div class="counter-label">DSA Problems Solved</div>
       </div>
       <div class="stat-card glass-card tilt-el tilt-shine">
@@ -1086,7 +1101,7 @@
       <div class="fame-tile glass-card">
         <div class="fame-glow"></div>
         <div class="fame-emoji">🧩</div>
-        <div class="fame-num counter-num" data-target="150">0</div>
+        <div class="fame-num"><span class="counter-num" data-target="100">0</span>+</div>
         <div class="fame-label">LEETCODE SOLVED</div>
       </div>
       <div class="fame-tile glass-card">
