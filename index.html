@@ -9,12 +9,11 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gurukiran — Portfolio">
 <meta property="og:description" content="B.Tech CSE (Data Science) student building AI tools, automation, and web apps — mostly from an Android phone running Termux.">
-<meta property="og:image" content="https://gurukiran.dev/og-image.png">
-<meta property="og:url" content="https://gurukiran.dev">
-<meta name="twitter:card" content="summary_large_image">
+<!-- UPDATE og:url to your real deployed URL before publishing -->
+<meta property="og:url" content="https://gurukiran25.github.io">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gurukiran — Portfolio">
 <meta name="twitter:description" content="B.Tech CSE (Data Science) student building AI tools, automation, and web apps.">
-<meta name="twitter:image" content="https://gurukiran.dev/og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F0F14'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='34' font-weight='800' fill='%23F5A623' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -886,9 +885,8 @@
 
 <div id="pageLoader">
   <div class="loader-mark">gurukiran.dev</div>
-  <div class="loader-rocket-wrap"><span class="loader-rocket">🚀</span></div>
   <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
-  <div class="loader-status" id="loaderStatus">Initializing Portfolio...</div>
+  <div class="loader-status" id="loaderStatus">Loading portfolio...</div>
   <div class="loader-pct" id="loaderPct">0%</div>
 </div>
 
@@ -941,15 +939,9 @@
 <header class="hero" id="heroSection">
   <div class="hero-spotlight" id="heroSpotlight"></div>
   <div class="hero-stagger" id="heroStagger">
-  <span class="hero-rocket" aria-hidden="true">🚀</span>
   <div class="glow-photo">
-  <div class="hero-orbit" aria-hidden="true">
-    <div class="orbit-icon o1"><span>⚡</span></div>
-    <div class="orbit-icon o2"><span>🧩</span></div>
-    <div class="orbit-icon o3"><span>🐍</span></div>
-  </div>
   <img id="heroPhoto" alt="Gurukiran" style="width:150px;height:150px;border-radius:50%;object-fit:contain;background:var(--bg-raised);border:3px solid var(--amber);margin-bottom:22px;position:relative;z-index:1;box-shadow:0 10px 40px -10px rgba(245,166,35,0.5);"></div>
-  <div class="hero-name">GURUKIRAN<span class="hero-gear" aria-hidden="true">⚙️</span></div>
+  <div class="hero-name">GURUKIRAN</div>
   <div class="hero-badges">
     <span class="hero-badge">B.Tech CSE (Data Science)</span>
     <span class="hero-badge">Python &amp; AI</span>
@@ -960,7 +952,7 @@
   <p class="hero-tagline">B.Tech CSE (Data Science) student focused on <span class="highlight">Python, AI, and full-stack development</span>. I build practical projects and sharpen my problem-solving through consistent DSA practice.</p>
   <div class="hero-actions">
     <a href="#projects" class="btn primary">View Work →</a>
-    <a href="#" id="resumeLink" class="btn ghost" download="Gurukiran-Resume.pdf">📄 Download Resume</a>
+    <a href="#" id="resumeLink" class="btn ghost" download="Gurukiran-Resume.pdf">Download Resume</a>
     <a href="#contact" class="btn ghost">Contact Me</a>
   </div>
   <div class="hero-social">
@@ -992,36 +984,36 @@
 
 <section id="stats">
   <div class="wrap">
-    <div class="section-title">Hall of Fame</div>
-    <div class="section-sub">A quick scoreboard of what I've been building and grinding on.</div>
+    <div class="section-title">By the Numbers</div>
+    <div class="section-sub">A snapshot of my work and progress so far.</div>
     <div class="fame-grid reveal-stagger">
       <div class="fame-card tilt-el tilt-shine">
-        <div class="fame-icon">🚀</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
         <div class="fame-num counter-num" data-target="4">0</div>
         <div class="fame-label">Projects Shipped</div>
       </div>
       <div class="fame-card violet tilt-el tilt-shine">
-        <div class="fame-icon">🧩</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
         <div class="fame-num-wrap"><span class="fame-num counter-num" data-target="100">0</span><span class="fame-plus">+</span></div>
         <div class="fame-label">LeetCode Problems</div>
       </div>
       <div class="fame-card tilt-el tilt-shine">
-        <div class="fame-icon">🏆</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
         <div class="fame-num counter-num" data-target="2">0</div>
         <div class="fame-label">Hackathons</div>
       </div>
       <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
-        <div class="fame-icon">📜</div>
-        <div class="fame-num counter-num" data-target="5">0</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div class="fame-num counter-num" data-target="4">0</div>
         <div class="fame-label">Certifications · View on LinkedIn</div>
       </a>
       <div class="fame-card tilt-el tilt-shine">
-        <div class="fame-icon">🎓</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
         <div class="fame-num counter-num" data-target="8.4">0</div>
         <div class="fame-label">CGPA</div>
       </div>
       <a href="https://github.com/Gurukiran25" target="_blank" rel="noopener" class="fame-card violet tilt-el tilt-shine" style="display:block;text-decoration:none;color:inherit;">
-        <div class="fame-icon">🐙</div>
+        <div class="fame-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></div>
         <div class="fame-qual">Building in Public</div>
         <div class="fame-label">GitHub · Gurukiran25</div>
       </a>
@@ -1070,41 +1062,30 @@
     <div class="section-title">Certifications</div>
     <div class="section-sub">4 certifications earned — details below, verified on <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" style="color:var(--amber);">LinkedIn →</a></div>
     <div class="cert-stack reveal-stagger">
+      <!-- ============================================================
+           TO LIST CERTIFICATIONS INDIVIDUALLY, copy this card template
+           once per certification and fill in the real details:
+
       <div class="cert-card glass-card tilt-el tilt-shine">
-        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
-        <div class="cert-icon">📜</div>
-        <div class="cert-title">Certification Title 1</div>
-        <div class="cert-org">Issuing Platform / Organization</div>
-        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
-        <a href="#" class="cert-verify">Verify credential →</a>
+        <div class="cert-year">2026</div>
+        <div class="cert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div class="cert-title">Python for Everybody</div>
+        <div class="cert-org">Coursera · University of Michigan</div>
+        <div class="cert-desc">One line on what it covers and why it matters.</div>
+        <a href="https://REAL-CREDENTIAL-URL" class="cert-verify" target="_blank" rel="noopener">Verify credential →</a>
       </div>
-      <div class="cert-card glass-card tilt-el tilt-shine">
-        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
-        <div class="cert-icon">📜</div>
-        <div class="cert-title">Certification Title 2</div>
-        <div class="cert-org">Issuing Platform / Organization</div>
-        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
-        <a href="#" class="cert-verify">Verify credential →</a>
-      </div>
-      <div class="cert-card glass-card tilt-el tilt-shine">
-        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
-        <div class="cert-icon">📜</div>
-        <div class="cert-title">Certification Title 3</div>
-        <div class="cert-org">Issuing Platform / Organization</div>
-        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
-        <a href="#" class="cert-verify">Verify credential →</a>
-      </div>
-      <div class="cert-card glass-card tilt-el tilt-shine">
-        <div class="cert-year">2026<span class="edit-flag">✎ edit</span></div>
-        <div class="cert-icon">📜</div>
-        <div class="cert-title">Certification Title 4</div>
-        <div class="cert-org">Issuing Platform / Organization</div>
-        <div class="cert-desc">Short one-line description of what this certification covers and why it's relevant.</div>
-        <a href="#" class="cert-verify">Verify credential →</a>
-      </div>
+      ============================================================ -->
+      <a href="https://www.linkedin.com/in/gurukiran-nimbal-8a9a90397/details/certifications/" target="_blank" rel="noopener" class="cert-card glass-card tilt-el tilt-shine" style="grid-column:1/-1;display:flex;align-items:center;gap:18px;text-decoration:none;color:inherit;">
+        <div class="cert-icon" style="width:56px;height:56px;flex-shrink:0;margin-bottom:0;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div style="flex:1;">
+          <div class="cert-title">4 Certifications Earned</div>
+          <div class="cert-org">Verified on LinkedIn</div>
+          <div class="cert-desc">All credentials — with issuers and verification links — are listed on my LinkedIn profile.</div>
+        </div>
+        <span class="cert-verify" style="white-space:nowrap;">View on LinkedIn →</span>
+      </a>
     </div>
-  </div>
-</section>
+  </section>
 
 <section id="skills">
   <div class="wrap">
@@ -1165,7 +1146,7 @@
           <div class="proj-title">CheapBite</div>
           <div class="proj-desc">A <span class="highlight">food price comparison</span> web app that pulls listings from multiple sources so users can compare prices before ordering.</div>
           <div class="proj-tags">
-            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🌐</span>Web App</span><span class="proj-tag"><span class="tag-ic">🎨</span>UX</span>
+            <span class="proj-tag">React</span><span class="proj-tag">Web App</span><span class="proj-tag">UX</span>
           </div>
           <div class="proj-links">
             <a href="https://cheapbite.lovable.app/" class="proj-link primary" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live Demo</a>
@@ -1183,7 +1164,7 @@
           <div class="proj-title">Groq Chatbot</div>
           <div class="proj-desc">A command-line AI chatbot built on the <span class="highlight">Groq API with LLaMA 3.1</span>, first written and run from a Termux terminal on Android.</div>
           <div class="proj-tags">
-            <span class="proj-tag"><span class="tag-ic">🐍</span>Python</span><span class="proj-tag"><span class="tag-ic">⚡</span>Groq API</span><span class="proj-tag"><span class="tag-ic">🧠</span>AI</span>
+            <span class="proj-tag">Python</span><span class="proj-tag">Groq API</span><span class="proj-tag">AI</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/gurukiran25/My-first-repo/tree/main" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1200,7 +1181,7 @@
           <div class="proj-title">n8n Automation Suite</div>
           <div class="proj-desc">A set of <span class="highlight">workflow automations</span>, including a GitHub Issues → Slack notification pipeline built for a personal dev workspace.</div>
           <div class="proj-tags">
-            <span class="proj-tag"><span class="tag-ic">🔧</span>n8n</span><span class="proj-tag"><span class="tag-ic">🐙</span>GitHub API</span><span class="proj-tag"><span class="tag-ic">💬</span>Slack</span>
+            <span class="proj-tag">n8n</span><span class="proj-tag">GitHub API</span><span class="proj-tag">Slack</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1217,7 +1198,7 @@
           <div class="proj-title">Multi-Agent Reporting System</div>
           <div class="proj-desc">A <span class="highlight">multi-agent AI system</span> built in React that coordinates data analysis and generates automated reports.</div>
           <div class="proj-tags">
-            <span class="proj-tag"><span class="tag-ic">⚛️</span>React</span><span class="proj-tag"><span class="tag-ic">🤝</span>Multi-Agent</span><span class="proj-tag"><span class="tag-ic">📊</span>Data</span>
+            <span class="proj-tag">React</span><span class="proj-tag">Multi-Agent</span><span class="proj-tag">Data</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Gurukiran25" class="proj-link" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg> Code</a>
@@ -1247,7 +1228,7 @@
         <div class="globe-marker" title="Bengaluru, Karnataka, India"></div>
       </div>
       <div class="globe-info">
-        <div class="globe-loc">📍 Bengaluru, Karnataka, India</div>
+        <div class="globe-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Bengaluru, Karnataka, India</div>
         <div class="globe-sub">Open to remote work and relocation for the right internship or opportunity.</div>
       </div>
     </div>
@@ -1288,7 +1269,7 @@
         <label for="cf-message">Message</label>
         <textarea id="cf-message" name="message" rows="4" placeholder="Your message..." required></textarea>
       </div>
-      <button class="send-btn" type="submit" id="cf-submit">✈ Send Message</button>
+      <button class="send-btn" type="submit" id="cf-submit">Send Message</button>
       <p id="cf-status" role="status" aria-live="polite" style="text-align:center;margin-top:14px;font-family:var(--mono);font-size:12.5px;min-height:18px;"></p>
       <p style="text-align:center;margin-top:2px;font-family:var(--mono);font-size:12px;color:var(--muted);">
         Prefer email? <a href="mailto:gurukiran0725@gmail.com" style="color:var(--amber);">gurukiran0725@gmail.com →</a>
@@ -1310,7 +1291,7 @@
 
 <div class="chat-panel" id="chatPanel">
   <div class="chat-head">
-    <div class="ch-icon">🤖</div>
+    <div class="ch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
     <div>
       <div class="ch-title">Portfolio Assistant</div>
       <div class="ch-sub">Ask me anything about Gurukiran</div>
@@ -1712,11 +1693,9 @@
     const statusEl = document.getElementById('loaderStatus');
     const pctEl = document.getElementById('loaderPct');
     const messages = [
-      'Initializing Portfolio...',
-      'Loading AI Systems...',
-      'Compiling Projects...',
-      'Calibrating Thrusters...',
-      'Ready for Launch...'
+      'Loading portfolio...',
+      'Loading projects...',
+      'Almost there...'
     ];
     let pct = 0, msgIndex = 0, done = false;
     const tick = setInterval(() => {
@@ -1844,8 +1823,8 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const isMobile = window.innerWidth < 700;
-    const EMOJI_COUNT = isMobile ? 8 : 14;
-    const CODE_COUNT = isMobile ? 4 : 8;
+    const EMOJI_COUNT = 0;
+    const CODE_COUNT = isMobile ? 5 : 10;
     const nodes = [];
 
     function makeNode(text, isCode, idx){
@@ -2111,7 +2090,7 @@ Rules:
     }
     function renderWelcome(){
       body.innerHTML = '';
-      addBotMessage("Hi 👋 I'm here to help you learn more about Gurukiran. Feel free to ask me anything, or try one of these:");
+      addBotMessage("Hi, I'm here to help you learn more about Gurukiran. Feel free to ask me anything, or try one of these:");
       renderSuggestions();
     }
     function renderFromHistory(){
@@ -2132,7 +2111,7 @@ Rules:
 
       // greetings / small talk
       if(/^(hi|hello|hey|yo|sup|hola)\b/.test(s) || s === '') {
-        return "Hey there 👋 Ask me anything about Gurukiran — his projects, skills, education, goals, or how to reach him.";
+        return "Hello! Ask me anything about Gurukiran — his projects, skills, education, goals, or how to reach him.";
       }
       if(/\b(thanks|thank you|thx|cheers)\b/.test(s)) {
         return "You're welcome! Anything else you'd like to know about Gurukiran?";
